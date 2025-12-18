@@ -5,20 +5,25 @@ clear                   % 清空变量
 clc                     % 清空命令行
 
 %%  导入数据
+% 行：2004–2023（按时间顺序）
+% 列：1–9 输入变量，10 输出变量
 res = xlsread('数据集.xlsx');
 
-%%  划分训练集和测试集  
-%   103行样本（80 个训练样本、23 个测试样本，完全随机打乱）
-%   第1-7列输入变量（7 个特征），第8列输出变量（1 个预测目标）
-temp = randperm(103);
+%% ================= 3. 样本划分（按时间，不打乱） =================
+% 训练集：2004–2020（17 年）
+% 验证集：2021–2023（3 年）
 
-P_train = res(temp(1: 80), 1: 7)';
-T_train = res(temp(1: 80), 8)';
-M = size(P_train, 2);
+N_train = 17;   % 训练样本数
+N_test  = 3;    % 验证样本数
 
-P_test = res(temp(81: end), 1: 7)';
-T_test = res(temp(81: end), 8)';
-N = size(P_test, 2);
+P_train = res(1:N_train, 1:9)';
+T_train = res(1:N_train, 10)';
+
+P_test  = res(N_train+1:N_train+N_test, 1:9)';
+T_test  = res(N_train+1:N_train+N_test, 10)';
+
+M = size(P_train, 2);   % 训练样本数
+N = size(P_test, 2);    % 测试样本数
 
 %%  数据归一化
 %   对输入、输出都做归一化，并保存了 ps_input、ps_output 用于反归一化
@@ -29,25 +34,30 @@ p_test = mapminmax('apply', P_test, ps_input);
 t_test = mapminmax('apply', T_test, ps_output);
 
 %%  节点个数  BP网络结构
-%   7（输入） → 5（隐藏） → 1（输出）
+%   9（输入） → 7（隐藏） → 1（输出）
 inputnum  = size(p_train, 1);  % 输入层节点数
-hiddennum = 5;                 % 隐藏层节点数
+hiddennum = 2;                 % 隐藏层节点数
 outputnum = size(t_train,1);   % 输出层节点数
 
 %%  建立网络
 net = newff(p_train, t_train, hiddennum);
 
+net.divideFcn = 'dividetrain';  % 不再随机划分
+net.divideParam.trainRatio = 0.8;
+net.divideParam.valRatio   = 0.2;
+net.divideParam.testRatio  = 0;
+
 %%  设置训练参数
-net.trainParam.epochs     = 1000;      % 训练次数
-net.trainParam.goal       = 1e-6;      % 目标误差
+net.trainParam.epochs     = 200;      % 训练次数
+net.trainParam.goal       = 1e-4;      % 目标误差
 net.trainParam.lr         = 0.01;      % 学习率
 net.trainParam.showWindow = 0;         % 关闭窗口
 
 %%  参数初始化
-c1      = 4.494;       % 学习因子
-c2      = 4.494;       % 学习因子
+c1      = 2;       % 学习因子
+c2      = 2;       % 学习因子
 maxgen  =   50;        % 种群更新次数  
-sizepop =    5;        % 种群规模
+sizepop =   10;        % 种群规模
 Vmax    =  1.0;        % 最大速度
 Vmin    = -1.0;        % 最小速度
 popmax  =  1.0;        % 最大边界
