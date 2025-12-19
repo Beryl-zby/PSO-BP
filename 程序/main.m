@@ -8,7 +8,7 @@ N_run = 40;    % ★ 新增：独立运行次数
 
 %%  导入数据
 % 行：2004–2023（按时间顺序）
-% 列：1–9 输入变量，10 输出变量
+% 列：1–5 输入变量，6 输出变量
 res = xlsread('数据集.xlsx');
 
 %% ================= 3. 样本划分（按时间，不打乱） =================
@@ -18,11 +18,11 @@ res = xlsread('数据集.xlsx');
 N_train = 17;   % 训练样本数
 N_test  = 3;    % 验证样本数
 
-P_train = res(1:N_train, 1:9)';
-T_train = res(1:N_train, 10)';
+P_train = res(1:N_train, 1:5)';
+T_train = res(1:N_train, 6)';
 
-P_test  = res(N_train+1:N_train+N_test, 1:9)';
-T_test  = res(N_train+1:N_train+N_test, 10)';
+P_test  = res(N_train+1:N_train+N_test, 1:5)';
+T_test  = res(N_train+1:N_train+N_test, 6)';
 
 M = size(P_train, 2);   % 训练样本数
 N = size(P_test, 2);    % 测试样本数
@@ -51,9 +51,6 @@ outputnum = size(t_train,1);   % 输出层节点数
 net = newff(p_train, t_train, hiddennum);
 
 net.divideFcn = 'dividetrain';  % 不再随机划分
-net.divideParam.trainRatio = 0.8;
-net.divideParam.valRatio   = 0.2;
-net.divideParam.testRatio  = 0;
 
 %%  设置训练参数
 net.trainParam.epochs     = 200;      % 训练次数
@@ -159,14 +156,40 @@ t_sim2 = sim(net, p_test );
 T_sim1 = mapminmax('reverse', t_sim1, ps_output);
 T_sim2 = mapminmax('reverse', t_sim2, ps_output);
 
-  Pred_all(run,:) = T_sim2';   % ★ 关键新增行
-  waitbar(run/N_run, h, ...                              % ★ 进度条
-    sprintf('PSO-BP 预测进度：%d / %d', run, N_run));    % ★ 进度条
+
+%% ================== ★ 新增：异常值过滤（非常关键） ==================
+% 江苏省年需水量的合理物理区间（你也可以在论文中说明依据）
+lower_bound = 200;   % 下限（亿 m³）
+upper_bound = 1000;  % 上限（亿 m³）
+
+if any(T_sim2 < lower_bound) || any(T_sim2 > upper_bound) ...
+        || any(isnan(T_sim2)) || any(isinf(T_sim2))
+    % 若本次 PSO-BP 预测失败，标记为 NaN
+    Pred_all(run,:) = NaN;
+else
+    % 合理预测，正常保存
+    Pred_all(run,:) = T_sim2';
+end
+%% ================== ★ 进度条 ==================
+  waitbar(run/N_run, h, ...                             
+    sprintf('PSO-BP 预测进度：%d / %d', run, N_run));  
 
 end
 close(h);
 
 disp('40 次 PSO-BP 预测完成');
+
+%% ================= 保存 40 次预测结果 =================
+Result.Pred_all  = Pred_all;     % 40 × 3 预测矩阵
+Result.T_test    = T_test;       % 真实需水（1 × 3）
+Result.N_run     = N_run;
+Result.N_train   = N_train;
+Result.N_test    = N_test;
+Result.hiddennum = hiddennum;
+Result.sizepop   = sizepop;
+Result.maxgen    = maxgen;
+
+save('PSO_BP_40runs_Result.mat', 'Result');
 
 
 % %%  均方根误差
@@ -206,25 +229,25 @@ disp('40 次 PSO-BP 预测完成');
 % 
 % %%  相关指标计算
 % R2
-R1 = 1 - norm(T_train - T_sim1)^2 / norm(T_train - mean(T_train))^2;
-R2 = 1 - norm(T_test  - T_sim2)^2 / norm(T_test  - mean(T_test ))^2;
-
-disp(['训练集数据的R2为：', num2str(R1)])
-disp(['测试集数据的R2为：', num2str(R2)])
-
-% MAE
-mae1 = sum(abs(T_sim1 - T_train), 2)' ./ M ;
-mae2 = sum(abs(T_sim2 - T_test ), 2)' ./ N ;
-
-disp(['训练集数据的MAE为：', num2str(mae1)])
-disp(['测试集数据的MAE为：', num2str(mae2)])
-
-% MBE
-mbe1 = sum(T_sim1 - T_train, 2)' ./ M ;
-mbe2 = sum(T_sim2 - T_test , 2)' ./ N ;
-
-disp(['训练集数据的MBE为：', num2str(mbe1)])
-disp(['测试集数据的MBE为：', num2str(mbe2)])
+% R1 = 1 - norm(T_train - T_sim1)^2 / norm(T_train - mean(T_train))^2;
+% R2 = 1 - norm(T_test  - T_sim2)^2 / norm(T_test  - mean(T_test ))^2;
+% 
+% disp(['训练集数据的R2为：', num2str(R1)])
+% disp(['测试集数据的R2为：', num2str(R2)])
+% 
+% % MAE
+% mae1 = sum(abs(T_sim1 - T_train), 2)' ./ M ;
+% mae2 = sum(abs(T_sim2 - T_test ), 2)' ./ N ;
+% 
+% disp(['训练集数据的MAE为：', num2str(mae1)])
+% disp(['测试集数据的MAE为：', num2str(mae2)])
+% 
+% % MBE
+% mbe1 = sum(T_sim1 - T_train, 2)' ./ M ;
+% mbe2 = sum(T_sim2 - T_test , 2)' ./ N ;
+% 
+% disp(['训练集数据的MBE为：', num2str(mbe1)])
+% disp(['测试集数据的MBE为：', num2str(mbe2)])
 
 % %%  绘制散点图
 % sz = 25;
