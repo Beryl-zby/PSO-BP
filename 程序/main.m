@@ -15,14 +15,14 @@ res = xlsread('数据集.xlsx');
 % 训练集：2004–2020（17 年）
 % 验证集：2021–2023（3 年）
 
-N_train = 17;   % 训练样本数
+N_train = 15;   % 训练样本数
 N_test  = 3;    % 验证样本数
 
-P_train = res(1:N_train, 1:5)';
-T_train = res(1:N_train, 6)';
+P_train = res(1:N_train, 1:7)';
+T_train = res(1:N_train, 8)';
 
-P_test  = res(N_train+1:N_train+N_test, 1:5)';
-T_test  = res(N_train+1:N_train+N_test, 6)';
+P_test  = res(N_train+1:N_train+N_test, 1:7)';
+T_test  = res(N_train+1:N_train+N_test, 8)';
 
 M = size(P_train, 2);   % 训练样本数
 N = size(P_test, 2);    % 测试样本数
@@ -50,6 +50,7 @@ outputnum = size(t_train,1);   % 输出层节点数
 %%  建立网络
 net = newff(p_train, t_train, hiddennum);
 
+net.trainFcn = 'trainbr';
 net.divideFcn = 'dividetrain';  % 不再随机划分
 
 %%  设置训练参数
