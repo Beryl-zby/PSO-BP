@@ -4,7 +4,7 @@ close all               % 关闭开启的图窗
 clear                   % 清空变量
 clc                     % 清空命令行
 
-N_run = 40;    % ★ 新增：独立运行次数
+N_run = 1;    % ★ 新增：独立运行次数
 
 %%  导入数据
 % 行：2004–2023（按时间顺序）
@@ -15,7 +15,7 @@ res = xlsread('数据集.xlsx');
 % 训练集：2004–2020（17 年）
 % 验证集：2021–2023（3 年）
 
-N_train = 15;   % 训练样本数
+N_train = 16;   % 训练样本数
 N_test  = 3;    % 验证样本数
 
 P_train = res(1:N_train, 1:7)';
@@ -178,7 +178,7 @@ end
 end
 close(h);
 
-disp('40 次 PSO-BP 预测完成');
+disp('PSO-BP 预测完成');
 
 %% ================= 保存 40 次预测结果 =================
 Result.Pred_all  = Pred_all;     % 40 × 3 预测矩阵
@@ -193,83 +193,83 @@ Result.maxgen    = maxgen;
 save('PSO_BP_40runs_Result.mat', 'Result');
 
 
-% %%  均方根误差
-% error1 = sqrt(sum((T_sim1 - T_train).^2, 2)' ./ M);
-% error2 = sqrt(sum((T_sim2 - T_test) .^2, 2)' ./ N);
+%%  均方根误差
+error1 = sqrt(sum((T_sim1 - T_train).^2, 2)' ./ M);
+error2 = sqrt(sum((T_sim2 - T_test) .^2, 2)' ./ N);
 
-% %%  绘图
-% figure
-% plot(1: M, T_train, 'r-*', 1: M, T_sim1, 'b-o', 'LineWidth', 1)
-% legend('真实值', '预测值')
-% xlabel('预测样本')
-% ylabel('预测结果')
-% string = {'训练集预测结果对比'; ['RMSE=' num2str(error1)]};
-% title(string)
-% xlim([1, M])
-% grid
-% 
-% figure
-% plot(1: N, T_test, 'r-*', 1: N, T_sim2, 'b-o', 'LineWidth', 1)
-% legend('真实值', '预测值')
-% xlabel('预测样本')
-% ylabel('预测结果')
-% string = {'测试集预测结果对比'; ['RMSE=' num2str(error2)]};
-% title(string)
-% xlim([1, N])
-% grid
-% 
-% %%  误差曲线迭代图
-% figure;
-% plot(1 : length(BestFit), BestFit, 'LineWidth', 1.5);
-% xlabel('粒子群迭代次数');
-% ylabel('适应度值');
-% xlim([1, length(BestFit)])
-% string = {'模型迭代误差变化'};
-% title(string)
-% grid on
-% 
-% %%  相关指标计算
-% R2
-% R1 = 1 - norm(T_train - T_sim1)^2 / norm(T_train - mean(T_train))^2;
-% R2 = 1 - norm(T_test  - T_sim2)^2 / norm(T_test  - mean(T_test ))^2;
-% 
-% disp(['训练集数据的R2为：', num2str(R1)])
-% disp(['测试集数据的R2为：', num2str(R2)])
-% 
-% % MAE
-% mae1 = sum(abs(T_sim1 - T_train), 2)' ./ M ;
-% mae2 = sum(abs(T_sim2 - T_test ), 2)' ./ N ;
-% 
-% disp(['训练集数据的MAE为：', num2str(mae1)])
-% disp(['测试集数据的MAE为：', num2str(mae2)])
-% 
-% % MBE
-% mbe1 = sum(T_sim1 - T_train, 2)' ./ M ;
-% mbe2 = sum(T_sim2 - T_test , 2)' ./ N ;
-% 
-% disp(['训练集数据的MBE为：', num2str(mbe1)])
-% disp(['测试集数据的MBE为：', num2str(mbe2)])
+%%  绘图
+figure
+plot(1: M, T_train, 'r-*', 1: M, T_sim1, 'b-o', 'LineWidth', 1)
+legend('真实值', '预测值')
+xlabel('预测样本')
+ylabel('预测结果')
+string = {'训练集预测结果对比'; ['RMSE=' num2str(error1)]};
+title(string)
+xlim([1, M])
+grid
 
-% %%  绘制散点图
-% sz = 25;
-% c = 'b';
+figure
+plot(1: N, T_test, 'r-*', 1: N, T_sim2, 'b-o', 'LineWidth', 1)
+legend('真实值', '预测值')
+xlabel('预测样本')
+ylabel('预测结果')
+string = {'测试集预测结果对比'; ['RMSE=' num2str(error2)]};
+title(string)
+xlim([1, N])
+grid
 
-% figure
-% scatter(T_train, T_sim1, sz, c)
-% hold on
-% plot(xlim, ylim, '--k')
-% xlabel('训练集真实值');
-% ylabel('训练集预测值');
-% xlim([min(T_train) max(T_train)])
-% ylim([min(T_sim1) max(T_sim1)])
-% title('训练集预测值 vs. 训练集真实值')
-% 
-% figure
-% scatter(T_test, T_sim2, sz, c)
-% hold on
-% plot(xlim, ylim, '--k')
-% xlabel('测试集真实值');
-% ylabel('测试集预测值');
-% xlim([min(T_test) max(T_test)])
-% ylim([min(T_sim2) max(T_sim2)])
-% title('测试集预测值 vs. 测试集真实值')
+%%  误差曲线迭代图
+figure;
+plot(1 : length(BestFit), BestFit, 'LineWidth', 1.5);
+xlabel('粒子群迭代次数');
+ylabel('适应度值');
+xlim([1, length(BestFit)])
+string = {'模型迭代误差变化'};
+title(string)
+grid on
+
+%%  相关指标计算
+%R2
+R1 = 1 - norm(T_train - T_sim1)^2 / norm(T_train - mean(T_train))^2;
+R2 = 1 - norm(T_test  - T_sim2)^2 / norm(T_test  - mean(T_test ))^2;
+
+disp(['训练集数据的R2为：', num2str(R1)])
+disp(['测试集数据的R2为：', num2str(R2)])
+
+% MAE
+mae1 = sum(abs(T_sim1 - T_train), 2)' ./ M ;
+mae2 = sum(abs(T_sim2 - T_test ), 2)' ./ N ;
+
+disp(['训练集数据的MAE为：', num2str(mae1)])
+disp(['测试集数据的MAE为：', num2str(mae2)])
+
+% MBE
+mbe1 = sum(T_sim1 - T_train, 2)' ./ M ;
+mbe2 = sum(T_sim2 - T_test , 2)' ./ N ;
+
+disp(['训练集数据的MBE为：', num2str(mbe1)])
+disp(['测试集数据的MBE为：', num2str(mbe2)])
+
+%%  绘制散点图
+sz = 25;
+c = 'b';
+
+figure
+scatter(T_train, T_sim1, sz, c)
+hold on
+plot(xlim, ylim, '--k')
+xlabel('训练集真实值');
+ylabel('训练集预测值');
+xlim([min(T_train) max(T_train)])
+ylim([min(T_sim1) max(T_sim1)])
+title('训练集预测值 vs. 训练集真实值')
+
+figure
+scatter(T_test, T_sim2, sz, c)
+hold on
+plot(xlim, ylim, '--k')
+xlabel('测试集真实值');
+ylabel('测试集预测值');
+xlim([min(T_test) max(T_test)])
+ylim([min(T_sim2) max(T_sim2)])
+title('测试集预测值 vs. 测试集真实值')
