@@ -18,11 +18,11 @@ res = xlsread('数据集.xlsx');
 N_train = 16;   % 训练样本数
 N_test  = 3;    % 验证样本数
 
-P_train = res(1:N_train, 1:7)';
-T_train = res(1:N_train, 8)';
+P_train = res(1:N_train, 1:3)';
+T_train = res(1:N_train, 4)';
 
-P_test  = res(N_train+1:N_train+N_test, 1:7)';
-T_test  = res(N_train+1:N_train+N_test, 8)';
+P_test  = res(N_train+1:N_train+N_test, 1:3)';
+T_test  = res(N_train+1:N_train+N_test, 4)';
 
 M = size(P_train, 2);   % 训练样本数
 N = size(P_test, 2);    % 测试样本数
