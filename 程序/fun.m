@@ -1,41 +1,28 @@
-function error = fun(pop, hiddennum, net, p_fit, t_fit, p_val, t_val)
+function error = fun(pop, hiddennum, net, p_train, t_train)
 
-%% 节点数
-inputnum  = size(p_fit,1);
-outputnum = size(t_fit,1);   % 一般为1
+%%  节点个数
+inputnum  = size(p_train, 1);  % 输入层节点数
+outputnum = size(t_train, 1);  % 输出层节点数
 
-%% 解码权值与阈值
-w1 = pop(1 : inputnum*hiddennum);
-B1 = pop(inputnum*hiddennum + 1 : inputnum*hiddennum + hiddennum);
+%%  提取权值和阈值
+w1 = pop(1 : inputnum * hiddennum);
+B1 = pop(inputnum * hiddennum + 1 : inputnum * hiddennum + hiddennum);
+w2 = pop(inputnum * hiddennum + hiddennum + 1 : ...
+    inputnum * hiddennum + hiddennum + hiddennum * outputnum);
+B2 = pop(inputnum * hiddennum + hiddennum + hiddennum * outputnum + 1 : ...
+    inputnum * hiddennum + hiddennum + hiddennum * outputnum + outputnum);
+ 
+%%  网络赋值
+net.Iw{1, 1} = reshape(w1, hiddennum, inputnum );
+net.Lw{2, 1} = reshape(w2, outputnum, hiddennum);
+net.b{1}     = reshape(B1, hiddennum, 1);
+net.b{2}     = B2';
 
-w2 = pop(inputnum*hiddennum + hiddennum + 1 : ...
-         inputnum*hiddennum + hiddennum + hiddennum*outputnum);
+%%  网络训练
+net = train(net, p_train, t_train);
 
-B2 = pop(inputnum*hiddennum + hiddennum + hiddennum*outputnum + 1 : ...
-         inputnum*hiddennum + hiddennum + hiddennum*outputnum + outputnum);
+%%  仿真测试
+t_sim1 = sim(net, p_train);
 
-%% 赋值
-net.Iw{1,1} = reshape(w1, hiddennum, inputnum);
-net.Lw{2,1} = reshape(w2, outputnum, hiddennum);
-net.b{1}    = B1(:);
-net.b{2}    = B2(:);
-
-%% PSO评估：少训（加速）
-net.trainParam.showWindow = 0;
-net.trainParam.epochs     = 50;
-net.trainParam.goal       = 1e-4;
-
-%% 用训练子集训练
-net = train(net, p_fit, t_fit);
-
-%% 在验证子集上评估
-t_sim_val = sim(net, p_val);
-
-%% 验证集RMSE作为fitness
-error = sqrt(mean((t_sim_val(:) - t_val(:)).^2));
-
-if isnan(error) || isinf(error)
-    error = 1e6;
-end
-
-end
+%%  适应度值
+error = sum(sqrt(sum((t_sim1 - t_train) .^ 2) ./ length(t_sim1)));

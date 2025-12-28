@@ -1,284 +1,274 @@
-%% 清空环境
-warning off
-close all
-clear
-clc
+%%  清空环境变量
+warning off             % 关闭报警信息
+close all               % 关闭开启的图窗
+clear                   % 清空变量
+clc                     % 清空命令行
 
-N_run = 1;
+N_run = 1;    % ★ 新增：独立运行次数
 
-%% 导入数据
-res = xlsread('数据集_修改.xlsx');
+%%  导入数据
+% 行：2004–2023（按时间顺序）
+% 列：1–5 输入变量，6 输出变量
+res = xlsread('数据集_苏北.xlsx');
 
-%% 样本划分（按时间）
-N_train = 16;
-N_test  = 3;
+%% ================= 3. 样本划分（按时间，不打乱） =================
+% 训练集：2004–2020（17 年）
+% 验证集：2021–2023（3 年）
 
-% 输入：1-7 + YearIndex(第9列)；输出：第8列
-P_train_raw = res(1:N_train, [1:7, 9])';
-T_train_raw = res(1:N_train, 8)';
+N_train = 16;   % 训练样本数
+N_test  = 3;    % 验证样本数
 
-P_test_raw  = res(N_train+1:N_train+N_test, [1:7, 9])';
-T_test      = res(N_train+1:N_train+N_test, 8)';
+P_train = res(1:N_train, [1:5,7])';
+T_train = res(1:N_train, 6)';
 
-idx_train = res(1:N_train, 9);
-idx_test  = res(N_train+1:N_train+N_test, 9);
+P_test  = res(N_train+1:N_train+N_test, [1:5,7])';
+T_test  = res(N_train+1:N_train+N_test, 6)';
 
-M = size(P_train_raw,2);
-N = size(P_test_raw,2);
+M = size(P_train, 2);   % 训练样本数
+N = size(P_test, 2);    % 测试样本数
 
-%% 归一化（仅用训练集拟合归一化参数）
-[p_train, ps_input] = mapminmax(P_train_raw, 0, 1);
-p_test = mapminmax('apply', P_test_raw, ps_input);
+%%  数据归一化
+%   对输入、输出都做归一化，并保存了 ps_input、ps_output 用于反归一化
+[p_train, ps_input] = mapminmax(P_train, 0, 1);
+p_test = mapminmax('apply', P_test, ps_input);
 
-[t_train, ps_output] = mapminmax(T_train_raw, 0, 1);
+[t_train, ps_output] = mapminmax(T_train, 0, 1);
 t_test = mapminmax('apply', T_test, ps_output);
 
-%% ===== 训练集内部切验证集（不泄露未来）=====
-K_val = 3;                        % 用训练集最后3年做验证
-idx_fit = 1:(M-K_val);
-idx_val = (M-K_val+1):M;
-
-p_fit = p_train(:, idx_fit);
-t_fit = t_train(:, idx_fit);
-
-p_val = p_train(:, idx_val);
-t_val = t_train(:, idx_val);
-
-idx_val_year = idx_train(idx_val);   % 验证集对应YearIndex
-% ============================================
-
-%% 预测矩阵
-Pred_all = zeros(N_run, N);
-
-h = waitbar(0,'PSO-BP 预测中，请稍候...');
-
+%% ================== ★ 新增：初始化预测样本矩阵 ==================
+Pred_all = zeros(N_run, N);   % 40 × 3
+h = waitbar(0,'PSO-BP 多次预测中，请稍候...');    % ★ 进度条
+%% ================== ★ 外层循环：40 次独立 PSO-BP ==================
 for run = 1:N_run
 
-    %% BP网络结构（小样本更稳）
-    inputnum  = size(p_train,1);
-    hiddennum = 1;          % 可试 1/2，但 1 通常更稳
-    outputnum = 1;
+%%  节点个数  BP网络结构
+%   9（输入） → 7（隐藏） → 1（输出）
+inputnum  = size(p_train, 1);  % 输入层节点数
+hiddennum = 2;                 % 隐藏层节点数
+outputnum = size(t_train,1);   % 输出层节点数
 
-    net = newff(p_train, t_train, hiddennum, {'tansig','purelin'}, 'trainbr');
-    net.divideFcn = 'dividetrain';
-    net.trainParam.showWindow = 0;
+%%  建立网络
+net = newff(p_train, t_train, hiddennum);
 
-    %% PSO 参数
-    c1 = 2; c2 = 2;
-    maxgen  = 50;
-    sizepop = 10;
+net.trainFcn = 'trainbr';
+net.divideFcn = 'dividetrain';  % 不再随机划分
 
-    Vmax = 1.0; Vmin = -1.0;
-    popmax = 1.0; popmin = -1.0;
+%%  设置训练参数
+net.trainParam.epochs     = 200;      % 训练次数
+net.trainParam.goal       = 1e-4;      % 目标误差
+net.trainParam.lr         = 0.01;      % 学习率
+net.trainParam.showWindow = 0;         % 关闭窗口
 
-    numsum = inputnum*hiddennum + hiddennum + hiddennum*outputnum + outputnum;
+%%  参数初始化
+c1      = 2;       % 学习因子
+c2      = 2;       % 学习因子
+maxgen  =   50;        % 种群更新次数  
+sizepop =   10;        % 种群规模
+Vmax    =  1.0;        % 最大速度
+Vmin    = -1.0;        % 最小速度
+popmax  =  1.0;        % 最大边界
+popmin  = -1.0;        % 最小边界
 
-    pop = zeros(sizepop, numsum);
-    V   = zeros(sizepop, numsum);
-    fitness = zeros(sizepop,1);
+%%  节点总数  粒子编码内容（每一个粒子 = 一个完整 BP 网络初始参数方案）
+numsum = inputnum * hiddennum + hiddennum + hiddennum * outputnum + outputnum;
 
-    %% 初始化并算fitness（只看验证集）
-    for i = 1:sizepop
-        pop(i,:) = rands(1, numsum);
-        V(i,:)   = rands(1, numsum);
-        fitness(i) = fun(pop(i,:), hiddennum, net, p_fit, t_fit, p_val, t_val);
-    end
-
-    [fitnesszbest, bestindex] = min(fitness);
-    zbest = pop(bestindex,:);
-    gbest = pop;
-    fitnessgbest = fitness;
-
-    BestFit = fitnesszbest;
-
-    %% PSO迭代
-    for gen = 1:maxgen
-        for j = 1:sizepop
-
-            % 速度更新
-            V(j,:) = V(j,:) ...
-                + c1*rand*(gbest(j,:) - pop(j,:)) ...
-                + c2*rand*(zbest - pop(j,:));
-
-            V(j, V(j,:)>Vmax) = Vmax;
-            V(j, V(j,:)<Vmin) = Vmin;
-
-            % 位置更新
-            pop(j,:) = pop(j,:) + 0.2*V(j,:);
-
-            pop(j, pop(j,:)>popmax) = popmax;
-            pop(j, pop(j,:)<popmin) = popmin;
-
-            % 变异
-            if rand > 0.85
-                pos = unidrnd(numsum);
-                pop(j,pos) = rands(1,1);
-            end
-
-            % 适应度（只看验证集）
-            fitness(j) = fun(pop(j,:), hiddennum, net, p_fit, t_fit, p_val, t_val);
-        end
-
-        % 更新最优
-        for j = 1:sizepop
-            if fitness(j) < fitnessgbest(j)
-                gbest(j,:) = pop(j,:);
-                fitnessgbest(j) = fitness(j);
-            end
-            if fitness(j) < fitnesszbest
-                zbest = pop(j,:);
-                fitnesszbest = fitness(j);
-            end
-        end
-
-        BestFit = [BestFit; fitnesszbest]; %#ok<AGROW>
-    end
-
-    %% 用PSO最优粒子赋初值
-    w1 = zbest(1 : inputnum*hiddennum);
-    B1 = zbest(inputnum*hiddennum + 1 : inputnum*hiddennum + hiddennum);
-    w2 = zbest(inputnum*hiddennum + hiddennum + 1 : inputnum*hiddennum + hiddennum + hiddennum*outputnum);
-    B2 = zbest(inputnum*hiddennum + hiddennum + hiddennum*outputnum + 1 : end);
-
-    net.Iw{1,1} = reshape(w1, hiddennum, inputnum);
-    net.Lw{2,1} = reshape(w2, outputnum, hiddennum);
-    net.b{1}    = B1(:);
-    net.b{2}    = B2(:);
-
-    %% 最终训练：用全训练集（16年）多训
-    net.trainParam.showWindow = 1;
-    net.trainParam.epochs = 250;
-    net.trainParam.goal   = 1e-6;
-
-    net = train(net, p_train, t_train);
-
-    %% BP预测（反归一化）
-    t_sim_train = sim(net, p_train);
-    t_sim_val   = sim(net, p_val);
-    t_sim_test  = sim(net, p_test);
-
-    T_sim_train = mapminmax('reverse', t_sim_train, ps_output);  % 训练(全16年)预测
-    T_sim_val   = mapminmax('reverse', t_sim_val,   ps_output);  % 验证(末尾3年)预测
-    T_sim_test  = mapminmax('reverse', t_sim_test,  ps_output);  % 测试(未来3年)预测
-
-    y_train_true = T_train_raw(:);
-    y_val_true   = y_train_true(idx_val);   % 验证真实值（反归一化）
-    y_test_true  = T_test(:);
-
-    %% ================= 校正器：交互项 + idx^2 + 用验证集挑lambda（不看测试集） =================
-    lambdas = [0.01, 0.05, 0.1, 0.2, 0.5];
-
-    best_val_mae = inf;
-    best_lambda  = lambdas(1);
-    best_T_test_corr = T_sim_test(:);
-
-    % 校正器训练特征（用全训练集）
-    X_cal = [ T_sim_train(:), idx_train(:), T_sim_train(:).*idx_train(:), idx_train(:).^2 ];
-    mu = mean(X_cal,1);
-    sg = std(X_cal,0,1);  sg(sg==0)=1;
-    Xc = (X_cal - mu) ./ sg;
-    Xc1 = [ones(M,1), Xc];
-
-    % 验证/测试特征
-    X_val = [ T_sim_val(:), idx_val_year(:), T_sim_val(:).*idx_val_year(:), idx_val_year(:).^2 ];
-    Xv = (X_val - mu) ./ sg;
-    Xv1 = [ones(size(Xv,1),1), Xv];
-
-    X_te  = [ T_sim_test(:), idx_test(:), T_sim_test(:).*idx_test(:), idx_test(:).^2 ];
-    Xt = (X_te - mu) ./ sg;
-    Xt1 = [ones(size(Xt,1),1), Xt];
-
-    for k = 1:numel(lambdas)
-        lambda = lambdas(k);
-
-        I = eye(size(Xc1,2)); I(1,1)=0;
-        beta = (Xc1'*Xc1 + lambda*I) \ (Xc1'*y_train_true);
-
-        % 先看验证集效果（不看测试集！）
-        T_val2 = Xv1 * beta;
-
-        % bias 用“验证集残差”的中位数（专门贴近尾部段）
-        bias = median(y_val_true(:) - T_val2(:));
-        T_val2 = T_val2 + bias;
-
-        val_mae = mean(abs(T_val2(:) - y_val_true(:)));
-
-        if val_mae < best_val_mae
-            best_val_mae = val_mae;
-            best_lambda  = lambda;
-
-            % 用同样beta+bias校正测试集
-            T_test2 = Xt1 * beta + bias;
-            best_T_test_corr = T_test2(:);
-        end
-    end
-
-    T_sim2 = best_T_test_corr(:);  % 最终测试预测（校正后）
-    disp(['校正器选中的 lambda = ', num2str(best_lambda), '，验证MAE = ', num2str(best_val_mae)])
-    % ============================================================================================
-
-    %% 异常值过滤（可选）
-    lower_bound = 200;
-    upper_bound = 1000;
-
-    if any(T_sim2 < lower_bound) || any(T_sim2 > upper_bound) || any(isnan(T_sim2)) || any(isinf(T_sim2))
-        Pred_all(run,:) = NaN;
-    else
-        Pred_all(run,:) = T_sim2(:)';
-    end
-
-    waitbar(run/N_run, h, sprintf('PSO-BP 预测进度：%d / %d', run, N_run));
+for i = 1 : sizepop
+    pop(i, :) = rands(1, numsum);  % 初始化种群
+    V(i, :) = rands(1, numsum);    % 初始化速度
+    fitness(i) = fun(pop(i, :), hiddennum, net, p_train, t_train); 
 end
 
+%%  个体极值和群体极值
+[fitnesszbest, bestindex] = min(fitness);
+zbest = pop(bestindex, :);     % 全局最佳
+gbest = pop;                   % 个体最佳
+fitnessgbest = fitness;        % 个体最佳适应度值
+BestFit = fitnesszbest;        % 全局最佳适应度值
+
+%%  迭代寻优
+for i = 1 : maxgen
+    for j = 1 : sizepop
+        
+        % 速度更新
+        V(j, :) = V(j, :) + c1 * rand * (gbest(j, :) - pop(j, :)) + c2 * rand * (zbest - pop(j, :));
+        V(j, (V(j, :) > Vmax)) = Vmax;
+        V(j, (V(j, :) < Vmin)) = Vmin;
+        
+        % 种群更新
+        pop(j, :) = pop(j, :) + 0.2 * V(j, :);
+        pop(j, (pop(j, :) > popmax)) = popmax;
+        pop(j, (pop(j, :) < popmin)) = popmin;
+        
+        % 自适应变异
+        pos = unidrnd(numsum);
+        if rand > 0.85
+            pop(j, pos) = rands(1, 1);
+        end
+        
+        % 适应度值
+        fitness(j) = fun(pop(j, :), hiddennum, net, p_train, t_train);
+
+    end
+    
+    for j = 1 : sizepop
+
+        % 个体最优更新
+        if fitness(j) < fitnessgbest(j)
+            gbest(j, :) = pop(j, :);
+            fitnessgbest(j) = fitness(j);
+        end
+
+        % 群体最优更新 
+        if fitness(j) < fitnesszbest
+            zbest = pop(j, :);
+            fitnesszbest = fitness(j);
+        end
+
+    end
+
+    BestFit = [BestFit, fitnesszbest];    
+end
+
+%%  提取最优初始权值和阈值
+w1 = zbest(1 : inputnum * hiddennum);
+B1 = zbest(inputnum * hiddennum + 1 : inputnum * hiddennum + hiddennum);
+w2 = zbest(inputnum * hiddennum + hiddennum + 1 : inputnum * hiddennum ...
+    + hiddennum + hiddennum * outputnum);
+B2 = zbest(inputnum * hiddennum + hiddennum + hiddennum * outputnum + 1 : ...
+    inputnum * hiddennum + hiddennum + hiddennum * outputnum + outputnum);
+
+%%  最优值赋值
+net.Iw{1, 1} = reshape(w1, hiddennum, inputnum);
+net.Lw{2, 1} = reshape(w2, outputnum, hiddennum);
+net.b{1}     = reshape(B1, hiddennum, 1);
+net.b{2}     = B2';
+
+%%  打开训练窗口 
+net.trainParam.showWindow = 1;        % 打开窗口
+
+%%  网络训练
+net = train(net, p_train, t_train);
+
+%%  仿真预测
+t_sim1 = sim(net, p_train);
+t_sim2 = sim(net, p_test );
+
+%%  数据反归一化
+T_sim1 = mapminmax('reverse', t_sim1, ps_output);
+T_sim2 = mapminmax('reverse', t_sim2, ps_output);
+
+
+%% ================== ★ 新增：异常值过滤（非常关键） ==================
+% 江苏省年需水量的合理物理区间（你也可以在论文中说明依据）
+lower_bound = 200;   % 下限（亿 m³）
+upper_bound = 1000;  % 上限（亿 m³）
+
+if any(T_sim2 < lower_bound) || any(T_sim2 > upper_bound) ...
+        || any(isnan(T_sim2)) || any(isinf(T_sim2))
+    % 若本次 PSO-BP 预测失败，标记为 NaN
+    Pred_all(run,:) = NaN;
+else
+    % 合理预测，正常保存
+    Pred_all(run,:) = T_sim2';
+end
+%% ================== ★ 进度条 ==================
+  waitbar(run/N_run, h, ...                             
+    sprintf('PSO-BP 预测进度：%d / %d', run, N_run));  
+
+end
 close(h);
+
 disp('PSO-BP 预测完成');
 
-%% 保存结果
-Result.Pred_all = Pred_all;
-Result.T_test   = T_test;
-Result.N_run    = N_run;
-save('PSO_BP_Result.mat','Result');
+%% ================= 保存 40 次预测结果 =================
+Result.Pred_all  = Pred_all;     % 40 × 3 预测矩阵
+Result.T_test    = T_test;       % 真实需水（1 × 3）
+Result.N_run     = N_run;
+Result.N_train   = N_train;
+Result.N_test    = N_test;
+Result.hiddennum = hiddennum;
+Result.sizepop   = sizepop;
+Result.maxgen    = maxgen;
 
-%% 评价指标（训练用BP原输出，测试用校正后输出）
-% 训练集用校正前的BP预测（你也可以改成校正后训练，但一般报告用原模型）
-T_sim1 = T_sim_train(:);
-T_train_true = y_train_true(:);
+save('PSO_BP_40runs_Result.mat', 'Result');
 
-error1 = sqrt(mean((T_sim1(:) - T_train_true(:)).^2));
-error2 = sqrt(mean((T_sim2(:) - y_test_true(:)).^2));
 
-R1 = 1 - norm(T_train_true(:) - T_sim1(:))^2 / norm(T_train_true(:) - mean(T_train_true(:)))^2;
-R2 = 1 - norm(y_test_true(:)  - T_sim2(:))^2 / norm(y_test_true(:)  - mean(y_test_true(:)))^2;
+%%  均方根误差
+error1 = sqrt(sum((T_sim1 - T_train).^2, 2)' ./ M);
+error2 = sqrt(sum((T_sim2 - T_test) .^2, 2)' ./ N);
 
-mae1 = mean(abs(T_sim1(:) - T_train_true(:)));
-mae2 = mean(abs(T_sim2(:) - y_test_true(:)));
-
-mbe1 = mean(T_sim1(:) - T_train_true(:));
-mbe2 = mean(T_sim2(:) - y_test_true(:));
-
-disp(['训练集 R2 = ', num2str(R1)])
-disp(['测试集 R2 = ', num2str(R2)])
-disp(['训练集 MAE = ', num2str(mae1)])
-disp(['测试集 MAE = ', num2str(mae2)])
-disp(['训练集 MBE = ', num2str(mbe1)])
-disp(['测试集 MBE = ', num2str(mbe2)])
-
-%% 图
+%%  绘图
 figure
-plot(1:M, T_train_true, 'r-*', 1:M, T_sim1, 'b-o', 'LineWidth', 1)
-legend('真实值','预测值')
-title(['训练集：RMSE=', num2str(error1)])
-grid on
+plot(1: M, T_train, 'r-*', 1: M, T_sim1, 'b-o', 'LineWidth', 1)
+legend('真实值', '预测值')
+xlabel('预测样本')
+ylabel('预测结果')
+string = {'训练集预测结果对比'; ['RMSE=' num2str(error1)]};
+title(string)
+xlim([1, M])
+grid
 
 figure
-plot(1:N, y_test_true, 'r-*', 1:N, T_sim2, 'b-o', 'LineWidth', 1)
-legend('真实值','预测值(校正后)')
-title(['测试集：RMSE=', num2str(error2)])
+plot(1: N, T_test, 'r-*', 1: N, T_sim2, 'b-o', 'LineWidth', 1)
+legend('真实值', '预测值')
+xlabel('预测样本')
+ylabel('预测结果')
+string = {'测试集预测结果对比'; ['RMSE=' num2str(error2)]};
+title(string)
+xlim([1, N])
+grid
+
+%%  误差曲线迭代图
+figure;
+plot(1 : length(BestFit), BestFit, 'LineWidth', 1.5);
+xlabel('粒子群迭代次数');
+ylabel('适应度值');
+xlim([1, length(BestFit)])
+string = {'模型迭代误差变化'};
+title(string)
 grid on
 
+%%  相关指标计算
+R1 = 1 - norm(T_train - T_sim1)^2 / norm(T_train - mean(T_train))^2;
+R2 = 1 - norm(T_test  - T_sim2)^2 / norm(T_test  - mean(T_test ))^2;
+
+disp(['训练集数据的R2为：', num2str(R1)])
+disp(['测试集数据的R2为：', num2str(R2)])
+
+% MAE
+mae1 = sum(abs(T_sim1 - T_train), 2)' ./ M ;
+mae2 = sum(abs(T_sim2 - T_test ), 2)' ./ N ;
+
+disp(['训练集数据的MAE为：', num2str(mae1)])
+disp(['测试集数据的MAE为：', num2str(mae2)])
+
+% MBE
+mbe1 = sum(T_sim1 - T_train, 2)' ./ M ;
+mbe2 = sum(T_sim2 - T_test , 2)' ./ N ;
+
+disp(['训练集数据的MBE为：', num2str(mbe1)])
+disp(['测试集数据的MBE为：', num2str(mbe2)])
+
+%%  绘制散点图
+sz = 25;
+c = 'b';
+
 figure
-plot(BestFit, 'LineWidth', 1.5)
-xlabel('PSO迭代次数')
-ylabel('验证集RMSE(适应度)')
-title('PSO迭代曲线（仅用训练内验证）')
-grid on
+scatter(T_train, T_sim1, sz, c)
+hold on
+plot(xlim, ylim, '--k')
+xlabel('训练集真实值');
+ylabel('训练集预测值');
+xlim([min(T_train) max(T_train)])
+ylim([min(T_sim1) max(T_sim1)])
+title('训练集预测值 vs. 训练集真实值')
+
+figure
+scatter(T_test, T_sim2, sz, c)
+hold on
+plot(xlim, ylim, '--k')
+xlabel('测试集真实值');
+ylabel('测试集预测值');
+xlim([min(T_test) max(T_test)])
+ylim([min(T_sim2) max(T_sim2)])
+title('测试集预测值 vs. 测试集真实值')
