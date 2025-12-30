@@ -4,7 +4,7 @@ close all               % 关闭开启的图窗
 clear                   % 清空变量
 clc                     % 清空命令行
 
-N_run = 1;    % ★ 新增：独立运行次数
+
 
 %%  导入数据
 % 行：2004–2023（按时间顺序）
@@ -12,21 +12,17 @@ N_run = 1;    % ★ 新增：独立运行次数
 res = xlsread('数据集_苏北.xlsx');
 
 %% ================= 3. 样本划分（按时间，不打乱） =================
-% 训练集：2004–2020（17 年）
+% 训练集：2005–2020（16 年）
 % 验证集：2021–2023（3 年）
+temp = randperm(19);
 
-N_train = 16;   % 训练样本数
-N_test  = 3;    % 验证样本数
+P_train = res(1:16, [1:5, 9])';   % 2005–2020
+T_train = res(1:16, 8)';
+M = size(P_train, 2);
 
-P_train = res(1:N_train, [1:5,7])';
-T_train = res(1:N_train, 6)';
-
-P_test  = res(N_train+1:N_train+N_test, [1:5,7])';
-T_test  = res(N_train+1:N_train+N_test, 6)';
-
-M = size(P_train, 2);   % 训练样本数
-N = size(P_test, 2);    % 测试样本数
-
+P_test  = res(17:19, [1:5, 9])'; % 2021–2023
+T_test  = res(17:19, 8)';
+N = size(P_test, 2);
 %%  数据归一化
 %   对输入、输出都做归一化，并保存了 ps_input、ps_output 用于反归一化
 [p_train, ps_input] = mapminmax(P_train, 0, 1);
@@ -34,12 +30,6 @@ p_test = mapminmax('apply', P_test, ps_input);
 
 [t_train, ps_output] = mapminmax(T_train, 0, 1);
 t_test = mapminmax('apply', T_test, ps_output);
-
-%% ================== ★ 新增：初始化预测样本矩阵 ==================
-Pred_all = zeros(N_run, N);   % 40 × 3
-h = waitbar(0,'PSO-BP 多次预测中，请稍候...');    % ★ 进度条
-%% ================== ★ 外层循环：40 次独立 PSO-BP ==================
-for run = 1:N_run
 
 %%  节点个数  BP网络结构
 %   9（输入） → 7（隐藏） → 1（输出）
@@ -50,20 +40,17 @@ outputnum = size(t_train,1);   % 输出层节点数
 %%  建立网络
 net = newff(p_train, t_train, hiddennum);
 
-net.trainFcn = 'trainbr';
-net.divideFcn = 'dividetrain';  % 不再随机划分
-
 %%  设置训练参数
-net.trainParam.epochs     = 200;      % 训练次数
-net.trainParam.goal       = 1e-4;      % 目标误差
+net.trainParam.epochs     = 1000;      % 训练次数
+net.trainParam.goal       = 1e-6;      % 目标误差
 net.trainParam.lr         = 0.01;      % 学习率
 net.trainParam.showWindow = 0;         % 关闭窗口
 
 %%  参数初始化
-c1      = 2;       % 学习因子
-c2      = 2;       % 学习因子
-maxgen  =   50;        % 种群更新次数  
-sizepop =   10;        % 种群规模
+c1      = 4.494;       % 学习因子
+c2      = 4.494;       % 学习因子
+maxgen  =   500;        % 种群更新次数  
+sizepop =    5;        % 种群规模
 Vmax    =  1.0;        % 最大速度
 Vmin    = -1.0;        % 最小速度
 popmax  =  1.0;        % 最大边界
@@ -151,47 +138,41 @@ net = train(net, p_train, t_train);
 
 %%  仿真预测
 t_sim1 = sim(net, p_train);
-t_sim2 = sim(net, p_test );
+% t_sim2 = sim(net, p_test );
+
+%% ================== 递推预测（替换原 t_sim2） ==================
+
+% 测试集样本数
+N = size(p_test, 2);
+
+% 1. 用训练集最后一年真实需水作为初始滞后项
+W_prev_real = T_train(end);                         
+W_prev_norm = mapminmax('apply', W_prev_real, ps_output);
+
+t_sim2 = zeros(1, N);   % 存放归一化预测结果
+
+for k = 1 : N
+    % 2. 第 k 年社会经济变量（已归一化，前 5 个）
+    Xk = p_test(1:5, k);
+    
+    % 3. 构造当前输入（社会经济变量 + 上一年预测需水）
+    input_k = [Xk; W_prev_norm];
+    
+    % 4. 网络预测（归一化尺度）
+    W_pred_norm = sim(net, input_k);
+    
+    % 5. 保存预测结果
+    t_sim2(k) = W_pred_norm;
+    
+    % 6. 用“预测值”更新滞后项（递推核心）
+    W_prev_norm = W_pred_norm;
+end
 
 %%  数据反归一化
 T_sim1 = mapminmax('reverse', t_sim1, ps_output);
+% T_sim2 = mapminmax('reverse', t_sim2, ps_output);
+% 7. 反归一化
 T_sim2 = mapminmax('reverse', t_sim2, ps_output);
-
-
-%% ================== ★ 新增：异常值过滤（非常关键） ==================
-% 江苏省年需水量的合理物理区间（你也可以在论文中说明依据）
-lower_bound = 200;   % 下限（亿 m³）
-upper_bound = 1000;  % 上限（亿 m³）
-
-if any(T_sim2 < lower_bound) || any(T_sim2 > upper_bound) ...
-        || any(isnan(T_sim2)) || any(isinf(T_sim2))
-    % 若本次 PSO-BP 预测失败，标记为 NaN
-    Pred_all(run,:) = NaN;
-else
-    % 合理预测，正常保存
-    Pred_all(run,:) = T_sim2';
-end
-%% ================== ★ 进度条 ==================
-  waitbar(run/N_run, h, ...                             
-    sprintf('PSO-BP 预测进度：%d / %d', run, N_run));  
-
-end
-close(h);
-
-disp('PSO-BP 预测完成');
-
-%% ================= 保存 40 次预测结果 =================
-Result.Pred_all  = Pred_all;     % 40 × 3 预测矩阵
-Result.T_test    = T_test;       % 真实需水（1 × 3）
-Result.N_run     = N_run;
-Result.N_train   = N_train;
-Result.N_test    = N_test;
-Result.hiddennum = hiddennum;
-Result.sizepop   = sizepop;
-Result.maxgen    = maxgen;
-
-save('PSO_BP_40runs_Result.mat', 'Result');
-
 
 %%  均方根误差
 error1 = sqrt(sum((T_sim1 - T_train).^2, 2)' ./ M);
@@ -229,6 +210,7 @@ title(string)
 grid on
 
 %%  相关指标计算
+% R2
 R1 = 1 - norm(T_train - T_sim1)^2 / norm(T_train - mean(T_train))^2;
 R2 = 1 - norm(T_test  - T_sim2)^2 / norm(T_test  - mean(T_test ))^2;
 

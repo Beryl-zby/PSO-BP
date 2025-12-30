@@ -4,7 +4,7 @@ function error = fun(pop, hiddennum, net, p_train, t_train)
 inputnum  = size(p_train, 1);  % 输入层节点数
 outputnum = size(t_train, 1);  % 输出层节点数
 
-%%  提取权值和阈值
+%% 解码权值和阈值
 w1 = pop(1 : inputnum * hiddennum);
 B1 = pop(inputnum * hiddennum + 1 : inputnum * hiddennum + hiddennum);
 w2 = pop(inputnum * hiddennum + hiddennum + 1 : ...
@@ -18,11 +18,9 @@ net.Lw{2, 1} = reshape(w2, outputnum, hiddennum);
 net.b{1}     = reshape(B1, hiddennum, 1);
 net.b{2}     = B2';
 
-%%  网络训练
-net = train(net, p_train, t_train);
 
-%%  仿真测试
-t_sim1 = sim(net, p_train);
+%% 前向计算（仅仿真）
+t_sim = sim(net, p_train);
 
-%%  适应度值
-error = sum(sqrt(sum((t_sim1 - t_train) .^ 2) ./ length(t_sim1)));
+%% 适应度（训练集误差）
+error = mean((t_sim - t_train).^2);   % MSE（推荐）
