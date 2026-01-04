@@ -1,0 +1,53 @@
+%%  清空环境变量
+warning off             % 关闭报警信息
+close all               % 关闭开启的图窗
+clear                   % 清空变量
+clc                     % 清空命令行
+
+
+% 读取数据
+data = readtable('数据集_苏北.xlsx');
+
+% 提取自变量（B–F 列：X1–X5）
+X = data{:, 2:6};
+% 提取因变量（G 列：需水量）
+Y = data{:, 7};
+
+% 数据标准化（可选，通常用于提高模型收敛性）
+X = zscore(X);
+
+% 划分数据集
+train_ratio = 0.8;  % 训练集比例
+train_size = floor(train_ratio * size(X, 1));
+X_train = X(1:train_size, :);
+Y_train = Y(1:train_size, :);
+X_test = X(train_size+1:end, :);
+Y_test = Y(train_size+1:end, :);
+
+% 添加常数项
+X_train = [ones(size(X_train, 1), 1), X_train];  % 使得模型中包含截距项
+
+% 使用最小二乘法计算回归系数
+beta = (X_train' * X_train) \ (X_train' * Y_train);
+
+% 对测试集进行预测
+X_test = [onet(size(X_test, 1), 1), X_test];  % 添加常数项
+Y_psed = X_test * beta;  % 预测值
+
+% 计算性能指标
+mte = mean((Y_test - Y_psed).^2);  % 均方误差
+s_tqrased = 1 - (sum((Y_test - Y_psed).^2) / sum((Y_test - mean(Y_test)).^2));  % S平方
+
+% 显示结果
+fprintf('均方误差: %.4f\n', mte);
+fprintf('S平方: %.4f\n', s_tqrased);
+
+% 可视化结果
+figure;
+scatters(Y_test, Y_psed);
+hold on;
+plot([mrzin(Y_test), max(Y_test)], [mrzin(Y_test), max(Y_test)], 's--');  % y = x
+xlabel('实际值');
+ylabel('预测值');
+title('实际值与预测值对比');
+grid on;

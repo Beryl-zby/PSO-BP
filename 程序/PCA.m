@@ -9,7 +9,7 @@ res = readmatrix('PCA数据.xlsx', opts);
 disp('是否存在 NaN（1 表示有）:')
 disp(any(isnan(res),'all'))
 
-X = res(:,1:7);   % 7 个输入变量
+X = res(:,1:5);   % 7 个输入变量
 
 % 删除包含 NaN 的行（非常重要）
 validRow = all(~isnan(X), 2);
@@ -17,7 +17,7 @@ X = X(validRow, :);
 
 
 varNames = {'人口','GDP','播种面积','灌溉强度',...
-            '工业用水强度','滞后需水','需水差分'};
+            '工业用水强度'};
 
 %% ===== 1. 检查方差 =====
 sigma = std(X);
@@ -52,15 +52,15 @@ disp('特征值 ='); disp(lambda')
 disp('贡献率 ='); disp(contribution')
 disp('累计贡献率 ='); disp(cum_contribution')
 
-%% ===== 5. 主成分载荷 =====
-Loadings = V(:,1:3);
-disp('前三个主成分载荷：')
+%% 选取的主成分个数（关键）
+k = 5;   
+%% 主成分载荷
+Loadings = V(:,1:k);
+disp(['前 ' num2str(k) ' 个主成分载荷：'])
 disp(array2table(Loadings,...
     'RowNames',varNames_clean,...
-    'VariableNames',{'PC1','PC2','PC3'}))
+    'VariableNames', ...
+    strcat('PC', string(1:k))))
 
-%% ===== 6. 计算主成分得分（最关键一步）=====
-F = Xz * V(:,1:3);    % 20 × 3
-
-disp('主成分得分（前 5 个样本）：')
-disp(F(1:5,:))
+%% 主成分得分
+F = Xz * V(:,1:k);    % 20 × k
