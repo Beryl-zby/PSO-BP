@@ -16,12 +16,12 @@ res = xlsread('数据集_苏北.xlsx');
 % 验证集：2021–2023（3 年）
 temp = randperm(19);
 
-P_train = res(1:17, 2:13)';   % 2005–2020
-T_train = res(1:17, 14)';
+P_train = res(1:12, 2:4)';   % 2005–2020
+T_train = res(1:12, 15)';
 M = size(P_train, 2);
 
-P_test  = res(18:20, 2:13)'; % 2021–2023
-T_test  = res(18:20, 14)';
+P_test  = res(13:15, 2:4)'; % 2021–2023
+T_test  = res(13:15, 15)';
 N = size(P_test, 2);
 %%  数据归一化
 %   对输入、输出都做归一化，并保存了 ps_input、ps_output 用于反归一化
@@ -242,78 +242,62 @@ disp(['测试集数据的 NSE 为：', num2str(nse2)])
 % title('测试集预测值 vs. 测试集真实值')
 
 %% =========================================================
-%%  Bootstrap 不确定性分析（一次性完整闭环版）
-%%  方法：Residual Bootstrap + 分位数法（90%）
+%%  Bootstrap 不确定性分析（论文一致版）
+%%  原理：Residual bootstrap + 分位数区间
+%%  用途：构造预测区间 + 单点（2021）落区间验证
 %% =========================================================
 
-%% ---------- 0. 参数设置 ----------
-B = 1000;              % Bootstrap 次数
-alpha = 0.10;          % 90% 预测区间
-lower_q = alpha/2;     % 0.05
-upper_q = 1-alpha/2;   % 0.95
+%% ---------- 0. 参数 ----------
+B = 1000;          % bootstrap 次数
+alpha = 0.10;      % 90% 预测区间
+q_low  = alpha/2;  % 0.05
+q_high = 1-alpha/2;% 0.95
 
-%% ---------- 1. 训练集残差 ----------
+%% ---------- 1. 训练期残差 ----------
 residuals = T_train(:) - T_sim1(:);
 n_res = length(residuals);
 
-%% ---------- 2. 测试集 Bootstrap 预测区间 ----------
-N_test = length(T_sim2_bc);
-T_boot_test = zeros(B, N_test);
+%% ---------- 2. 对“未来预测期”构造预测区间 ----------
+% 这里的 future 指：2021–2023（或你将来任意预测期）
+N_future = length(T_sim2_bc);
+T_boot_future = zeros(B, N_future);
 
 for b = 1:B
-    res_b = residuals(randi(n_res, N_test, 1));
-    T_boot_test(b,:) = T_sim2_bc(:)' + res_b';
+    res_b = residuals(randi(n_res, N_future, 1));
+    T_boot_future(b,:) = T_sim2_bc(:)' + res_b';
 end
 
-T_lower = quantile(T_boot_test, lower_q);
-T_upper = quantile(T_boot_test, upper_q);
+T_lower = quantile(T_boot_future, q_low);
+T_upper = quantile(T_boot_future, q_high);
 
-%% ---------- 3. 训练集 Bootstrap 预测区间 ----------
-N_train = length(T_sim1);
-T_boot_train = zeros(B, N_train);
+%% ---------- 3. 单点验证（论文做法） ----------
+% 只验证“2021 年是否落入预测区间”
+y_2021 = T_test(1);   % 2021 年真实值
 
-for b = 1:B
-    res_b = residuals(randi(n_res, N_train, 1));
-    T_boot_train(b,:) = T_sim1(:)' + res_b';
-end
+is_in_interval_2021 = ...
+    (y_2021 >= T_lower(1)) && (y_2021 <= T_upper(1));
 
-T_lower_train = quantile(T_boot_train, lower_q);
-T_upper_train = quantile(T_boot_train, upper_q);
-
-%% ---------- 4. PICP & PINAW ----------
-% ---- 训练集 ----
-y_train = T_train(:);
-PICP_train = mean((y_train >= T_lower_train(:)) & (y_train <= T_upper_train(:)));
-PINAW_train = mean(T_upper_train - T_lower_train) / ...
-              (max(y_train) - min(y_train));
-
-% ---- 测试集 ----
-y_test = T_test(:);
-PICP_test = mean((y_test >= T_lower(:)) & (y_test <= T_upper(:)));
-PINAW_test = mean(T_upper - T_lower) / ...
-             (max(y_test) - min(y_test));
-
-%% ---------- 5. 输出 ----------
 disp('==============================================')
-disp('Bootstrap 不确定性评价结果（90% 区间）')
+disp('Bootstrap 预测区间验证（论文一致逻辑）')
+disp(['2021 年是否落入 90% 预测区间： ', num2str(is_in_interval_2021)])
 
-disp(['训练集 PICP  = ', num2str(PICP_train)])
-disp(['训练集 PINAW = ', num2str(PINAW_train)])
+%% ---------- 4. 区间宽度（仅作描述性分析） ----------
+interval_width = mean(T_upper - T_lower);
+disp(['平均预测区间宽度（90%）：', num2str(interval_width)])
 
-disp(['测试集 PICP  = ', num2str(PICP_test)])
-disp(['测试集 PINAW = ', num2str(PINAW_test)])
-
-%% ---------- 6. 测试集区间可视化 ----------
+%% ---------- 5. 可视化 ----------
 figure
-x = 1:N_test;
+x = 1:N_future;
 
-fill([x fliplr(x)], [T_lower fliplr(T_upper)], ...
+fill([x fliplr(x)], ...
+     [T_lower fliplr(T_upper)], ...
      [0.85 0.85 0.85], 'EdgeColor','none'); hold on
-plot(x, y_test, 'r-*', 'LineWidth',1.2)
-plot(x, T_sim2_bc, 'b-o', 'LineWidth',1.2)
 
-legend('90% 预测区间','真实值','预测值','Location','best')
-xlabel('测试样本')
-ylabel('预测结果')
-title('测试集 Bootstrap 90% 预测区间')
+plot(x, T_sim2_bc, 'b-o','LineWidth',1.5)
+plot(x, T_test, 'r-*','LineWidth',1.5)
+
+legend('90% 预测区间','预测值','真实值','Location','best')
+xlabel('年份（预测期）')
+ylabel('用水量')
+title('Bootstrap 预测区间（论文一致方法）')
 grid on

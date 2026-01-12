@@ -22,5 +22,9 @@ net.b{2}     = B2';
 %% 前向计算（仅仿真）
 t_sim = sim(net, p_train);
 
+% ===== 关键修复：统一向量方向 =====
+t_sim   = t_sim(:);     % 强制列向量
+t_train = t_train(:);   % 强制列向量
+
 %% 适应度（训练集误差）
-error = mean((t_sim - t_train).^2);   % MSE（推荐）
+error = mean((t_sim - t_train).^2);   % MSE
