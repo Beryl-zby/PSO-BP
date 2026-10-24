@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "jacobian_max_error": 1.3977796697872691E-10,
+  "prefix_isolation_passed": true,
+  "original_ridge_reproduced": true,
+  "metric_recalculation_passed": true,
+  "future_checks_passed": true,
+  "constant_input_target_passed": true,
+  "seeds": [
+    2.0261024E+7,
+    2.0262024E+7,
+    2.0263024E+7,
+    2.0264024E+7,
+    2.0265024E+7
+  ],
+  "seed_mape_fixed_rolling": [
+    [
+      0.80587527979619267,
+      1.0354165026310029
+    ],
+    [
+      0.80585042917288763,
+      1.0354149923021663
+    ],
+    [
+      0.80590910787183023,
+      1.0354221978407745
+    ],
+    [
+      0.80586253553600951,
+      1.0354162403129266
+    ],
+    [
+      0.80587953345884111,
+      1.0354159848335729
+    ]
+  ],
+  "independent_holdout_available": false,
+  "scope": "只验证现有开发回测的计算、前缀隔离、数值稳定性和相对基准改善；不证明独立泛化优势"
+}

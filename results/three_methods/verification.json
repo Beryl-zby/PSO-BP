@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "all_56_metrics_recomputed": true,
+  "saved_models_reproduce_predictions": true,
+  "saved_prediction_max_error": [
+    0,
+    0,
+    0
+  ],
+  "training_observation_counts": [
+    [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    [
+      10,
+      11,
+      12,
+      13,
+      14
+    ]
+  ],
+  "prefix_isolation_passed": true,
+  "prior_pso_and_linear_baselines_reproduced": true,
+  "source_workbook_unchanged": true,
+  "gpr_raw_sd_finite": true,
+  "independent_holdout_available": false
+}
