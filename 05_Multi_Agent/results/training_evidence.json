@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "input_sha256": "a8625c98ce27c62fc24558fda43448db11706c6b05a73cec600989e1a1791a26",
+  "expert_ids": [
+    "pso",
+    "gpr",
+    "ols"
+  ],
+  "expert_names": [
+    "正则PSO-BP集成",
+    "高斯过程回归",
+    "普通线性回归"
+  ],
+  "feature_names": [
+    "农业驱动",
+    "工业驱动",
+    "人口城镇化驱动"
+  ],
+  "folds": [
+    {
+      "training_end_year": 2019,
+      "training_rows": 10,
+      "experts": [
+        {
+          "id": "pso",
+          "configuration": "lambda=0.01",
+          "cv_years": [
+            2017,
+            2018,
+            2019
+          ],
+          "cv_mape": 7.5113699035778412,
+          "cv_absolute_percent_errors": [
+            2.5655410924003941,
+            14.467730965904916,
+            5.5008376524282125
+          ],
+          "cv_worst_percent_error": 14.467730965904916,
+          "training_direction_negative_counts": [
+            0,
+            0,
+            10
+          ],
+          "direction_test_points": 10
+        },
+        {
+          "id": "gpr",
+          "configuration": "squaredexponential/linear",
+          "cv_years": [
+            2017,
+            2018,
+            2019
+          ],
+          "cv_mape": 6.2159124986224983,
+          "cv_absolute_percent_errors": [
+            2.7134329033741826,
+            13.951590297065465,
+            1.9827142954278465
+          ],
+          "cv_worst_percent_error": 13.951590297065465,
+          "training_direction_negative_counts": [
+            4,
+            4,
+            7
+          ],
+          "direction_test_points": 10
+        },
+        {
+          "id": "ols",
+          "configuration": "lambda=0",
+          "cv_years": [
+            2017,
+            2018,
+            2019
+          ],
+          "cv_mape": 7.8675285717663,
+          "cv_absolute_percent_errors": [
+            2.7539601824800592,
+            14.32502779839148,
+            6.52359773442736
+          ],
+          "cv_worst_percent_error": 14.32502779839148,
+          "training_direction_negative_counts": [
+            0,
+            0,
+            10
+          ],
+          "direction_test_points": 10
+        }
+      ]
+    },
+    {
+      "training_end_year": 2020,
+      "training_rows": 11,
+      "experts": [
+        {
+          "id": "pso",
+          "configuration": "lambda=0.01",
+          "cv_years": [
+            2018,
+            2019,
+            2020
+          ],
+          "cv_mape": 7.2438125107202387,
+          "cv_absolute_percent_errors": [
+            14.467730965904916,
+            5.5008376524282125,
+            1.7628689138275853
+          ],
+          "cv_worst_percent_error": 14.467730965904916,
+          "training_direction_negative_counts": [
+            0,
+            0,
+            11
+          ],
+          "direction_test_points": 11
+        },
+        {
+          "id": "gpr",
+          "configuration": "squaredexponential/linear",
+          "cv_years": [
+            2018,
+            2019,
+            2020
+          ],
+          "cv_mape": 5.7240619064686982,
+          "cv_absolute_percent_errors": [
+            13.951590297065465,
+            1.9827142954278465,
+            1.2378811269127805
+          ],
+          "cv_worst_percent_error": 13.951590297065465,
+          "training_direction_negative_counts": [
+            4,
+            3,
+            10
+          ],
+          "direction_test_points": 11
+        },
+        {
+          "id": "ols",
+          "configuration": "lambda=0",
+          "cv_years": [
+            2018,
+            2019,
+            2020
+          ],
+          "cv_mape": 7.3648619376730062,
+          "cv_absolute_percent_errors": [
+            14.32502779839148,
+            6.52359773442736,
+            1.2459602802001808
+          ],
+          "cv_worst_percent_error": 14.32502779839148,
+          "training_direction_negative_counts": [
+            0,
+            0,
+            11
+          ],
+          "direction_test_points": 11
+        }
+      ]
+    },
+    {
+      "training_end_year": 2021,
+      "training_rows": 12,
+      "experts": [
+        {
+          "id": "pso",
+          "configuration": "lambda=0.01",
+          "cv_years": [
+            2019,
+            2020,
+            2021
+          ],
+          "cv_mape": 2.9825321294985589,
+          "cv_absolute_percent_errors": [
+            5.5008376524282125,
+            1.7628689138275853,
+            1.68388982223988
+          ],
+          "cv_worst_percent_error": 5.5008376524282125,
+          "training_direction_negative_counts": [
+            0,
+            0,
+            12
+          ],
+          "direction_test_points": 12
+        },
+        {
+          "id": "gpr",
+          "configuration": "squaredexponential/linear",
+          "cv_years": [
+            2019,
+            2020,
+            2021
+          ],
+          "cv_mape": 1.9815806877020783,
+          "cv_absolute_percent_errors": [
+            1.9827142954278465,
+            1.2378811269127805,
+            2.7241466407656079
+          ],
+          "cv_worst_percent_error": 2.7241466407656079,
+          "training_direction_negative_counts": [
+            2,
+            1,
+            9
+          ],
+          "direction_test_points": 12
+        },
+        {
+          "id": "ols",
+          "configuration": "lambda=0",
+          "cv_years": [
+            2019,
+            2020,
+            2021
+          ],
+          "cv_mape": 3.5738081861958069,
+          "cv_absolute_percent_errors": [
+            6.52359773442736,
+            1.2459602802001808,
+            2.9518665439598797
+          ],
+          "cv_worst_percent_error": 6.52359773442736,
+          "training_direction_negative_counts": [
+            0,
+            0,
+            12
+          ],
+          "direction_test_points": 12
+        }
+      ]
+    },
+    {
+      "training_end_year": 2022,
+      "training_rows": 13,
+      "experts": [
+        {
+          "id": "pso",
+          "configuration": "lambda=0.01",
+          "cv_years": [
+            2020,
+            2021,
+            2022
+          ],
+          "cv_mape": 1.1924167074793346,
+          "cv_absolute_percent_errors": [
+            1.7628689138275853,
+            1.68388982223988,
+            0.13049138637053856
+          ],
+          "cv_worst_percent_error": 1.7628689138275853,
+          "training_direction_negative_counts": [
+            0,
+            0,
+            13
+          ],
+          "direction_test_points": 13
+        },
+        {
+          "id": "gpr",
+          "configuration": "squaredexponential/linear",
+          "cv_years": [
+            2020,
+            2021,
+            2022
+          ],
+          "cv_mape": 1.3233545191127078,
+          "cv_absolute_percent_errors": [
+            1.2378811269127805,
+            2.7241466407656079,
+            0.0080357896597349435
+          ],
+          "cv_worst_percent_error": 2.7241466407656079,
+          "training_direction_negative_counts": [
+            1,
+            1,
+            13
+          ],
+          "direction_test_points": 13
+        },
+        {
+          "id": "ols",
+          "configuration": "lambda=0",
+          "cv_years": [
+            2020,
+            2021,
+            2022
+          ],
+          "cv_mape": 1.4357114346723863,
+          "cv_absolute_percent_errors": [
+            1.2459602802001808,
+            2.9518665439598797,
+            0.10930747985709849
+          ],
+          "cv_worst_percent_error": 2.9518665439598797,
+          "training_direction_negative_counts": [
+            0,
+            0,
+            13
+          ],
+          "direction_test_points": 13
+        }
+      ]
+    },
+    {
+      "training_end_year": 2023,
+      "training_rows": 14,
+      "experts": [
+        {
+          "id": "pso",
+          "configuration": "lambda=0.03",
+          "cv_years": [
+            2021,
+            2022,
+            2023
+          ],
+          "cv_mape": 0.54855562817979708,
+          "cv_absolute_percent_errors": [
+            0.99665949046533842,
+            0.12615642241598418,
+            0.52285097165806882
+          ],
+          "cv_worst_percent_error": 0.99665949046533842,
+          "training_direction_negative_counts": [
+            0,
+            0,
+            14
+          ],
+          "direction_test_points": 14
+        },
+        {
+          "id": "gpr",
+          "configuration": "squaredexponential/linear",
+          "cv_years": [
+            2021,
+            2022,
+            2023
+          ],
+          "cv_mape": 1.2229022778641923,
+          "cv_absolute_percent_errors": [
+            2.7241466407656079,
+            0.0080357896597349435,
+            0.936524403167234
+          ],
+          "cv_worst_percent_error": 2.7241466407656079,
+          "training_direction_negative_counts": [
+            3,
+            2,
+            14
+          ],
+          "direction_test_points": 14
+        },
+        {
+          "id": "ols",
+          "configuration": "lambda=0",
+          "cv_years": [
+            2021,
+            2022,
+            2023
+          ],
+          "cv_mape": 1.2330574120881641,
+          "cv_absolute_percent_errors": [
+            2.9518665439598797,
+            0.10930747985709849,
+            0.63799821244751431
+          ],
+          "cv_worst_percent_error": 2.9518665439598797,
+          "training_direction_negative_counts": [
+            0,
+            0,
+            14
+          ],
+          "direction_test_points": 14
+        }
+      ]
+    }
+  ]
+}

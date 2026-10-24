@@ -1,0 +1,452 @@
+[
+  {
+    "training_end_year": 2019,
+    "role": "accuracy",
+    "prompt": "你是需水预测精度审查员，重点比较训练期末3年内验证的平均绝对百分比误差。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2019,\"training_rows\":10,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2017,2018,2019],\"cv_mape\":7.511369903577841,\"cv_absolute_percent_errors\":[2.565541092400394,14.467730965904916,5.5008376524282125],\"cv_worst_percent_error\":14.467730965904916,\"training_direction_negative_counts\":[0,0,10],\"direction_test_points\":10},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2017,2018,2019],\"cv_mape\":6.215912498622498,\"cv_absolute_percent_errors\":[2.7134329033741826,13.951590297065465,1.9827142954278465],\"cv_worst_percent_error\":13.951590297065465,\"training_direction_negative_counts\":[4,4,7],\"direction_test_points\":10},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2017,2018,2019],\"cv_mape\":7.8675285717663,\"cv_absolute_percent_errors\":[2.7539601824800592,14.32502779839148,6.52359773442736],\"cv_worst_percent_error\":14.32502779839148,\"training_direction_negative_counts\":[0,0,10],\"direction_test_points\":10}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.3, \"gpr\": 0.5, \"ols\": 0.2}, \"reason\": \"GPR CV MAPE最低，且反常点最少；PSO反常点最多但误差中等；OLS误差最高。\"}",
+    "prompt_tokens": 766,
+    "generation_tokens": 63,
+    "finish_reason": "stop",
+    "seconds": 4.4458878339974035,
+    "decision": {
+      "weights": {
+        "pso": 0.3,
+        "gpr": 0.5,
+        "ols": 0.2
+      },
+      "reason": "GPR CV MAPE最低，且反常点最少；PSO反常点最多但误差中等；OLS误差最高。"
+    }
+  },
+  {
+    "training_end_year": 2019,
+    "role": "stability",
+    "prompt": "你是小样本稳定性审查员，重点比较3年误差波动和最坏年份误差，避免只看均值。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2019,\"training_rows\":10,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2017,2018,2019],\"cv_mape\":7.511369903577841,\"cv_absolute_percent_errors\":[2.565541092400394,14.467730965904916,5.5008376524282125],\"cv_worst_percent_error\":14.467730965904916,\"training_direction_negative_counts\":[0,0,10],\"direction_test_points\":10},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2017,2018,2019],\"cv_mape\":6.215912498622498,\"cv_absolute_percent_errors\":[2.7134329033741826,13.951590297065465,1.9827142954278465],\"cv_worst_percent_error\":13.951590297065465,\"training_direction_negative_counts\":[4,4,7],\"direction_test_points\":10},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2017,2018,2019],\"cv_mape\":7.8675285717663,\"cv_absolute_percent_errors\":[2.7539601824800592,14.32502779839148,6.52359773442736],\"cv_worst_percent_error\":14.32502779839148,\"training_direction_negative_counts\":[0,0,10],\"direction_test_points\":10}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.2, \"gpr\": 0.6, \"ols\": 0.2}, \"reason\": \"GPR误差最稳定，PSO反常点最多，OLS最坏年份误差最高\"}",
+    "prompt_tokens": 770,
+    "generation_tokens": 55,
+    "finish_reason": "stop",
+    "seconds": 3.602843707998545,
+    "decision": {
+      "weights": {
+        "pso": 0.2,
+        "gpr": 0.6,
+        "ols": 0.2
+      },
+      "reason": "GPR误差最稳定，PSO反常点最多，OLS最坏年份误差最高"
+    }
+  },
+  {
+    "training_end_year": 2019,
+    "role": "scenario",
+    "prompt": "你是节水情景审查员，重点检查农业、工业驱动负响应；人口相关性不作因果解释。兼顾内验证误差。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2019,\"training_rows\":10,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2017,2018,2019],\"cv_mape\":7.511369903577841,\"cv_absolute_percent_errors\":[2.565541092400394,14.467730965904916,5.5008376524282125],\"cv_worst_percent_error\":14.467730965904916,\"training_direction_negative_counts\":[0,0,10],\"direction_test_points\":10},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2017,2018,2019],\"cv_mape\":6.215912498622498,\"cv_absolute_percent_errors\":[2.7134329033741826,13.951590297065465,1.9827142954278465],\"cv_worst_percent_error\":13.951590297065465,\"training_direction_negative_counts\":[4,4,7],\"direction_test_points\":10},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2017,2018,2019],\"cv_mape\":7.8675285717663,\"cv_absolute_percent_errors\":[2.7539601824800592,14.32502779839148,6.52359773442736],\"cv_worst_percent_error\":14.32502779839148,\"training_direction_negative_counts\":[0,0,10],\"direction_test_points\":10}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.3, \"gpr\": 0.5, \"ols\": 0.2}, \"reason\": \"GPR cv误差最低，负响应最少；PSO负响应最多但误差适中；OLS误差最高且负响应最多。\"}",
+    "prompt_tokens": 772,
+    "generation_tokens": 63,
+    "finish_reason": "stop",
+    "seconds": 3.82666883300044,
+    "decision": {
+      "weights": {
+        "pso": 0.3,
+        "gpr": 0.5,
+        "ols": 0.2
+      },
+      "reason": "GPR cv误差最低，负响应最少；PSO负响应最多但误差适中；OLS误差最高且负响应最多。"
+    }
+  },
+  {
+    "training_end_year": 2019,
+    "role": "coordinator",
+    "prompt": "你是水资源预测协调者，综合平均误差、最坏误差及农业工业响应方向，在三个已有数值模型间分配预测权重。证据只有少量年份，勿宣称统计显著或因果关系。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2019,\"training_rows\":10,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2017,2018,2019],\"cv_mape\":7.511369903577841,\"cv_absolute_percent_errors\":[2.565541092400394,14.467730965904916,5.5008376524282125],\"cv_worst_percent_error\":14.467730965904916,\"training_direction_negative_counts\":[0,0,10],\"direction_test_points\":10},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2017,2018,2019],\"cv_mape\":6.215912498622498,\"cv_absolute_percent_errors\":[2.7134329033741826,13.951590297065465,1.9827142954278465],\"cv_worst_percent_error\":13.951590297065465,\"training_direction_negative_counts\":[4,4,7],\"direction_test_points\":10},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2017,2018,2019],\"cv_mape\":7.8675285717663,\"cv_absolute_percent_errors\":[2.7539601824800592,14.32502779839148,6.52359773442736],\"cv_worst_percent_error\":14.32502779839148,\"training_direction_negative_counts\":[0,0,10],\"direction_test_points\":10}]}\n三位审查员意见：{\"accuracy\":{\"weights\":{\"pso\":0.3,\"gpr\":0.5,\"ols\":0.2},\"reason\":\"GPR CV MAPE最低，且反常点最少；PSO反常点最多但误差中等；OLS误差最高。\"},\"stability\":{\"weights\":{\"pso\":0.2,\"gpr\":0.6,\"ols\":0.2},\"reason\":\"GPR误差最稳定，PSO反常点最多，OLS最坏年份误差最高\"},\"scenario\":{\"weights\":{\"pso\":0.3,\"gpr\":0.5,\"ols\":0.2},\"reason\":\"GPR cv误差最低，负响应最少；PSO负响应最多但误差适中；OLS误差最高且负响应最多。\"}}\n审查意见可能有错，请核对上面的数值证据后独立协调。",
+    "raw_response": "{\"weights\": {\"pso\": 0.2, \"gpr\": 0.6, \"ols\": 0.2}, \"reason\": \"GPR CV误差最低且负响应最少，稳定性最优；PSO反常点最多，OLS误差最高。\"}",
+    "prompt_tokens": 966,
+    "generation_tokens": 59,
+    "finish_reason": "stop",
+    "seconds": 4.2514138749975245,
+    "decision": {
+      "weights": {
+        "pso": 0.2,
+        "gpr": 0.6,
+        "ols": 0.2
+      },
+      "reason": "GPR CV误差最低且负响应最少，稳定性最优；PSO反常点最多，OLS误差最高。"
+    }
+  },
+  {
+    "training_end_year": 2019,
+    "role": "single_coordinator",
+    "prompt": "你是水资源预测协调者，综合平均误差、最坏误差及农业工业响应方向，在三个已有数值模型间分配预测权重。证据只有少量年份，勿宣称统计显著或因果关系。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2019,\"training_rows\":10,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2017,2018,2019],\"cv_mape\":7.511369903577841,\"cv_absolute_percent_errors\":[2.565541092400394,14.467730965904916,5.5008376524282125],\"cv_worst_percent_error\":14.467730965904916,\"training_direction_negative_counts\":[0,0,10],\"direction_test_points\":10},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2017,2018,2019],\"cv_mape\":6.215912498622498,\"cv_absolute_percent_errors\":[2.7134329033741826,13.951590297065465,1.9827142954278465],\"cv_worst_percent_error\":13.951590297065465,\"training_direction_negative_counts\":[4,4,7],\"direction_test_points\":10},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2017,2018,2019],\"cv_mape\":7.8675285717663,\"cv_absolute_percent_errors\":[2.7539601824800592,14.32502779839148,6.52359773442736],\"cv_worst_percent_error\":14.32502779839148,\"training_direction_negative_counts\":[0,0,10],\"direction_test_points\":10}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.3, \"gpr\": 0.5, \"ols\": 0.2}, \"reason\": \"GPR CV error lowest; PSO & OLS have more negative direction counts; GPR best balance of error & response stability.\"}",
+    "prompt_tokens": 786,
+    "generation_tokens": 62,
+    "finish_reason": "stop",
+    "seconds": 3.8029974159981066,
+    "decision": {
+      "weights": {
+        "pso": 0.3,
+        "gpr": 0.5,
+        "ols": 0.2
+      },
+      "reason": "GPR CV error lowest; PSO & OLS have more negative direction counts; GPR best balance of error & response stability."
+    }
+  },
+  {
+    "training_end_year": 2020,
+    "role": "accuracy",
+    "prompt": "你是需水预测精度审查员，重点比较训练期末3年内验证的平均绝对百分比误差。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2020,\"training_rows\":11,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2018,2019,2020],\"cv_mape\":7.243812510720239,\"cv_absolute_percent_errors\":[14.467730965904916,5.5008376524282125,1.7628689138275853],\"cv_worst_percent_error\":14.467730965904916,\"training_direction_negative_counts\":[0,0,11],\"direction_test_points\":11},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2018,2019,2020],\"cv_mape\":5.724061906468698,\"cv_absolute_percent_errors\":[13.951590297065465,1.9827142954278465,1.2378811269127805],\"cv_worst_percent_error\":13.951590297065465,\"training_direction_negative_counts\":[4,3,10],\"direction_test_points\":11},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2018,2019,2020],\"cv_mape\":7.364861937673006,\"cv_absolute_percent_errors\":[14.32502779839148,6.52359773442736,1.2459602802001808],\"cv_worst_percent_error\":14.32502779839148,\"training_direction_negative_counts\":[0,0,11],\"direction_test_points\":11}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.3, \"gpr\": 0.5, \"ols\": 0.2}, \"reason\": \"GPR CV MAPE最低，且反常点最少；PSO与OLS反常点最多，但GPR整体表现最优\"}",
+    "prompt_tokens": 770,
+    "generation_tokens": 63,
+    "finish_reason": "stop",
+    "seconds": 3.8619167500000913,
+    "decision": {
+      "weights": {
+        "pso": 0.3,
+        "gpr": 0.5,
+        "ols": 0.2
+      },
+      "reason": "GPR CV MAPE最低，且反常点最少；PSO与OLS反常点最多，但GPR整体表现最优"
+    }
+  },
+  {
+    "training_end_year": 2020,
+    "role": "stability",
+    "prompt": "你是小样本稳定性审查员，重点比较3年误差波动和最坏年份误差，避免只看均值。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2020,\"training_rows\":11,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2018,2019,2020],\"cv_mape\":7.243812510720239,\"cv_absolute_percent_errors\":[14.467730965904916,5.5008376524282125,1.7628689138275853],\"cv_worst_percent_error\":14.467730965904916,\"training_direction_negative_counts\":[0,0,11],\"direction_test_points\":11},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2018,2019,2020],\"cv_mape\":5.724061906468698,\"cv_absolute_percent_errors\":[13.951590297065465,1.9827142954278465,1.2378811269127805],\"cv_worst_percent_error\":13.951590297065465,\"training_direction_negative_counts\":[4,3,10],\"direction_test_points\":11},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2018,2019,2020],\"cv_mape\":7.364861937673006,\"cv_absolute_percent_errors\":[14.32502779839148,6.52359773442736,1.2459602802001808],\"cv_worst_percent_error\":14.32502779839148,\"training_direction_negative_counts\":[0,0,11],\"direction_test_points\":11}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.2, \"gpr\": 0.6, \"ols\": 0.2}, \"reason\": \"GPR误差最稳定，PSO反常点最多，OLS最坏年份误差最高\"}",
+    "prompt_tokens": 774,
+    "generation_tokens": 55,
+    "finish_reason": "stop",
+    "seconds": 3.650783542001591,
+    "decision": {
+      "weights": {
+        "pso": 0.2,
+        "gpr": 0.6,
+        "ols": 0.2
+      },
+      "reason": "GPR误差最稳定，PSO反常点最多，OLS最坏年份误差最高"
+    }
+  },
+  {
+    "training_end_year": 2020,
+    "role": "scenario",
+    "prompt": "你是节水情景审查员，重点检查农业、工业驱动负响应；人口相关性不作因果解释。兼顾内验证误差。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2020,\"training_rows\":11,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2018,2019,2020],\"cv_mape\":7.243812510720239,\"cv_absolute_percent_errors\":[14.467730965904916,5.5008376524282125,1.7628689138275853],\"cv_worst_percent_error\":14.467730965904916,\"training_direction_negative_counts\":[0,0,11],\"direction_test_points\":11},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2018,2019,2020],\"cv_mape\":5.724061906468698,\"cv_absolute_percent_errors\":[13.951590297065465,1.9827142954278465,1.2378811269127805],\"cv_worst_percent_error\":13.951590297065465,\"training_direction_negative_counts\":[4,3,10],\"direction_test_points\":11},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2018,2019,2020],\"cv_mape\":7.364861937673006,\"cv_absolute_percent_errors\":[14.32502779839148,6.52359773442736,1.2459602802001808],\"cv_worst_percent_error\":14.32502779839148,\"training_direction_negative_counts\":[0,0,11],\"direction_test_points\":11}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.3, \"gpr\": 0.5, \"ols\": 0.2}, \"reason\": \"GPR cv误差最低，负响应最少；Pso负响应最多但误差高；OLS误差最高且负响应最多。\"}",
+    "prompt_tokens": 776,
+    "generation_tokens": 62,
+    "finish_reason": "stop",
+    "seconds": 3.828916707996541,
+    "decision": {
+      "weights": {
+        "pso": 0.3,
+        "gpr": 0.5,
+        "ols": 0.2
+      },
+      "reason": "GPR cv误差最低，负响应最少；Pso负响应最多但误差高；OLS误差最高且负响应最多。"
+    }
+  },
+  {
+    "training_end_year": 2020,
+    "role": "coordinator",
+    "prompt": "你是水资源预测协调者，综合平均误差、最坏误差及农业工业响应方向，在三个已有数值模型间分配预测权重。证据只有少量年份，勿宣称统计显著或因果关系。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2020,\"training_rows\":11,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2018,2019,2020],\"cv_mape\":7.243812510720239,\"cv_absolute_percent_errors\":[14.467730965904916,5.5008376524282125,1.7628689138275853],\"cv_worst_percent_error\":14.467730965904916,\"training_direction_negative_counts\":[0,0,11],\"direction_test_points\":11},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2018,2019,2020],\"cv_mape\":5.724061906468698,\"cv_absolute_percent_errors\":[13.951590297065465,1.9827142954278465,1.2378811269127805],\"cv_worst_percent_error\":13.951590297065465,\"training_direction_negative_counts\":[4,3,10],\"direction_test_points\":11},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2018,2019,2020],\"cv_mape\":7.364861937673006,\"cv_absolute_percent_errors\":[14.32502779839148,6.52359773442736,1.2459602802001808],\"cv_worst_percent_error\":14.32502779839148,\"training_direction_negative_counts\":[0,0,11],\"direction_test_points\":11}]}\n三位审查员意见：{\"accuracy\":{\"weights\":{\"pso\":0.3,\"gpr\":0.5,\"ols\":0.2},\"reason\":\"GPR CV MAPE最低，且反常点最少；PSO与OLS反常点最多，但GPR整体表现最优\"},\"stability\":{\"weights\":{\"pso\":0.2,\"gpr\":0.6,\"ols\":0.2},\"reason\":\"GPR误差最稳定，PSO反常点最多，OLS最坏年份误差最高\"},\"scenario\":{\"weights\":{\"pso\":0.3,\"gpr\":0.5,\"ols\":0.2},\"reason\":\"GPR cv误差最低，负响应最少；Pso负响应最多但误差高；OLS误差最高且负响应最多。\"}}\n审查意见可能有错，请核对上面的数值证据后独立协调。",
+    "raw_response": "{\"weights\": {\"pso\": 0.2, \"gpr\": 0.6, \"ols\": 0.2}, \"reason\": \"GPR CV误差最低且反常点最少，稳定性最优；PSO与OLS误差高且反常多，故权重分配更倾向GPR\"}",
+    "prompt_tokens": 969,
+    "generation_tokens": 67,
+    "finish_reason": "stop",
+    "seconds": 4.539987500000279,
+    "decision": {
+      "weights": {
+        "pso": 0.2,
+        "gpr": 0.6,
+        "ols": 0.2
+      },
+      "reason": "GPR CV误差最低且反常点最少，稳定性最优；PSO与OLS误差高且反常多，故权重分配更倾向GPR"
+    }
+  },
+  {
+    "training_end_year": 2020,
+    "role": "single_coordinator",
+    "prompt": "你是水资源预测协调者，综合平均误差、最坏误差及农业工业响应方向，在三个已有数值模型间分配预测权重。证据只有少量年份，勿宣称统计显著或因果关系。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2020,\"training_rows\":11,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2018,2019,2020],\"cv_mape\":7.243812510720239,\"cv_absolute_percent_errors\":[14.467730965904916,5.5008376524282125,1.7628689138275853],\"cv_worst_percent_error\":14.467730965904916,\"training_direction_negative_counts\":[0,0,11],\"direction_test_points\":11},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2018,2019,2020],\"cv_mape\":5.724061906468698,\"cv_absolute_percent_errors\":[13.951590297065465,1.9827142954278465,1.2378811269127805],\"cv_worst_percent_error\":13.951590297065465,\"training_direction_negative_counts\":[4,3,10],\"direction_test_points\":11},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2018,2019,2020],\"cv_mape\":7.364861937673006,\"cv_absolute_percent_errors\":[14.32502779839148,6.52359773442736,1.2459602802001808],\"cv_worst_percent_error\":14.32502779839148,\"training_direction_negative_counts\":[0,0,11],\"direction_test_points\":11}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.3, \"gpr\": 0.6, \"ols\": 0.1}, \"reason\": \"GPR有最低CV误差且反常点最少，PSO反常点最多但误差适中，OLS误差最高。\"}",
+    "prompt_tokens": 790,
+    "generation_tokens": 62,
+    "finish_reason": "stop",
+    "seconds": 3.862845584000752,
+    "decision": {
+      "weights": {
+        "pso": 0.3,
+        "gpr": 0.6,
+        "ols": 0.1
+      },
+      "reason": "GPR有最低CV误差且反常点最少，PSO反常点最多但误差适中，OLS误差最高。"
+    }
+  },
+  {
+    "training_end_year": 2021,
+    "role": "accuracy",
+    "prompt": "你是需水预测精度审查员，重点比较训练期末3年内验证的平均绝对百分比误差。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2021,\"training_rows\":12,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2019,2020,2021],\"cv_mape\":2.982532129498559,\"cv_absolute_percent_errors\":[5.5008376524282125,1.7628689138275853,1.68388982223988],\"cv_worst_percent_error\":5.5008376524282125,\"training_direction_negative_counts\":[0,0,12],\"direction_test_points\":12},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2019,2020,2021],\"cv_mape\":1.9815806877020783,\"cv_absolute_percent_errors\":[1.9827142954278465,1.2378811269127805,2.724146640765608],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[2,1,9],\"direction_test_points\":12},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2019,2020,2021],\"cv_mape\":3.573808186195807,\"cv_absolute_percent_errors\":[6.52359773442736,1.2459602802001808,2.9518665439598797],\"cv_worst_percent_error\":6.52359773442736,\"training_direction_negative_counts\":[0,0,12],\"direction_test_points\":12}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.4, \"gpr\": 0.5, \"ols\": 0.1}, \"reason\": \"GPR CV MAPE最低，反常点最少；PSO次之；OLS最高，反常点最多\"}",
+    "prompt_tokens": 766,
+    "generation_tokens": 59,
+    "finish_reason": "stop",
+    "seconds": 3.7356649590001325,
+    "decision": {
+      "weights": {
+        "pso": 0.4,
+        "gpr": 0.5,
+        "ols": 0.1
+      },
+      "reason": "GPR CV MAPE最低，反常点最少；PSO次之；OLS最高，反常点最多"
+    }
+  },
+  {
+    "training_end_year": 2021,
+    "role": "stability",
+    "prompt": "你是小样本稳定性审查员，重点比较3年误差波动和最坏年份误差，避免只看均值。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2021,\"training_rows\":12,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2019,2020,2021],\"cv_mape\":2.982532129498559,\"cv_absolute_percent_errors\":[5.5008376524282125,1.7628689138275853,1.68388982223988],\"cv_worst_percent_error\":5.5008376524282125,\"training_direction_negative_counts\":[0,0,12],\"direction_test_points\":12},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2019,2020,2021],\"cv_mape\":1.9815806877020783,\"cv_absolute_percent_errors\":[1.9827142954278465,1.2378811269127805,2.724146640765608],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[2,1,9],\"direction_test_points\":12},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2019,2020,2021],\"cv_mape\":3.573808186195807,\"cv_absolute_percent_errors\":[6.52359773442736,1.2459602802001808,2.9518665439598797],\"cv_worst_percent_error\":6.52359773442736,\"training_direction_negative_counts\":[0,0,12],\"direction_test_points\":12}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.4, \"gpr\": 0.5, \"ols\": 0.1}, \"reason\": \"GPR误差最稳定，PSO反常点少，OLS波动大，权重分配反映稳定性优先\"}",
+    "prompt_tokens": 770,
+    "generation_tokens": 57,
+    "finish_reason": "stop",
+    "seconds": 3.7652995420030493,
+    "decision": {
+      "weights": {
+        "pso": 0.4,
+        "gpr": 0.5,
+        "ols": 0.1
+      },
+      "reason": "GPR误差最稳定，PSO反常点少，OLS波动大，权重分配反映稳定性优先"
+    }
+  },
+  {
+    "training_end_year": 2021,
+    "role": "scenario",
+    "prompt": "你是节水情景审查员，重点检查农业、工业驱动负响应；人口相关性不作因果解释。兼顾内验证误差。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2021,\"training_rows\":12,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2019,2020,2021],\"cv_mape\":2.982532129498559,\"cv_absolute_percent_errors\":[5.5008376524282125,1.7628689138275853,1.68388982223988],\"cv_worst_percent_error\":5.5008376524282125,\"training_direction_negative_counts\":[0,0,12],\"direction_test_points\":12},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2019,2020,2021],\"cv_mape\":1.9815806877020783,\"cv_absolute_percent_errors\":[1.9827142954278465,1.2378811269127805,2.724146640765608],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[2,1,9],\"direction_test_points\":12},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2019,2020,2021],\"cv_mape\":3.573808186195807,\"cv_absolute_percent_errors\":[6.52359773442736,1.2459602802001808,2.9518665439598797],\"cv_worst_percent_error\":6.52359773442736,\"training_direction_negative_counts\":[0,0,12],\"direction_test_points\":12}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.5, \"gpr\": 0.3, \"ols\": 0.2}, \"reason\": \"GPR cv误差最低，负响应最少；PSO负响应最多但误差适中；OLS误差最高。\"}",
+    "prompt_tokens": 772,
+    "generation_tokens": 59,
+    "finish_reason": "stop",
+    "seconds": 3.834311290996993,
+    "decision": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "GPR cv误差最低，负响应最少；PSO负响应最多但误差适中；OLS误差最高。"
+    }
+  },
+  {
+    "training_end_year": 2021,
+    "role": "coordinator",
+    "prompt": "你是水资源预测协调者，综合平均误差、最坏误差及农业工业响应方向，在三个已有数值模型间分配预测权重。证据只有少量年份，勿宣称统计显著或因果关系。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2021,\"training_rows\":12,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2019,2020,2021],\"cv_mape\":2.982532129498559,\"cv_absolute_percent_errors\":[5.5008376524282125,1.7628689138275853,1.68388982223988],\"cv_worst_percent_error\":5.5008376524282125,\"training_direction_negative_counts\":[0,0,12],\"direction_test_points\":12},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2019,2020,2021],\"cv_mape\":1.9815806877020783,\"cv_absolute_percent_errors\":[1.9827142954278465,1.2378811269127805,2.724146640765608],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[2,1,9],\"direction_test_points\":12},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2019,2020,2021],\"cv_mape\":3.573808186195807,\"cv_absolute_percent_errors\":[6.52359773442736,1.2459602802001808,2.9518665439598797],\"cv_worst_percent_error\":6.52359773442736,\"training_direction_negative_counts\":[0,0,12],\"direction_test_points\":12}]}\n三位审查员意见：{\"accuracy\":{\"weights\":{\"pso\":0.4,\"gpr\":0.5,\"ols\":0.1},\"reason\":\"GPR CV MAPE最低，反常点最少；PSO次之；OLS最高，反常点最多\"},\"stability\":{\"weights\":{\"pso\":0.4,\"gpr\":0.5,\"ols\":0.1},\"reason\":\"GPR误差最稳定，PSO反常点少，OLS波动大，权重分配反映稳定性优先\"},\"scenario\":{\"weights\":{\"pso\":0.5,\"gpr\":0.3,\"ols\":0.2},\"reason\":\"GPR cv误差最低，负响应最少；PSO负响应最多但误差适中；OLS误差最高。\"}}\n审查意见可能有错，请核对上面的数值证据后独立协调。",
+    "raw_response": "{\"weights\": {\"pso\": 0.3, \"gpr\": 0.6, \"ols\": 0.1}, \"reason\": \"GPR CV误差最低且反常点最少，权重最高；PSO次之；OLS误差最高，权重最低。\"}",
+    "prompt_tokens": 960,
+    "generation_tokens": 61,
+    "finish_reason": "stop",
+    "seconds": 4.386844583998027,
+    "decision": {
+      "weights": {
+        "pso": 0.3,
+        "gpr": 0.6,
+        "ols": 0.1
+      },
+      "reason": "GPR CV误差最低且反常点最少，权重最高；PSO次之；OLS误差最高，权重最低。"
+    }
+  },
+  {
+    "training_end_year": 2021,
+    "role": "single_coordinator",
+    "prompt": "你是水资源预测协调者，综合平均误差、最坏误差及农业工业响应方向，在三个已有数值模型间分配预测权重。证据只有少量年份，勿宣称统计显著或因果关系。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2021,\"training_rows\":12,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2019,2020,2021],\"cv_mape\":2.982532129498559,\"cv_absolute_percent_errors\":[5.5008376524282125,1.7628689138275853,1.68388982223988],\"cv_worst_percent_error\":5.5008376524282125,\"training_direction_negative_counts\":[0,0,12],\"direction_test_points\":12},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2019,2020,2021],\"cv_mape\":1.9815806877020783,\"cv_absolute_percent_errors\":[1.9827142954278465,1.2378811269127805,2.724146640765608],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[2,1,9],\"direction_test_points\":12},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2019,2020,2021],\"cv_mape\":3.573808186195807,\"cv_absolute_percent_errors\":[6.52359773442736,1.2459602802001808,2.9518665439598797],\"cv_worst_percent_error\":6.52359773442736,\"training_direction_negative_counts\":[0,0,12],\"direction_test_points\":12}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.4, \"gpr\": 0.5, \"ols\": 0.1}, \"reason\": \"GPR有最低CV误差及最少反常点，PSO次之，OLS误差最高且反常点最多\"}",
+    "prompt_tokens": 786,
+    "generation_tokens": 60,
+    "finish_reason": "stop",
+    "seconds": 3.8345458330004476,
+    "decision": {
+      "weights": {
+        "pso": 0.4,
+        "gpr": 0.5,
+        "ols": 0.1
+      },
+      "reason": "GPR有最低CV误差及最少反常点，PSO次之，OLS误差最高且反常点最多"
+    }
+  },
+  {
+    "training_end_year": 2022,
+    "role": "accuracy",
+    "prompt": "你是需水预测精度审查员，重点比较训练期末3年内验证的平均绝对百分比误差。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2022,\"training_rows\":13,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.1924167074793346,\"cv_absolute_percent_errors\":[1.7628689138275853,1.68388982223988,0.13049138637053856],\"cv_worst_percent_error\":1.7628689138275853,\"training_direction_negative_counts\":[0,0,13],\"direction_test_points\":13},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.3233545191127078,\"cv_absolute_percent_errors\":[1.2378811269127805,2.724146640765608,0.008035789659734944],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[1,1,13],\"direction_test_points\":13},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.4357114346723863,\"cv_absolute_percent_errors\":[1.2459602802001808,2.9518665439598797,0.10930747985709849],\"cv_worst_percent_error\":2.9518665439598797,\"training_direction_negative_counts\":[0,0,13],\"direction_test_points\":13}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.6, \"gpr\": 0.3, \"ols\": 0.1}, \"reason\": \"PSO CV MAPE最低，反常点最少；GPR波动大但整体误差小；OLS误差最高\"}",
+    "prompt_tokens": 777,
+    "generation_tokens": 59,
+    "finish_reason": "stop",
+    "seconds": 3.8656474580020586,
+    "decision": {
+      "weights": {
+        "pso": 0.6,
+        "gpr": 0.3,
+        "ols": 0.1
+      },
+      "reason": "PSO CV MAPE最低，反常点最少；GPR波动大但整体误差小；OLS误差最高"
+    }
+  },
+  {
+    "training_end_year": 2022,
+    "role": "stability",
+    "prompt": "你是小样本稳定性审查员，重点比较3年误差波动和最坏年份误差，避免只看均值。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2022,\"training_rows\":13,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.1924167074793346,\"cv_absolute_percent_errors\":[1.7628689138275853,1.68388982223988,0.13049138637053856],\"cv_worst_percent_error\":1.7628689138275853,\"training_direction_negative_counts\":[0,0,13],\"direction_test_points\":13},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.3233545191127078,\"cv_absolute_percent_errors\":[1.2378811269127805,2.724146640765608,0.008035789659734944],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[1,1,13],\"direction_test_points\":13},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.4357114346723863,\"cv_absolute_percent_errors\":[1.2459602802001808,2.9518665439598797,0.10930747985709849],\"cv_worst_percent_error\":2.9518665439598797,\"training_direction_negative_counts\":[0,0,13],\"direction_test_points\":13}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.5, \"gpr\": 0.3, \"ols\": 0.2}, \"reason\": \"PSO最坏年误差最小，GPR波动最小，OLS最坏误差最大，权重按稳定性与波动性分配\"}",
+    "prompt_tokens": 781,
+    "generation_tokens": 61,
+    "finish_reason": "stop",
+    "seconds": 3.8334172499999113,
+    "decision": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "PSO最坏年误差最小，GPR波动最小，OLS最坏误差最大，权重按稳定性与波动性分配"
+    }
+  },
+  {
+    "training_end_year": 2022,
+    "role": "scenario",
+    "prompt": "你是节水情景审查员，重点检查农业、工业驱动负响应；人口相关性不作因果解释。兼顾内验证误差。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2022,\"training_rows\":13,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.1924167074793346,\"cv_absolute_percent_errors\":[1.7628689138275853,1.68388982223988,0.13049138637053856],\"cv_worst_percent_error\":1.7628689138275853,\"training_direction_negative_counts\":[0,0,13],\"direction_test_points\":13},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.3233545191127078,\"cv_absolute_percent_errors\":[1.2378811269127805,2.724146640765608,0.008035789659734944],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[1,1,13],\"direction_test_points\":13},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.4357114346723863,\"cv_absolute_percent_errors\":[1.2459602802001808,2.9518665439598797,0.10930747985709849],\"cv_worst_percent_error\":2.9518665439598797,\"training_direction_negative_counts\":[0,0,13],\"direction_test_points\":13}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.5, \"gpr\": 0.3, \"ols\": 0.2}, \"reason\": \"PSO负响应最少，GPR误差最稳，OLS最不稳定；权重分配反映稳定性与负响应平衡\"}",
+    "prompt_tokens": 783,
+    "generation_tokens": 59,
+    "finish_reason": "stop",
+    "seconds": 3.893978291001986,
+    "decision": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "PSO负响应最少，GPR误差最稳，OLS最不稳定；权重分配反映稳定性与负响应平衡"
+    }
+  },
+  {
+    "training_end_year": 2022,
+    "role": "coordinator",
+    "prompt": "你是水资源预测协调者，综合平均误差、最坏误差及农业工业响应方向，在三个已有数值模型间分配预测权重。证据只有少量年份，勿宣称统计显著或因果关系。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2022,\"training_rows\":13,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.1924167074793346,\"cv_absolute_percent_errors\":[1.7628689138275853,1.68388982223988,0.13049138637053856],\"cv_worst_percent_error\":1.7628689138275853,\"training_direction_negative_counts\":[0,0,13],\"direction_test_points\":13},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.3233545191127078,\"cv_absolute_percent_errors\":[1.2378811269127805,2.724146640765608,0.008035789659734944],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[1,1,13],\"direction_test_points\":13},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.4357114346723863,\"cv_absolute_percent_errors\":[1.2459602802001808,2.9518665439598797,0.10930747985709849],\"cv_worst_percent_error\":2.9518665439598797,\"training_direction_negative_counts\":[0,0,13],\"direction_test_points\":13}]}\n三位审查员意见：{\"accuracy\":{\"weights\":{\"pso\":0.6,\"gpr\":0.3,\"ols\":0.1},\"reason\":\"PSO CV MAPE最低，反常点最少；GPR波动大但整体误差小；OLS误差最高\"},\"stability\":{\"weights\":{\"pso\":0.5,\"gpr\":0.3,\"ols\":0.2},\"reason\":\"PSO最坏年误差最小，GPR波动最小，OLS最坏误差最大，权重按稳定性与波动性分配\"},\"scenario\":{\"weights\":{\"pso\":0.5,\"gpr\":0.3,\"ols\":0.2},\"reason\":\"PSO负响应最少，GPR误差最稳，OLS最不稳定；权重分配反映稳定性与负响应平衡\"}}\n审查意见可能有错，请核对上面的数值证据后独立协调。",
+    "raw_response": "{\"weights\": {\"pso\": 0.5, \"gpr\": 0.3, \"ols\": 0.2}, \"reason\": \"PSO误差最低且反常最少，GPR波动小，OLS最差，综合取平衡权重\"}",
+    "prompt_tokens": 975,
+    "generation_tokens": 57,
+    "finish_reason": "stop",
+    "seconds": 4.406267749996914,
+    "decision": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "PSO误差最低且反常最少，GPR波动小，OLS最差，综合取平衡权重"
+    }
+  },
+  {
+    "training_end_year": 2022,
+    "role": "single_coordinator",
+    "prompt": "你是水资源预测协调者，综合平均误差、最坏误差及农业工业响应方向，在三个已有数值模型间分配预测权重。证据只有少量年份，勿宣称统计显著或因果关系。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2022,\"training_rows\":13,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.01\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.1924167074793346,\"cv_absolute_percent_errors\":[1.7628689138275853,1.68388982223988,0.13049138637053856],\"cv_worst_percent_error\":1.7628689138275853,\"training_direction_negative_counts\":[0,0,13],\"direction_test_points\":13},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.3233545191127078,\"cv_absolute_percent_errors\":[1.2378811269127805,2.724146640765608,0.008035789659734944],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[1,1,13],\"direction_test_points\":13},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2020,2021,2022],\"cv_mape\":1.4357114346723863,\"cv_absolute_percent_errors\":[1.2459602802001808,2.9518665439598797,0.10930747985709849],\"cv_worst_percent_error\":2.9518665439598797,\"training_direction_negative_counts\":[0,0,13],\"direction_test_points\":13}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.5, \"gpr\": 0.3, \"ols\": 0.2}, \"reason\": \"PSO CV误差最低且反常点最少，GPR波动小，OLS误差最高，故权重分配侧重稳定与精度平衡\"}",
+    "prompt_tokens": 797,
+    "generation_tokens": 63,
+    "finish_reason": "stop",
+    "seconds": 4.223638665996987,
+    "decision": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "PSO CV误差最低且反常点最少，GPR波动小，OLS误差最高，故权重分配侧重稳定与精度平衡"
+    }
+  },
+  {
+    "training_end_year": 2023,
+    "role": "accuracy",
+    "prompt": "你是需水预测精度审查员，重点比较训练期末3年内验证的平均绝对百分比误差。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2023,\"training_rows\":14,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.03\",\"cv_years\":[2021,2022,2023],\"cv_mape\":0.5485556281797971,\"cv_absolute_percent_errors\":[0.9966594904653384,0.12615642241598418,0.5228509716580688],\"cv_worst_percent_error\":0.9966594904653384,\"training_direction_negative_counts\":[0,0,14],\"direction_test_points\":14},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2021,2022,2023],\"cv_mape\":1.2229022778641923,\"cv_absolute_percent_errors\":[2.724146640765608,0.008035789659734944,0.936524403167234],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[3,2,14],\"direction_test_points\":14},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2021,2022,2023],\"cv_mape\":1.233057412088164,\"cv_absolute_percent_errors\":[2.9518665439598797,0.10930747985709849,0.6379982124475143],\"cv_worst_percent_error\":2.9518665439598797,\"training_direction_negative_counts\":[0,0,14],\"direction_test_points\":14}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.5, \"gpr\": 0.3, \"ols\": 0.2}, \"reason\": \"PSO CV MAPE最低，GPR和OLS较高；负响应计数PSO最少，GPR最多\"}",
+    "prompt_tokens": 777,
+    "generation_tokens": 59,
+    "finish_reason": "stop",
+    "seconds": 4.096417333999852,
+    "decision": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "PSO CV MAPE最低，GPR和OLS较高；负响应计数PSO最少，GPR最多"
+    }
+  },
+  {
+    "training_end_year": 2023,
+    "role": "stability",
+    "prompt": "你是小样本稳定性审查员，重点比较3年误差波动和最坏年份误差，避免只看均值。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2023,\"training_rows\":14,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.03\",\"cv_years\":[2021,2022,2023],\"cv_mape\":0.5485556281797971,\"cv_absolute_percent_errors\":[0.9966594904653384,0.12615642241598418,0.5228509716580688],\"cv_worst_percent_error\":0.9966594904653384,\"training_direction_negative_counts\":[0,0,14],\"direction_test_points\":14},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2021,2022,2023],\"cv_mape\":1.2229022778641923,\"cv_absolute_percent_errors\":[2.724146640765608,0.008035789659734944,0.936524403167234],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[3,2,14],\"direction_test_points\":14},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2021,2022,2023],\"cv_mape\":1.233057412088164,\"cv_absolute_percent_errors\":[2.9518665439598797,0.10930747985709849,0.6379982124475143],\"cv_worst_percent_error\":2.9518665439598797,\"training_direction_negative_counts\":[0,0,14],\"direction_test_points\":14}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.6, \"gpr\": 0.2, \"ols\": 0.2}, \"reason\": \"PSO误差波动最小，最坏年份误差最低；GPR波动大，反常点多；OLS最坏误差最高\"}",
+    "prompt_tokens": 781,
+    "generation_tokens": 63,
+    "finish_reason": "stop",
+    "seconds": 4.316508459000033,
+    "decision": {
+      "weights": {
+        "pso": 0.6,
+        "gpr": 0.2,
+        "ols": 0.2
+      },
+      "reason": "PSO误差波动最小，最坏年份误差最低；GPR波动大，反常点多；OLS最坏误差最高"
+    }
+  },
+  {
+    "training_end_year": 2023,
+    "role": "scenario",
+    "prompt": "你是节水情景审查员，重点检查农业、工业驱动负响应；人口相关性不作因果解释。兼顾内验证误差。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2023,\"training_rows\":14,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.03\",\"cv_years\":[2021,2022,2023],\"cv_mape\":0.5485556281797971,\"cv_absolute_percent_errors\":[0.9966594904653384,0.12615642241598418,0.5228509716580688],\"cv_worst_percent_error\":0.9966594904653384,\"training_direction_negative_counts\":[0,0,14],\"direction_test_points\":14},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2021,2022,2023],\"cv_mape\":1.2229022778641923,\"cv_absolute_percent_errors\":[2.724146640765608,0.008035789659734944,0.936524403167234],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[3,2,14],\"direction_test_points\":14},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2021,2022,2023],\"cv_mape\":1.233057412088164,\"cv_absolute_percent_errors\":[2.9518665439598797,0.10930747985709849,0.6379982124475143],\"cv_worst_percent_error\":2.9518665439598797,\"training_direction_negative_counts\":[0,0,14],\"direction_test_points\":14}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.5, \"gpr\": 0.3, \"ols\": 0.2}, \"reason\": \"PSO cv误差最低，负响应最少；GPR误差高但反常点多；OLS误差高且负响应无。\"}",
+    "prompt_tokens": 783,
+    "generation_tokens": 63,
+    "finish_reason": "stop",
+    "seconds": 4.230165667002439,
+    "decision": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "PSO cv误差最低，负响应最少；GPR误差高但反常点多；OLS误差高且负响应无。"
+    }
+  },
+  {
+    "training_end_year": 2023,
+    "role": "coordinator",
+    "prompt": "你是水资源预测协调者，综合平均误差、最坏误差及农业工业响应方向，在三个已有数值模型间分配预测权重。证据只有少量年份，勿宣称统计显著或因果关系。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2023,\"training_rows\":14,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.03\",\"cv_years\":[2021,2022,2023],\"cv_mape\":0.5485556281797971,\"cv_absolute_percent_errors\":[0.9966594904653384,0.12615642241598418,0.5228509716580688],\"cv_worst_percent_error\":0.9966594904653384,\"training_direction_negative_counts\":[0,0,14],\"direction_test_points\":14},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2021,2022,2023],\"cv_mape\":1.2229022778641923,\"cv_absolute_percent_errors\":[2.724146640765608,0.008035789659734944,0.936524403167234],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[3,2,14],\"direction_test_points\":14},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2021,2022,2023],\"cv_mape\":1.233057412088164,\"cv_absolute_percent_errors\":[2.9518665439598797,0.10930747985709849,0.6379982124475143],\"cv_worst_percent_error\":2.9518665439598797,\"training_direction_negative_counts\":[0,0,14],\"direction_test_points\":14}]}\n三位审查员意见：{\"accuracy\":{\"weights\":{\"pso\":0.5,\"gpr\":0.3,\"ols\":0.2},\"reason\":\"PSO CV MAPE最低，GPR和OLS较高；负响应计数PSO最少，GPR最多\"},\"stability\":{\"weights\":{\"pso\":0.6,\"gpr\":0.2,\"ols\":0.2},\"reason\":\"PSO误差波动最小，最坏年份误差最低；GPR波动大，反常点多；OLS最坏误差最高\"},\"scenario\":{\"weights\":{\"pso\":0.5,\"gpr\":0.3,\"ols\":0.2},\"reason\":\"PSO cv误差最低，负响应最少；GPR误差高但反常点多；OLS误差高且负响应无。\"}}\n审查意见可能有错，请核对上面的数值证据后独立协调。",
+    "raw_response": "{\"weights\": {\"pso\": 0.5, \"gpr\": 0.3, \"ols\": 0.2}, \"reason\": \"PSO CV误差最低且反常点最少，GPR误差高反常点多，OLS误差高且无反常点\"}",
+    "prompt_tokens": 979,
+    "generation_tokens": 62,
+    "finish_reason": "stop",
+    "seconds": 5.02749620800023,
+    "decision": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "PSO CV误差最低且反常点最少，GPR误差高反常点多，OLS误差高且无反常点"
+    }
+  },
+  {
+    "training_end_year": 2023,
+    "role": "single_coordinator",
+    "prompt": "你是水资源预测协调者，综合平均误差、最坏误差及农业工业响应方向，在三个已有数值模型间分配预测权重。证据只有少量年份，勿宣称统计显著或因果关系。\n只根据所给训练期证据决策，不能猜测测试年份真实值。输出且仅输出符合以下JSON Schema的JSON对象：{\"type\": \"object\", \"required\": [\"weights\", \"reason\"], \"additionalProperties\": false, \"properties\": {\"weights\": {\"type\": \"object\", \"required\": [\"pso\", \"gpr\", \"ols\"], \"additionalProperties\": false, \"properties\": {\"pso\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"gpr\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}, \"ols\": {\"type\": \"number\", \"minimum\": 0, \"maximum\": 1}}}, \"reason\": {\"type\": \"string\"}}}三个权重必须非负且总和为1，允许权重为0。reason用不超过60字说明证据。不要输出预测需水量。\ncv误差越低越好。负响应计数越高表示反常点越多，0为未见反常；顺序[农业,工业,人口]。人口不做因果解释。这是训练输入的1%扰动诊断，不是未来保证。\n训练期证据：{\"training_end_year\":2023,\"training_rows\":14,\"experts\":[{\"id\":\"pso\",\"configuration\":\"lambda=0.03\",\"cv_years\":[2021,2022,2023],\"cv_mape\":0.5485556281797971,\"cv_absolute_percent_errors\":[0.9966594904653384,0.12615642241598418,0.5228509716580688],\"cv_worst_percent_error\":0.9966594904653384,\"training_direction_negative_counts\":[0,0,14],\"direction_test_points\":14},{\"id\":\"gpr\",\"configuration\":\"squaredexponential/linear\",\"cv_years\":[2021,2022,2023],\"cv_mape\":1.2229022778641923,\"cv_absolute_percent_errors\":[2.724146640765608,0.008035789659734944,0.936524403167234],\"cv_worst_percent_error\":2.724146640765608,\"training_direction_negative_counts\":[3,2,14],\"direction_test_points\":14},{\"id\":\"ols\",\"configuration\":\"lambda=0\",\"cv_years\":[2021,2022,2023],\"cv_mape\":1.233057412088164,\"cv_absolute_percent_errors\":[2.9518665439598797,0.10930747985709849,0.6379982124475143],\"cv_worst_percent_error\":2.9518665439598797,\"training_direction_negative_counts\":[0,0,14],\"direction_test_points\":14}]}",
+    "raw_response": "{\"weights\": {\"pso\": 0.6, \"gpr\": 0.2, \"ols\": 0.2}, \"reason\": \"PSO CV error lowest, GPR/OLS higher; PSO has fewer negative responses.\"}",
+    "prompt_tokens": 797,
+    "generation_tokens": 54,
+    "finish_reason": "stop",
+    "seconds": 4.271754459001386,
+    "decision": {
+      "weights": {
+        "pso": 0.6,
+        "gpr": 0.2,
+        "ols": 0.2
+      },
+      "reason": "PSO CV error lowest, GPR/OLS higher; PSO has fewer negative responses."
+    }
+  }
+]

@@ -1,0 +1,282 @@
+[
+  {
+    "training_end_year": 2019,
+    "training_rows": 10,
+    "multi_agent": {
+      "weights": {
+        "pso": 0.2,
+        "gpr": 0.6,
+        "ols": 0.2
+      },
+      "reason": "GPR CV误差最低且负响应最少，稳定性最优；PSO反常点最多，OLS误差最高。"
+    },
+    "single_agent": {
+      "weights": {
+        "pso": 0.3,
+        "gpr": 0.5,
+        "ols": 0.2
+      },
+      "reason": "GPR CV error lowest; PSO & OLS have more negative direction counts; GPR best balance of error & response stability."
+    },
+    "reviews": {
+      "accuracy": {
+        "weights": {
+          "pso": 0.3,
+          "gpr": 0.5,
+          "ols": 0.2
+        },
+        "reason": "GPR CV MAPE最低，且反常点最少；PSO反常点最多但误差中等；OLS误差最高。"
+      },
+      "stability": {
+        "weights": {
+          "pso": 0.2,
+          "gpr": 0.6,
+          "ols": 0.2
+        },
+        "reason": "GPR误差最稳定，PSO反常点最多，OLS最坏年份误差最高"
+      },
+      "scenario": {
+        "weights": {
+          "pso": 0.3,
+          "gpr": 0.5,
+          "ols": 0.2
+        },
+        "reason": "GPR cv误差最低，负响应最少；PSO负响应最多但误差适中；OLS误差最高且负响应最多。"
+      }
+    },
+    "inverse_cv_weights": {
+      "pso": 0.3161415150539481,
+      "gpr": 0.3820285214719435,
+      "ols": 0.30182996347410845
+    },
+    "equal_weights": {
+      "pso": 0.3333333333333333,
+      "gpr": 0.3333333333333333,
+      "ols": 0.3333333333333333
+    }
+  },
+  {
+    "training_end_year": 2020,
+    "training_rows": 11,
+    "multi_agent": {
+      "weights": {
+        "pso": 0.2,
+        "gpr": 0.6,
+        "ols": 0.2
+      },
+      "reason": "GPR CV误差最低且反常点最少，稳定性最优；PSO与OLS误差高且反常多，故权重分配更倾向GPR"
+    },
+    "single_agent": {
+      "weights": {
+        "pso": 0.3,
+        "gpr": 0.6,
+        "ols": 0.1
+      },
+      "reason": "GPR有最低CV误差且反常点最少，PSO反常点最多但误差适中，OLS误差最高。"
+    },
+    "reviews": {
+      "accuracy": {
+        "weights": {
+          "pso": 0.3,
+          "gpr": 0.5,
+          "ols": 0.2
+        },
+        "reason": "GPR CV MAPE最低，且反常点最少；PSO与OLS反常点最多，但GPR整体表现最优"
+      },
+      "stability": {
+        "weights": {
+          "pso": 0.2,
+          "gpr": 0.6,
+          "ols": 0.2
+        },
+        "reason": "GPR误差最稳定，PSO反常点最多，OLS最坏年份误差最高"
+      },
+      "scenario": {
+        "weights": {
+          "pso": 0.3,
+          "gpr": 0.5,
+          "ols": 0.2
+        },
+        "reason": "GPR cv误差最低，负响应最少；Pso负响应最多但误差高；OLS误差最高且负响应最多。"
+      }
+    },
+    "inverse_cv_weights": {
+      "pso": 0.3077807543858882,
+      "gpr": 0.38949719894885665,
+      "ols": 0.3027220466652552
+    },
+    "equal_weights": {
+      "pso": 0.3333333333333333,
+      "gpr": 0.3333333333333333,
+      "ols": 0.3333333333333333
+    }
+  },
+  {
+    "training_end_year": 2021,
+    "training_rows": 12,
+    "multi_agent": {
+      "weights": {
+        "pso": 0.3,
+        "gpr": 0.6,
+        "ols": 0.1
+      },
+      "reason": "GPR CV误差最低且反常点最少，权重最高；PSO次之；OLS误差最高，权重最低。"
+    },
+    "single_agent": {
+      "weights": {
+        "pso": 0.4,
+        "gpr": 0.5,
+        "ols": 0.1
+      },
+      "reason": "GPR有最低CV误差及最少反常点，PSO次之，OLS误差最高且反常点最多"
+    },
+    "reviews": {
+      "accuracy": {
+        "weights": {
+          "pso": 0.4,
+          "gpr": 0.5,
+          "ols": 0.1
+        },
+        "reason": "GPR CV MAPE最低，反常点最少；PSO次之；OLS最高，反常点最多"
+      },
+      "stability": {
+        "weights": {
+          "pso": 0.4,
+          "gpr": 0.5,
+          "ols": 0.1
+        },
+        "reason": "GPR误差最稳定，PSO反常点少，OLS波动大，权重分配反映稳定性优先"
+      },
+      "scenario": {
+        "weights": {
+          "pso": 0.5,
+          "gpr": 0.3,
+          "ols": 0.2
+        },
+        "reason": "GPR cv误差最低，负响应最少；PSO负响应最多但误差适中；OLS误差最高。"
+      }
+    },
+    "inverse_cv_weights": {
+      "pso": 0.2994298214634182,
+      "gpr": 0.450680140650891,
+      "ols": 0.24989003788569078
+    },
+    "equal_weights": {
+      "pso": 0.3333333333333333,
+      "gpr": 0.3333333333333333,
+      "ols": 0.3333333333333333
+    }
+  },
+  {
+    "training_end_year": 2022,
+    "training_rows": 13,
+    "multi_agent": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "PSO误差最低且反常最少，GPR波动小，OLS最差，综合取平衡权重"
+    },
+    "single_agent": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "PSO CV误差最低且反常点最少，GPR波动小，OLS误差最高，故权重分配侧重稳定与精度平衡"
+    },
+    "reviews": {
+      "accuracy": {
+        "weights": {
+          "pso": 0.6,
+          "gpr": 0.3,
+          "ols": 0.1
+        },
+        "reason": "PSO CV MAPE最低，反常点最少；GPR波动大但整体误差小；OLS误差最高"
+      },
+      "stability": {
+        "weights": {
+          "pso": 0.5,
+          "gpr": 0.3,
+          "ols": 0.2
+        },
+        "reason": "PSO最坏年误差最小，GPR波动最小，OLS最坏误差最大，权重按稳定性与波动性分配"
+      },
+      "scenario": {
+        "weights": {
+          "pso": 0.5,
+          "gpr": 0.3,
+          "ols": 0.2
+        },
+        "reason": "PSO负响应最少，GPR误差最稳，OLS最不稳定；权重分配反映稳定性与负响应平衡"
+      }
+    },
+    "inverse_cv_weights": {
+      "pso": 0.3660862415246919,
+      "gpr": 0.32986425365822875,
+      "ols": 0.3040495048170793
+    },
+    "equal_weights": {
+      "pso": 0.3333333333333333,
+      "gpr": 0.3333333333333333,
+      "ols": 0.3333333333333333
+    }
+  },
+  {
+    "training_end_year": 2023,
+    "training_rows": 14,
+    "multi_agent": {
+      "weights": {
+        "pso": 0.5,
+        "gpr": 0.3,
+        "ols": 0.2
+      },
+      "reason": "PSO CV误差最低且反常点最少，GPR误差高反常点多，OLS误差高且无反常点"
+    },
+    "single_agent": {
+      "weights": {
+        "pso": 0.6,
+        "gpr": 0.2,
+        "ols": 0.2
+      },
+      "reason": "PSO CV error lowest, GPR/OLS higher; PSO has fewer negative responses."
+    },
+    "reviews": {
+      "accuracy": {
+        "weights": {
+          "pso": 0.5,
+          "gpr": 0.3,
+          "ols": 0.2
+        },
+        "reason": "PSO CV MAPE最低，GPR和OLS较高；负响应计数PSO最少，GPR最多"
+      },
+      "stability": {
+        "weights": {
+          "pso": 0.6,
+          "gpr": 0.2,
+          "ols": 0.2
+        },
+        "reason": "PSO误差波动最小，最坏年份误差最低；GPR波动大，反常点多；OLS最坏误差最高"
+      },
+      "scenario": {
+        "weights": {
+          "pso": 0.5,
+          "gpr": 0.3,
+          "ols": 0.2
+        },
+        "reason": "PSO cv误差最低，负响应最少；GPR误差高但反常点多；OLS误差高且负响应无。"
+      }
+    },
+    "inverse_cv_weights": {
+      "pso": 0.5281384189378164,
+      "gpr": 0.23690633946017758,
+      "ols": 0.2349552416020059
+    },
+    "equal_weights": {
+      "pso": 0.3333333333333333,
+      "gpr": 0.3333333333333333,
+      "ols": 0.3333333333333333
+    }
+  }
+]

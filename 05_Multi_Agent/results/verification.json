@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "tests_run": 4,
+  "real_inference_trace_calls": 25,
+  "training_prefix_evidence_matches_saved_numeric_experiments": true,
+  "saved_llm_decisions_replayed": true,
+  "evaluation_labels_absent_from_prompts": true,
+  "four_strategies_predictions_and_metrics_recomputed": true,
+  "independent_holdout_available": false
+}

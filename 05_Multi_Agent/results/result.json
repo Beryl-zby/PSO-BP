@@ -1,0 +1,3293 @@
+{
+  "input_sha256": "a8625c98ce27c62fc24558fda43448db11706c6b05a73cec600989e1a1791a26",
+  "validation_years": [
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "actual": [
+    166.9,
+    164.5,
+    164.3,
+    165
+  ],
+  "expert_order": [
+    "pso",
+    "gpr",
+    "ols"
+  ],
+  "metric_columns": [
+    "MAPE_percent",
+    "MAE",
+    "RMSE",
+    "MSE"
+  ],
+  "direction_columns": [
+    "农业负响应",
+    "工业负响应",
+    "人口负响应",
+    "非正需水",
+    "路径反序"
+  ],
+  "validation_scope": "2020—2023已知数据开发回测；两种检验复用相同四年，无新增独立测试集",
+  "results": [
+    {
+      "id": "multi_agent",
+      "method": "千问多智能体协作",
+      "weights_by_training_end_year": [
+        [
+          0.2,
+          0.6,
+          0.2
+        ],
+        [
+          0.2,
+          0.6,
+          0.2
+        ],
+        [
+          0.3,
+          0.6,
+          0.1
+        ],
+        [
+          0.5,
+          0.3,
+          0.2
+        ],
+        [
+          0.5,
+          0.3,
+          0.2
+        ]
+      ],
+      "fixed_prediction": [
+        169.14396134545694,
+        162.85487932182934,
+        162.84626831430145,
+        162.6196026832491
+      ],
+      "rolling_prediction": [
+        169.14396134545694,
+        160.28610342108462,
+        164.39020010472913,
+        163.86023790265358
+      ],
+      "fixed_metrics": [
+        1.1680090332750919,
+        1.9308027565192631,
+        1.969861147723898,
+        3.880352941312113
+      ],
+      "rolling_metrics": [
+        1.162949579456984,
+        1.9219550316119651,
+        2.454561090864328,
+        6.024870148785081
+      ],
+      "score": 1.1654793063660378,
+      "future_prediction": [
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 165.42634510280155
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 165.766934848854
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.08382878591928
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.41731151107805
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.7796085674796
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 167.18544024861512
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 167.64789486856438
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 163.47991452246183
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 162.23499930318582
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 161.29449577279686
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 160.5228123775442
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 159.86787517087137
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 159.32921652228973
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 158.90339176730396
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 163.47991452246183
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 162.23499930318582
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 161.29449577279686
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 160.5228123775442
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 159.86787517087137
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 159.32921652228973
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 158.90339176730396
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.40688851485973
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.71768203762917
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.99200641047082
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.2671725399559
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.55188982552053
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.85711369616428
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 167.19215955942445
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 163.7640984515006
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 162.64981201775237
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 161.77076223003337
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 161.0662292130466
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 160.4584663128434
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 159.92335523765212
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 159.4580356096867
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 163.7640984515006
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 162.64981201775237
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 161.77076223003337
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 161.0662292130466
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 160.4584663128434
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 159.92335523765212
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 159.4580356096867
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 165.40280806305083
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 165.8297963667401
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.20851430805
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.57277293890434
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.92723624942747
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 167.27940752076597
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 167.6356099154543
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 164.0794771217532
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 163.2941550548693
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 162.64305702587336
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 162.14597049747198
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.74510844317592
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.39161313531974
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.06243393410804
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 164.0794771217532
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 163.2941550548693
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 162.64305702587336
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 162.14597049747198
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.74510844317592
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.39161313531974
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.06243393410804
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 165.422559931788
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 165.77492653018362
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.11936914151988
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.49453938926376
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.90982389558263
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 167.3780890700579
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 167.912665119622
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 163.7800406473342
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 162.70917474664986
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 161.90677899239324
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 161.31227089895796
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 160.8435352713473
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 160.47441896549952
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 160.20316984015386
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 163.7800406473342
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 162.70917474664986
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 161.90677899239324
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 161.31227089895796
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 160.8435352713473
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 160.47441896549952
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 160.20316984015386
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.44223207441524
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.66383175267615
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.8573106223691
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.0712331399212
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.32708896621023
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.64506036642382
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 167.03918341277924
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 163.49546758852765
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 162.1170076661035
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 161.03965105072007
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 160.14948838176383
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 159.39340550765712
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 158.76416647216516
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 158.25448596428916
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 163.49546758852765
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 162.1170076661035
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 161.03965105072007
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 160.14948838176383
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 159.39340550765712
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 158.76416647216516
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 158.25448596428916
+        }
+      ],
+      "direction_counts": [
+        0,
+        0,
+        105,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "single_agent",
+      "method": "千问单智能体",
+      "weights_by_training_end_year": [
+        [
+          0.3,
+          0.5,
+          0.2
+        ],
+        [
+          0.3,
+          0.6,
+          0.1
+        ],
+        [
+          0.4,
+          0.5,
+          0.1
+        ],
+        [
+          0.5,
+          0.3,
+          0.2
+        ],
+        [
+          0.6,
+          0.2,
+          0.2
+        ]
+      ],
+      "fixed_prediction": [
+        169.23158180709302,
+        163.17904121476295,
+        163.17120445305176,
+        162.95670958494068
+      ],
+      "rolling_prediction": [
+        169.23158180709302,
+        160.49468559180755,
+        164.41031955926871,
+        163.86023790265358
+      ],
+      "fixed_metrics": [
+        1.0313496949168437,
+        1.7061566385844102,
+        1.7769651756960216,
+        3.1576052356363933
+      ],
+      "rolling_metrics": [
+        1.1474362460046243,
+        1.8967444679751466,
+        2.386946023444283,
+        5.697511318836476
+      ],
+      "score": 1.0893929704607341,
+      "future_prediction": [
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 165.38622219855205
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 165.7068506254788
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.02973919383882
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.3905891173343
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.7957750644208
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 167.2538188717051
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 167.7724760483065
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 163.6250467001027
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 162.46108927600127
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 161.5495169280935
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 160.80069680224767
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 160.17255711687096
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 159.65891491254723
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 159.25275285701827
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 163.6250467001027
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 162.46108927600127
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 161.5495169280935
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 160.80069680224767
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 160.17255711687096
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 159.65891491254723
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 159.25275285701827
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.36731072308402
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.6564156102683
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.93308344897113
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.23042886368017
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.55178402773305
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.9024068915112
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 167.28675619557845
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 163.88158224434386
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 162.85318946600847
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 162.01504311261732
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 161.33008949563563
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 160.74102216758453
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 160.22729640500404
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 159.7833043854324
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 163.88158224434386
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 162.85318946600847
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 162.01504311261732
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 161.33008949563563
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 160.74102216758453
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 160.22729640500404
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 159.7833043854324
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 165.3632321915169
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 165.77150848482404
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.15260085718774
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.53707576453616
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.9251692943075
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 167.3193183859084
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 167.7213807514687
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 164.16474833540855
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 163.45712413073397
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 162.85344285194194
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 162.3730084868142
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.97381527683527
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.62042844530072
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.2950550994615
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 164.16474833540855
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 163.45712413073397
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 162.85344285194194
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 162.3730084868142
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.97381527683527
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.62042844530072
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.2950550994615
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 165.3831558054514
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 165.71493326409512
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.06335180450563
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.46313885681553
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.91883146837156
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 167.43776083941728
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 168.02787120109386
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 163.89726759099645
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 162.91095200561105
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 162.1444520596025
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 161.56045523122705
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 161.0985286446713
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 160.73671266613147
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 160.47021308463724
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 163.89726759099645
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 162.91095200561105
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 162.1444520596025
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 161.56045523122705
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 161.0985286446713
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 160.73671266613147
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 160.47021308463724
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.40090956122276
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.60080154504988
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.80454910647117
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.05287438920112
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.3579075540718
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.73145781275687
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 167.1816093660629
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 163.63878016776263
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 162.3468794681305
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 161.31176404929943
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 160.45672888542992
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 159.73773888949438
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 159.1430626081376
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 158.6622781249844
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 163.63878016776263
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 162.3468794681305
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 161.31176404929943
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 160.45672888542992
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 159.73773888949438
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 159.1430626081376
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 158.6622781249844
+        }
+      ],
+      "direction_counts": [
+        0,
+        0,
+        105,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "inverse_cv",
+      "method": "内验证误差倒数加权",
+      "weights_by_training_end_year": [
+        [
+          0.3161415150539481,
+          0.3820285214719435,
+          0.30182996347410845
+        ],
+        [
+          0.3077807543858882,
+          0.38949719894885665,
+          0.3027220466652552
+        ],
+        [
+          0.2994298214634182,
+          0.450680140650891,
+          0.24989003788569078
+        ],
+        [
+          0.3660862415246919,
+          0.32986425365822875,
+          0.3040495048170793
+        ],
+        [
+          0.5281384189378164,
+          0.23690633946017758,
+          0.2349552416020059
+        ]
+      ],
+      "fixed_prediction": [
+        169.247098163205,
+        163.2327389388955,
+        163.2250271522136,
+        163.0124968297905
+      ],
+      "rolling_prediction": [
+        169.247098163205,
+        160.43206066875382,
+        164.415025499438,
+        163.82926913928537
+      ],
+      "fixed_metrics": [
+        1.0088708346555262,
+        1.6692088105763503,
+        1.74789558181995,
+        3.0551389649457015
+      ],
+      "rolling_metrics": [
+        1.16468620698983,
+        1.9251984636509505,
+        2.420787155253973,
+        5.860210451042623
+      ],
+      "score": 1.0867785208226781,
+      "future_prediction": [
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 165.40405337254472
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 165.73433041352484
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.05826589310723
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.41346129713105
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.80818873503333
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 167.25302419092463
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 167.75748446150666
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 163.55696297467213
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 162.34672589250005
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 161.4086459740575
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 160.63712176656423
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 159.98671010315718
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 159.45355686857465
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 159.03209868049836
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 163.55696297467213
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 162.34672589250005
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 161.4086459740575
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 160.63712176656423
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 159.98671010315718
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 159.45355686857465
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 159.03209868049836
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.38468433923654
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.6835257263662
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.9617570674114
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.25427418693695
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.56615979346066
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.90457419734292
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 167.27559839995183
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 163.82647075732208
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 162.75270979114657
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 161.88603919437733
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 161.18140510935507
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 160.57408425333577
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 160.0422909200411
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 159.5814677804751
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 163.82647075732208
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 162.75270979114657
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 161.88603919437733
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 161.18140510935507
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 160.57408425333577
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 160.0422909200411
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 159.5814677804751
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 165.3805407886895
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 165.79985920447757
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.18437851564877
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.56611084164166
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.94671893329033
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 167.33034425021395
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 167.72036286744896
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 164.12446312614543
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 163.38063315246552
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 162.75210103039302
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 162.25883871056806
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.85295216306832
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.49397965007444
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.16210641670287
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 164.12446312614543
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 163.38063315246552
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 162.75210103039302
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 162.25883871056806
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.85295216306832
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.49397965007444
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.16210641670287
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 165.40075370396588
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 165.7426688157521
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.09333662661814
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.48911241103
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.9360222387436
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 167.4431651861371
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 168.02022553562946
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 163.8425673921698
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 162.8123753345867
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 162.0209874330942
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 161.42332516453365
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 160.95114212539346
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 160.58104923159524
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 160.30943336823532
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 163.8425673921698
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 162.8123753345867
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 162.0209874330942
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 161.42332516453365
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 160.95114212539346
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 160.58104923159524
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 160.30943336823532
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.41929886847174
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.6269572627662
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.82801521136244
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.0662928842401
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.35709146987693
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.71504375714827
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 167.15018264639892
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 163.57149262981608
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 162.22810236669017
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 161.1582857042498
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 160.27270426532567
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 159.5243645204264
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 158.90345845619703
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 158.4008805222037
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 163.57149262981608
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 162.22810236669017
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 161.1582857042498
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 160.27270426532567
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 159.5243645204264
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 158.90345845619703
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 158.4008805222037
+        }
+      ],
+      "direction_counts": [
+        0,
+        0,
+        105,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "equal",
+      "method": "三个专家等权平均",
+      "weights_by_training_end_year": [
+        [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ]
+      ],
+      "fixed_prediction": [
+        169.26258650854993,
+        163.2888930564227,
+        163.28131437668213,
+        163.0708764297553
+      ],
+      "rolling_prediction": [
+        169.26258650854993,
+        160.46431985118065,
+        164.43573077987432,
+        163.82358382296457
+      ],
+      "fixed_metrics": [
+        0.9852466816584267,
+        1.6303756614224554,
+        1.7181263914211555,
+        2.9519582968978817
+      ],
+      "rolling_metrics": [
+        1.1661155406245063,
+        1.927603403569755,
+        2.411996431390015,
+        5.817726785038167
+      ],
+      "score": 1.0756811111414666,
+      "future_prediction": [
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 165.45125140384778
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 165.80719794525112
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.13452599027465
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.47584404609634
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 166.8443289453447
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 167.25587656241802
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "效率保持",
+          "prediction": 167.7245637830037
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 163.37614915138772
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 162.0416876189299
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 161.0311578856571
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 160.1974368184258
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 159.48633720612725
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 158.9001338862022
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "历史趋势",
+          "prediction": 158.43708958791203
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 163.37614915138772
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 162.0416876189299
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 161.0311578856571
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 160.1974368184258
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 159.48633720612725
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 158.9001338862022
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP1",
+          "path": "规划约束",
+          "prediction": 158.43708958791203
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.43063518771953
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 165.75526486990515
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.03807094169642
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.31864994151564
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.60661109934617
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 166.91404470892653
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "效率保持",
+          "prediction": 167.2512360188881
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 163.68010835626998
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 162.48505552327936
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 161.5411503916095
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 160.78258471569376
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 160.12528247449663
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 159.54423129221198
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "历史趋势",
+          "prediction": 159.03762587817172
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 163.68010835626998
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 162.48505552327936
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 161.5411503916095
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 160.78258471569376
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 160.12528247449663
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 159.54423129221198
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP2",
+          "path": "规划约束",
+          "prediction": 159.03762587817172
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 165.4263087905539
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 165.87531157620873
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.26965238141307
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 166.6451705318337
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 167.00721444568774
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 167.36434573631243
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "效率保持",
+          "prediction": 167.72388143098385
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 164.0174304791261
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 163.17748541272437
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 162.48254191788573
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.95441587954684
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.52981579140092
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 161.15513100005933
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "历史趋势",
+          "prediction": 160.8052477141741
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 164.0174304791261
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 163.17748541272437
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 162.48254191788573
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.95441587954684
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.52981579140092
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 161.15513100005933
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP3",
+          "path": "规划约束",
+          "prediction": 160.8052477141741
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 165.44734869776448
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 165.81626293831013
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.17355699920873
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.55987551369878
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 166.98507434024958
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 167.46281612357564
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "效率保持",
+          "prediction": 168.00728151047275
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 163.6973434059051
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 162.5499577935497
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 161.69119665091938
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 161.05585662096857
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 160.55531455142648
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 160.1624704033157
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "历史趋势",
+          "prediction": 159.8768087414501
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 163.6973434059051
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 162.5499577935497
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 161.69119665091938
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 161.05585662096857
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 160.55531455142648
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 160.1624704033157
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP4",
+          "path": "规划约束",
+          "prediction": 159.8768087414501
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.46797843281706
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.69587908056099
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 165.8901316020909
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.10269161163893
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.35708828395258
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 166.67527794307716
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "效率保持",
+          "prediction": 167.0723349582696
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 163.39278417850346
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 161.9109235717845
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 160.74658737432162
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 159.77765073078172
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 158.94946955473412
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 158.2573145985704
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "历史趋势",
+          "prediction": 157.69555165973983
+        },
+        {
+          "year": 2024,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 163.39278417850346
+        },
+        {
+          "year": 2025,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 161.9109235717845
+        },
+        {
+          "year": 2026,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 160.74658737432162
+        },
+        {
+          "year": 2027,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 159.77765073078172
+        },
+        {
+          "year": 2028,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 158.94946955473412
+        },
+        {
+          "year": 2029,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 158.2573145985704
+        },
+        {
+          "year": 2030,
+          "scenario": "SSP5",
+          "path": "规划约束",
+          "prediction": 157.69555165973983
+        }
+      ],
+      "direction_counts": [
+        0,
+        0,
+        105,
+        0,
+        0
+      ]
+    }
+  ],
+  "ranking": [
+    {
+      "method": "正则PSO-BP集成",
+      "fixed_metrics": [
+        0.8058752797961927,
+        1.3361318887731883,
+        1.6549674042795686,
+        2.7389171092278533
+      ],
+      "rolling_metrics": [
+        1.035416502631003,
+        1.7144776344778876,
+        2.076226157997518,
+        4.310715059153135
+      ],
+      "score": 0.9206458912135977
+    },
+    {
+      "method": "三个专家等权平均",
+      "fixed_metrics": [
+        0.9852466816584267,
+        1.6303756614224554,
+        1.7181263914211555,
+        2.9519582968978817
+      ],
+      "rolling_metrics": [
+        1.1661155406245063,
+        1.927603403569755,
+        2.411996431390015,
+        5.817726785038167
+      ],
+      "score": 1.0756811111414666
+    },
+    {
+      "method": "内验证误差倒数加权",
+      "fixed_metrics": [
+        1.0088708346555262,
+        1.6692088105763503,
+        1.74789558181995,
+        3.0551389649457015
+      ],
+      "rolling_metrics": [
+        1.16468620698983,
+        1.9251984636509505,
+        2.420787155253973,
+        5.860210451042623
+      ],
+      "score": 1.0867785208226781
+    },
+    {
+      "method": "千问单智能体",
+      "fixed_metrics": [
+        1.0313496949168437,
+        1.7061566385844102,
+        1.7769651756960216,
+        3.1576052356363933
+      ],
+      "rolling_metrics": [
+        1.1474362460046243,
+        1.8967444679751466,
+        2.386946023444283,
+        5.697511318836476
+      ],
+      "score": 1.0893929704607341
+    },
+    {
+      "method": "千问多智能体协作",
+      "fixed_metrics": [
+        1.1680090332750919,
+        1.9308027565192631,
+        1.969861147723898,
+        3.880352941312113
+      ],
+      "rolling_metrics": [
+        1.162949579456984,
+        1.9219550316119651,
+        2.454561090864328,
+        6.024870148785081
+      ],
+      "score": 1.1654793063660378
+    },
+    {
+      "method": "高斯过程回归",
+      "fixed_metrics": [
+        1.4421525607000893,
+        2.381443399164475,
+        2.414764641146899,
+        5.831088272133313
+      ],
+      "rolling_metrics": [
+        1.2266469901263393,
+        2.026428223128434,
+        2.5854311164678396,
+        6.6844540580001395
+      ],
+      "score": 1.3343997754132144
+    },
+    {
+      "method": "普通线性回归",
+      "fixed_metrics": [
+        1.438028307157591,
+        2.3747013652869597,
+        2.407260974216409,
+        5.7949053979853336
+      ],
+      "rolling_metrics": [
+        1.2362831291161684,
+        2.041904353102929,
+        2.6946135681859325,
+        7.260942281851722
+      ],
+      "score": 1.3371557181368798
+    },
+    {
+      "method": "岭回归（加密网格）",
+      "fixed_metrics": [
+        2.242548207138529,
+        3.7103052278905224,
+        3.8980050821727374,
+        15.194443620644488
+      ],
+      "rolling_metrics": [
+        1.7772565236101303,
+        2.944790115484679,
+        3.778502541331117,
+        14.277081454845709
+      ],
+      "score": 2.0099023653743298
+    },
+    {
+      "method": "岭回归（原网格）",
+      "fixed_metrics": [
+        3.347435155455378,
+        5.532924222310378,
+        5.5944414782224845,
+        31.297775453256175
+      ],
+      "rolling_metrics": [
+        1.9496351454039287,
+        3.232490035258529,
+        4.2288280661271225,
+        17.88298681286446
+      ],
+      "score": 2.6485351504296535
+    },
+    {
+      "method": "贝叶斯正则神经网络",
+      "fixed_metrics": [
+        6.531569793733791,
+        10.782969392906132,
+        10.81500635418976,
+        116.96436244116488
+      ],
+      "rolling_metrics": [
+        1.9933280680099468,
+        3.3134523998867067,
+        4.927905319913222,
+        24.284250842029035
+      ],
+      "score": 4.2624489308718685
+    },
+    {
+      "method": "最近实际值",
+      "fixed_metrics": [
+        7.025775326671719,
+        11.598016728772002,
+        11.64349032897246,
+        135.5708670408752
+      ],
+      "rolling_metrics": [
+        1.980116458145584,
+        3.293254182192996,
+        5.093291159128147,
+        25.941614831652945
+      ],
+      "score": 4.502945892408651
+    }
+  ],
+  "model": {
+    "model_id": "mlx-community/Qwen3-VL-4B-Instruct-4bit",
+    "model_directory_name": "Qwen3-VL-4B-Instruct-4bit",
+    "config_sha256": "07406d087dfb8a8849427a4da81bc9edd1dd942e518493629b5a983169b47820",
+    "weights_sha256": "90eeb02604181dbcccd0a30a1f550a4a8928ca7dcbee4aee1449239306cfdfca",
+    "mlx_vlm_version": "0.7.4",
+    "mlx_version": "0.32.3",
+    "input_mode": "text_only",
+    "temperature": 0.0,
+    "max_tokens": 256,
+    "fine_tuned_for_water": false,
+    "json_schema_constrained": true
+  },
+  "decisions": [
+    {
+      "training_end_year": 2019,
+      "training_rows": 10,
+      "multi_agent": {
+        "weights": {
+          "pso": 0.2,
+          "gpr": 0.6,
+          "ols": 0.2
+        },
+        "reason": "GPR CV误差最低且负响应最少，稳定性最优；PSO反常点最多，OLS误差最高。"
+      },
+      "single_agent": {
+        "weights": {
+          "pso": 0.3,
+          "gpr": 0.5,
+          "ols": 0.2
+        },
+        "reason": "GPR CV error lowest; PSO & OLS have more negative direction counts; GPR best balance of error & response stability."
+      },
+      "reviews": {
+        "accuracy": {
+          "weights": {
+            "pso": 0.3,
+            "gpr": 0.5,
+            "ols": 0.2
+          },
+          "reason": "GPR CV MAPE最低，且反常点最少；PSO反常点最多但误差中等；OLS误差最高。"
+        },
+        "stability": {
+          "weights": {
+            "pso": 0.2,
+            "gpr": 0.6,
+            "ols": 0.2
+          },
+          "reason": "GPR误差最稳定，PSO反常点最多，OLS最坏年份误差最高"
+        },
+        "scenario": {
+          "weights": {
+            "pso": 0.3,
+            "gpr": 0.5,
+            "ols": 0.2
+          },
+          "reason": "GPR cv误差最低，负响应最少；PSO负响应最多但误差适中；OLS误差最高且负响应最多。"
+        }
+      },
+      "inverse_cv_weights": {
+        "pso": 0.3161415150539481,
+        "gpr": 0.3820285214719435,
+        "ols": 0.30182996347410845
+      },
+      "equal_weights": {
+        "pso": 0.3333333333333333,
+        "gpr": 0.3333333333333333,
+        "ols": 0.3333333333333333
+      }
+    },
+    {
+      "training_end_year": 2020,
+      "training_rows": 11,
+      "multi_agent": {
+        "weights": {
+          "pso": 0.2,
+          "gpr": 0.6,
+          "ols": 0.2
+        },
+        "reason": "GPR CV误差最低且反常点最少，稳定性最优；PSO与OLS误差高且反常多，故权重分配更倾向GPR"
+      },
+      "single_agent": {
+        "weights": {
+          "pso": 0.3,
+          "gpr": 0.6,
+          "ols": 0.1
+        },
+        "reason": "GPR有最低CV误差且反常点最少，PSO反常点最多但误差适中，OLS误差最高。"
+      },
+      "reviews": {
+        "accuracy": {
+          "weights": {
+            "pso": 0.3,
+            "gpr": 0.5,
+            "ols": 0.2
+          },
+          "reason": "GPR CV MAPE最低，且反常点最少；PSO与OLS反常点最多，但GPR整体表现最优"
+        },
+        "stability": {
+          "weights": {
+            "pso": 0.2,
+            "gpr": 0.6,
+            "ols": 0.2
+          },
+          "reason": "GPR误差最稳定，PSO反常点最多，OLS最坏年份误差最高"
+        },
+        "scenario": {
+          "weights": {
+            "pso": 0.3,
+            "gpr": 0.5,
+            "ols": 0.2
+          },
+          "reason": "GPR cv误差最低，负响应最少；Pso负响应最多但误差高；OLS误差最高且负响应最多。"
+        }
+      },
+      "inverse_cv_weights": {
+        "pso": 0.3077807543858882,
+        "gpr": 0.38949719894885665,
+        "ols": 0.3027220466652552
+      },
+      "equal_weights": {
+        "pso": 0.3333333333333333,
+        "gpr": 0.3333333333333333,
+        "ols": 0.3333333333333333
+      }
+    },
+    {
+      "training_end_year": 2021,
+      "training_rows": 12,
+      "multi_agent": {
+        "weights": {
+          "pso": 0.3,
+          "gpr": 0.6,
+          "ols": 0.1
+        },
+        "reason": "GPR CV误差最低且反常点最少，权重最高；PSO次之；OLS误差最高，权重最低。"
+      },
+      "single_agent": {
+        "weights": {
+          "pso": 0.4,
+          "gpr": 0.5,
+          "ols": 0.1
+        },
+        "reason": "GPR有最低CV误差及最少反常点，PSO次之，OLS误差最高且反常点最多"
+      },
+      "reviews": {
+        "accuracy": {
+          "weights": {
+            "pso": 0.4,
+            "gpr": 0.5,
+            "ols": 0.1
+          },
+          "reason": "GPR CV MAPE最低，反常点最少；PSO次之；OLS最高，反常点最多"
+        },
+        "stability": {
+          "weights": {
+            "pso": 0.4,
+            "gpr": 0.5,
+            "ols": 0.1
+          },
+          "reason": "GPR误差最稳定，PSO反常点少，OLS波动大，权重分配反映稳定性优先"
+        },
+        "scenario": {
+          "weights": {
+            "pso": 0.5,
+            "gpr": 0.3,
+            "ols": 0.2
+          },
+          "reason": "GPR cv误差最低，负响应最少；PSO负响应最多但误差适中；OLS误差最高。"
+        }
+      },
+      "inverse_cv_weights": {
+        "pso": 0.2994298214634182,
+        "gpr": 0.450680140650891,
+        "ols": 0.24989003788569078
+      },
+      "equal_weights": {
+        "pso": 0.3333333333333333,
+        "gpr": 0.3333333333333333,
+        "ols": 0.3333333333333333
+      }
+    },
+    {
+      "training_end_year": 2022,
+      "training_rows": 13,
+      "multi_agent": {
+        "weights": {
+          "pso": 0.5,
+          "gpr": 0.3,
+          "ols": 0.2
+        },
+        "reason": "PSO误差最低且反常最少，GPR波动小，OLS最差，综合取平衡权重"
+      },
+      "single_agent": {
+        "weights": {
+          "pso": 0.5,
+          "gpr": 0.3,
+          "ols": 0.2
+        },
+        "reason": "PSO CV误差最低且反常点最少，GPR波动小，OLS误差最高，故权重分配侧重稳定与精度平衡"
+      },
+      "reviews": {
+        "accuracy": {
+          "weights": {
+            "pso": 0.6,
+            "gpr": 0.3,
+            "ols": 0.1
+          },
+          "reason": "PSO CV MAPE最低，反常点最少；GPR波动大但整体误差小；OLS误差最高"
+        },
+        "stability": {
+          "weights": {
+            "pso": 0.5,
+            "gpr": 0.3,
+            "ols": 0.2
+          },
+          "reason": "PSO最坏年误差最小，GPR波动最小，OLS最坏误差最大，权重按稳定性与波动性分配"
+        },
+        "scenario": {
+          "weights": {
+            "pso": 0.5,
+            "gpr": 0.3,
+            "ols": 0.2
+          },
+          "reason": "PSO负响应最少，GPR误差最稳，OLS最不稳定；权重分配反映稳定性与负响应平衡"
+        }
+      },
+      "inverse_cv_weights": {
+        "pso": 0.3660862415246919,
+        "gpr": 0.32986425365822875,
+        "ols": 0.3040495048170793
+      },
+      "equal_weights": {
+        "pso": 0.3333333333333333,
+        "gpr": 0.3333333333333333,
+        "ols": 0.3333333333333333
+      }
+    },
+    {
+      "training_end_year": 2023,
+      "training_rows": 14,
+      "multi_agent": {
+        "weights": {
+          "pso": 0.5,
+          "gpr": 0.3,
+          "ols": 0.2
+        },
+        "reason": "PSO CV误差最低且反常点最少，GPR误差高反常点多，OLS误差高且无反常点"
+      },
+      "single_agent": {
+        "weights": {
+          "pso": 0.6,
+          "gpr": 0.2,
+          "ols": 0.2
+        },
+        "reason": "PSO CV error lowest, GPR/OLS higher; PSO has fewer negative responses."
+      },
+      "reviews": {
+        "accuracy": {
+          "weights": {
+            "pso": 0.5,
+            "gpr": 0.3,
+            "ols": 0.2
+          },
+          "reason": "PSO CV MAPE最低，GPR和OLS较高；负响应计数PSO最少，GPR最多"
+        },
+        "stability": {
+          "weights": {
+            "pso": 0.6,
+            "gpr": 0.2,
+            "ols": 0.2
+          },
+          "reason": "PSO误差波动最小，最坏年份误差最低；GPR波动大，反常点多；OLS最坏误差最高"
+        },
+        "scenario": {
+          "weights": {
+            "pso": 0.5,
+            "gpr": 0.3,
+            "ols": 0.2
+          },
+          "reason": "PSO cv误差最低，负响应最少；GPR误差高但反常点多；OLS误差高且负响应无。"
+        }
+      },
+      "inverse_cv_weights": {
+        "pso": 0.5281384189378164,
+        "gpr": 0.23690633946017758,
+        "ols": 0.2349552416020059
+      },
+      "equal_weights": {
+        "pso": 0.3333333333333333,
+        "gpr": 0.3333333333333333,
+        "ols": 0.3333333333333333
+      }
+    }
+  ],
+  "inference_calls": 25,
+  "inference_seconds": 102.5683435840001,
+  "evidence_file_sha256": "5008a5044fa7fdf63d417a7070d448aeff36cf6956fc4cbe5d63e800eecf1655",
+  "decisions_sha256": "ff87ebe6c0e68d78d91caf34314c053592daff88cd0960a5bae2098b748d5a6e"
+}
