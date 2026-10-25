@@ -83,3 +83,7 @@ V = test_Water_ImprovedComparison;
 PSO-BP改进路径只需要基础MATLAB；贝叶斯正则网络需要Deep Learning Toolbox；GPR需要Statistics and Machine Learning Toolbox。原始存档流程需要Optimization和Parallel Computing Toolbox。本机测试版本为MATLAB R2024a。
 
 多智能体复用本地MLX版Qwen3-VL-4B-Instruct-4bit，依赖Apple Silicon和Python环境；模型权重及羽毛球项目本身不上传仓库。
+
+## 最新WaterLab工作台与协作
+
+网页已接入真实苏北需水输入、五种SSP与三条节水路径，以及本地千问Agent规划试算和同划分规则对照。朋友克隆本仓库后按 [WaterLab启动与协作说明](06_WaterLab_Web/README.md) 操作。基础Excel已在仓库data目录，机器专用配置和模型权重不随仓库分发。

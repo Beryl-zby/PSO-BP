@@ -63,7 +63,7 @@ export default defineConfig(async ({ command,mode }) => {
         config: {
           ...localBindingConfig,
           ...(command === "serve" ? {vars: Object.fromEntries(
-            ["DASHSCOPE_API_KEY","QWEN_BASE_URL","QWEN_MODEL","QWEN_PROVIDER","QWEN_API_KEY","QWEN_JSON_MODE","QWEN_TIMEOUT_MS"].filter(k=>localModelEnv[k]).map(k=>[k,localModelEnv[k]!])
+            ["DASHSCOPE_API_KEY","QWEN_BASE_URL","QWEN_MODEL","QWEN_PROVIDER","QWEN_API_KEY","QWEN_JSON_MODE","QWEN_TIMEOUT_MS","QWEN_REASONING_EFFORT"].filter(k=>localModelEnv[k]).map(k=>[k,localModelEnv[k]!])
           )} : {}),
           ...(command === "serve"
             ? {

@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+import * as XLSX from 'xlsx';
+import {parseResearchSheets} from '../public/research-engine.mjs';
+const input=process.argv[2]||fileURLToPath(new URL('../../data/需水预测模型对照.xlsx',import.meta.url));
+const output=fileURLToPath(new URL('../public/research-input.json',import.meta.url));
+const bytes=fs.readFileSync(input),book=XLSX.read(bytes,{type:'buffer'}),sheets={};
+for(const name of ['历史数据','未来指标','模型设置','口径与政策依据'])if(book.Sheets[name])sheets[name]=XLSX.utils.sheet_to_json(book.Sheets[name],{header:1,defval:'',blankrows:false});
+const bundle=parseResearchSheets(sheets,{file:path.basename(input),relativePath:'data/'+path.basename(input),sha256:crypto.createHash('sha256').update(bytes).digest('hex'),syncedAt:new Date().toISOString()});
+fs.writeFileSync(output,JSON.stringify(bundle,null,2));
+console.log('SSP inputs synchronized: 14 historical years, 35 SSP rows, 15 paths; SHA256 '+bundle.source.sha256);

@@ -43,3 +43,6 @@ yarn-error.log*
 
 # OS metadata
 .DS_Store
+
+# Generated from the authoritative workbook at startup
+/public/research-input.json

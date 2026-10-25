@@ -9,7 +9,7 @@ export function modelConfig(input={}){
  // A cloud key inherited by the shell must never be sent to a local model server.
  const apiKey=(input.QWEN_API_KEY||(!local?input.DASHSCOPE_API_KEY:'')||'').trim();
  const timeout=Number(input.QWEN_TIMEOUT_MS)|| (local?180000:60000);
- return {baseURL,model,local,apiKey,configured:Boolean(model&&(local?explicit:apiKey)),timeout:Math.max(1000,Math.min(timeout,600000)),jsonMode:input.QWEN_JSON_MODE!=='off'};
+ return {baseURL,model,local,apiKey,configured:Boolean(model&&(local?explicit:apiKey)),timeout:Math.max(1000,Math.min(timeout,600000)),jsonMode:input.QWEN_JSON_MODE!=='off',reasoningEffort:local?(input.QWEN_REASONING_EFFORT||'').trim():''};
 }
-export function requestOptions(config,messages,maxTokens){return {method:'POST',headers:{'Content-Type':'application/json',...(config.apiKey?{Authorization:'Bearer '+config.apiKey}:{})},body:JSON.stringify({model:config.model,messages,temperature:.15,max_tokens:maxTokens,...(!config.local?{enable_thinking:false}:{}),...(config.jsonMode?{response_format:{type:'json_object'}}:{})})};}
+export function requestOptions(config,messages,maxTokens){return {method:'POST',headers:{'Content-Type':'application/json',...(config.apiKey?{Authorization:'Bearer '+config.apiKey}:{})},body:JSON.stringify({model:config.model,messages,temperature:.15,max_tokens:maxTokens,...(!config.local?{enable_thinking:false}:{}),...(config.reasoningEffort?{reasoning_effort:config.reasoningEffort}:{}),...(config.jsonMode?{response_format:{type:'json_object'}}:{})})};}
 export function parseModelJSON(content){let text=String(content||'').replace(/<think>[\s\S]*?<\/think>/g,'').trim();if(text.startsWith('```'))text=text.replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'');return JSON.parse(text);}

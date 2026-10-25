@@ -2,6 +2,45 @@
 
 面向需水预测研究的网页工作台。上传年度数据，运行正则 PSO-BP 集成，查看回测、未来假设情景与驱动响应，并向千问分析助手提问。
 
+## 给协作者：克隆后启动最新版
+
+需要 Node.js 24 LTS、pnpm 11.25 和可用的 Ollama（或其他OpenAI兼容本地模型服务）。模型权重不放GitHub，每位使用者在自己电脑安装。
+
+```bash
+git clone https://github.com/Beryl-zby/PSO-BP.git
+cd PSO-BP/06_WaterLab_Web
+pnpm install --frozen-lockfile
+ollama pull qwen3.5:4b-q4_K_M
+```
+
+复制 `local-model.env.example` 为 `.env.local`。Windows PowerShell用 `Copy-Item local-model.env.example .env.local`，macOS/Linux用 `cp local-model.env.example .env.local`。确认Ollama已启动（没有运行时，在另一个终端执行 `ollama serve`），然后运行：
+
+```bash
+pnpm dev
+```
+
+打开终端显示的本机地址，默认 `http://127.0.0.1:5173`。每次启动或构建会从仓库的 `data/需水预测模型对照.xlsx` 生成网页输入副本，不需要任何原作者的F盘路径。`.env.local`、`node_modules`、模型权重和运行缓存不提交Git。
+
+- **论文SSP预测**：原正则PSO-BP主模型，5种SSP×3条效率路径，105个年度值，图表和对照导出。
+- **Agent预测**：自动载入同一真实研究数据和任务背景，千问提议候选、一次反馈调整，冻结后末段评价，另计算同划分规则候选对照与15组合。单次实测并未优于规则PSO-BP，不能直接当成预测精度改进。
+- **标准分析 / Multi-agent**：原有功能保留；这些入口的演示情景不能冒充论文SSP。
+
+修改基础数据请编辑仓库的源Excel，重新启动；也可在论文SSP页面上传同格式文件。生成的 `public/research-input.json` 不参与版本管理。若需把新输入用于Agent模块，先更新仓库Excel并重启，再点击“加载我的需水研究数据”。最近Agent试算在各自浏览器保存，输入指纹一致才恢复；朋友不会自动获得你浏览器中的会话记录。
+
+已有克隆先 `git pull --ff-only`。有自己的未提交修改时先提交或暂存，再拉取并处理冲突。修改后跑测试，再提交到协作分支并发起Pull Request。不要提交密钥、权重、缓存和机器专用绝对路径。
+
+```bash
+node scripts/sync-research-input.mjs
+node tests/research.test.mjs
+node tests/research-adaptive.test.mjs
+node tests/adaptive.test.mjs
+node tests/model-config.test.mjs
+node --experimental-strip-types tests/multiagent.test.mjs
+pnpm exec tsc --noEmit
+```
+
+普通数值预测不需要LLM。Agent规划、问答需要模型服务；MatPlotAgent首次仍需联网下载浏览器Python运行库，完整视觉闭环没有作为本次发布的成功验证项。
+
 ## 本地启动（给使用者）
 
 不需要 MATLAB，不需要 ChatGPT 登录，不需要云端千问密钥。先安装 **Node.js 24 LTS** 与 **pnpm 11.25**，并启动你已有的千问推理服务。
@@ -43,6 +82,37 @@ QWEN_TIMEOUT_MS=180000
 启动无密钥也可上传数据、运行 PSO-BP、查看固定图表。修改 `.env.local` 后重启 `pnpm dev`。该命令是本机运行方式；`pnpm start` 面向原托管构建，不能代替此处的本地启动。此版本默认只监听本机，不需要给公网开放模型端口。
 
 服务协议参考：[Ollama](https://docs.ollama.com/api/openai-compatibility)、[LM Studio](https://lmstudio.ai/docs/developer/openai-compat)、[vLLM](https://docs.vllm.ai/en/latest/serving/openai_compatible_server/)。
+
+## 论文SSP预测（本地接入）
+
+默认进入“论文SSP预测”。启动时从模型目录的 `data/需水预测模型对照.xlsx` 读取“历史数据、未来指标、模型设置、口径与政策依据”，同步为浏览器可读副本。输入Excel保持不变；每次启动重新同步，运行期间也可上传同格式新Excel。“重新读取内置输入”只读最近同步副本。
+
+点击“运行15种组合”，以相同正则PSO-BP最终模型计算SSP1—SSP5与三条路径，输出2024—2030共105个年度值。三驱动、工业指数拟合、2023锚定、2025比较基年与2030门槛均沿用 `shared/water_suite_data.m` 公式。人口、GDP、三产业、面积、工业增加值等保留在输入预览和明细。
+
+- 效率保持：农业与工业强度固定为2023值，发展规模按SSP变化。
+- 历史趋势：农业采用输入趋势，工业以2010—2023年2023价强度拟合指数速度，乘各SSP既定速度系数。
+- 规划参考：农业同历史趋势；工业2025后取趋势与参考门槛较小值，2030较该SSP预测2025值下降至少10%（当前输入设置）。历史趋势已达标时两路径如实重合。
+
+默认2023起点图，可切换2010历史起点、同SSP三路径或同路径五SSP。可下载PNG、年份纵向15组合横向的汇总CSV、输入预测明细CSV、发展节水对照CSV和完整实验JSON。CSV可用Excel打开。
+
+单位换算同MATLAB；播种面积代理灌溉面积，工业价格采用省GDP平减代理，火电口径未完全统一。情景差值非因果政策效果。规划参考不认定苏北考核达标，2025比较值为预测而非实测。不输出未经验证的实际部门节水量。
+
+模型为3-1-1、12成员、24粒子、40代，训练前缀内选L2正则；表内旧200成员/4隐节点设置不覆盖当前主模型。读取表的随机种子与政策参数。浏览器随机数不同于MATLAB，不保证逐位一致。2020—2023为已经用于探索的条件开发回测，非新增独立测试。
+
+全部105组输入与独立复算一致。当前浏览器105个预测与已有MATLAB最大绝对差约0.00000402亿m³。通用Agent和标准分析入口保留，它们的示例不会作为论文输入。当前本地SSP接入尚未推送GitHub。
+
+```bash
+node scripts/sync-research-input.mjs
+node tests/research.test.mjs
+```
+
+### Agent使用真实需水数据
+
+Agent入口默认读取相同论文输入，自动设置7步、无季节周期、用户提供未来驱动，并带入苏北五市研究背景。可选择SSP和路径。规划仅接收开发期概要、研究任务与验证反馈，不包含末段目标。候选冻结后，另按相同模型推演全部15组合，并计算相同时间划分下的内置规则候选对照。无外生驱动模型的15组合相同，页面明确提示不能解读为SSP无影响。
+
+默认14年数据划分为10年初训、2年验证、2年末段评价。与论文主模型原2020—2023回测口径不同，不能直接比较这两套误差。两者均属于已经探索过的历史数据，非新增独立验证。原主模型不被替换。
+
+2026-10-26单次实测（不按测试结果重试）：本地4B千问两轮规划约48.8秒，选中线性漂移，末段RMSE约4.115亿m³；内置规则候选选择PSO-BP，RMSE约0.503亿m³。该次Agent未改善结果，全部候选和原始建议按实际显示；原始文字存在误判，以数值执行表为准。最近一次真实研究试算保存在本机浏览器，输入SHA256一致时恢复，可导出完整实验JSON及15组合CSV。
 
 ## Agent 预测：通用数据入口
 
