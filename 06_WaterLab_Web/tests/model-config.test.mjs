@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {modelConfig,requestOptions,parseModelJSON} from '../lib/model-config.mjs';
+const local=modelConfig({QWEN_BASE_URL:'http://127.0.0.1:11434/v1/',QWEN_MODEL:'existing-qwen',DASHSCOPE_API_KEY:'cloud-key-must-stay-private'});
+assert.equal(local.local,true);assert.equal(local.configured,true);assert.equal(local.apiKey,'');assert.equal(local.baseURL,'http://127.0.0.1:11434/v1');
+const req=requestOptions(local,[],100);assert.equal(req.headers.Authorization,undefined);assert.ok(!('enable_thinking' in JSON.parse(req.body)));
+const cloud=modelConfig({DASHSCOPE_API_KEY:'fixture'});assert.equal(cloud.configured,true);assert.equal(cloud.local,false);assert.equal(requestOptions(cloud,[],100).headers.Authorization,'Bearer fixture');
+assert.equal(modelConfig({QWEN_PROVIDER:'local',QWEN_BASE_URL:'http://192.168.1.9:8000/v1',QWEN_MODEL:'local',DASHSCOPE_API_KEY:'cloud'}).apiKey,'');
+assert.equal(modelConfig({QWEN_PROVIDER:'local',QWEN_BASE_URL:'http://localhost:1234/v1'}).configured,false);
+assert.equal(modelConfig({QWEN_PROVIDER:'local',QWEN_BASE_URL:'http://localhost:1234/v1',QWEN_MODEL:'q',QWEN_API_KEY:'local-test'}).apiKey,'local-test');
+assert.deepEqual(parseModelJSON('<think>reason</think>\n```json\n{"ok":true}\n```'),{ok:true});assert.throws(()=>parseModelJSON('{"partial":'));
+console.log('Local/cloud configuration, optional local auth, cloud-key isolation, standard payload and JSON parsing passed.');

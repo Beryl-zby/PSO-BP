@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {scoreCandidate,nicheSelect,retrieve,uctIndex,calibration,heldout} from '../lib/multiagent.ts';
+const workflow=(id,count=2,tags=['回测'])=>({id,name:id,roles:count===2?['analyst','reviewer']:['analyst','scenario','reviewer'],parallel:false,style:'evidence',tags,origin:'test'});
+const facts={a:100,b:2,c:8};
+const reply=(claims,calls=3)=>({claims,calls,answer:'test',chart:null,steps:[],tokens:0,seconds:0});
+const good=scoreCandidate(workflow('good'),reply([{path:'a',value:100.01},{path:'b',value:2}]),facts,['a','b']);
+assert.equal(good.accuracy,1);assert.equal(good.score,.955);
+const bad=scoreCandidate(workflow('bad'),reply([{path:'a',value:1000},{path:'invented',value:8}]),facts,['a','b']);
+assert.equal(bad.accuracy,0);assert.ok(bad.score<0);assert.equal(bad.checks[1].actual,null);
+const expensive=scoreCandidate(workflow('rich',3,['情景']),reply([{path:'a',value:100},{path:'b',value:2}],4),facts,['a','b']);
+assert.ok(good.score>expensive.score);
+assert.equal(nicheSelect([good,bad,expensive],2).length,2);assert.ok(nicheSelect([good,bad,expensive],2).includes(expensive));
+assert.equal(retrieve([good,expensive],['情景'])[0].workflow.id,'rich');
+assert.equal(uctIndex([{visits:10,reward:10},{visits:0,reward:0}],10),1);
+assert.equal(uctIndex([{visits:5,reward:1},{visits:5,reward:4}],10),1);
+assert.ok(calibration.every(x=>!heldout.includes(x)));
+console.log('Multi-agent: numerical scoring, hallucinated/missing claims, cost penalty, niche diversity, tag routing, UCT exploration, disjoint field questions passed.');
