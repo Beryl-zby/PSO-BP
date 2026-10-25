@@ -15,7 +15,7 @@ async function pythonSession(signal:AbortSignal){
  document.body.appendChild(frame);const timeout=setTimeout(()=>readyReject(Error('无法启动Python绘图环境（120秒），请检查CDN连接')),120000);try{await ready;}catch(e){close();throw e;}finally{clearTimeout(timeout);}
  return {close,run:(source:string,data:unknown)=>new Promise<{image:string;log:string}>((resolve,reject)=>{signal.throwIfAborted();const id=++counter;const timer=setTimeout(()=>{waiting.delete(id);reject(Error('Python加载或执行超时（120秒），可重试'));close();},120000);waiting.set(id,{resolve,reject,timer});frame.contentWindow!.postMessage({nonce,id,code:source,data:JSON.stringify(data)},'*');})};
 }
-export async function generatePlot(question:string,data:ReturnType<typeof plotData>,signal:AbortSignal,progress:(s:string)=>void):Promise<PlotArtifact>{
+export async function generatePlot(question:string,data:Record<string,unknown>,signal:AbortSignal,progress:(s:string)=>void):Promise<PlotArtifact>{
  const start=performance.now(),trace:string[]=[];let calls=0,tokens=0;const tell=(s:string)=>{trace.push(s);progress(s);};
  async function api(action:string,extra:Record<string,unknown>={}){const r=await fetch('/api/matplot',{signal,method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,question,data,...extra})});const v:any=await r.json();if(!r.ok)throw Error(v.error||'MatPlotAgent请求失败');calls+=v.calls||1;tokens+=v.tokens||0;return v;}
  tell('加载浏览器Python、NumPy、Pandas与Matplotlib（首次需下载）');const runtime=await pythonSession(signal);

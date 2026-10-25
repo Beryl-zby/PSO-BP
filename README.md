@@ -4,7 +4,7 @@
 
 ## 网页工作台（本地千问）
 
-新增 [06_WaterLab_Web](06_WaterLab_Web/README.md)：上传数据、浏览器 PSO-BP 预测、交互图表、标准问答、多智能体工作流搜索与 MatPlotAgent Python 绘图。支持连接已有本地千问 OpenAI 兼容服务，不需要云端密钥。按目录内的中文说明配置 `.env.local` 并运行 `pnpm dev`。
+新增 [06_WaterLab_Web](06_WaterLab_Web/README.md)：上传数据、浏览器 PSO-BP 预测、交互图表、标准问答、多智能体工作流搜索与 MatPlotAgent Python 绘图。新增“Agent预测”通用入口：单变量或0–20驱动、最多20000条记录，Agent根据开发期验证调整预测模型并冻结后评价末段。支持连接已有本地千问 OpenAI 兼容服务，不需要云端密钥。按目录内的中文说明配置 `.env.local` 并运行 `pnpm dev`。
 
 网页 Multi-agent 模式优化的是解释流程；与 `05_Multi_Agent` 中对数值专家分配权重的实验不同。EvoFlow/AFlow 为领域适配，不是完整论文复现；搜索评分不表示预测精度提升。
 

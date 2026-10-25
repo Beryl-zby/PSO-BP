@@ -10,13 +10,13 @@ from PIL import Image
 os.chdir('/home/pyodide')
 plt.close('all')
 tree = ast.parse(_source)
-allowed = {'numpy','pandas','matplotlib','json','math','statistics'}
+allowed = {'numpy','pandas','matplotlib','json','math','statistics','datetime'}
 for n in ast.walk(tree):
     if isinstance(n, ast.Import):
         if any(a.name.split('.')[0] not in allowed for a in n.names):
-            raise ValueError('Only plotting and numeric imports are supported')
+            raise ValueError('Unsupported import: '+','.join(a.name for a in n.names))
     if isinstance(n, ast.ImportFrom) and (n.level or (n.module or '').split('.')[0] not in allowed):
-        raise ValueError('Unsupported import')
+        raise ValueError('Unsupported import: '+str(n.module))
     if isinstance(n, ast.Attribute) and n.attr.startswith('_'):
         raise ValueError('Private attributes are not supported')
     if isinstance(n, ast.Name) and n.id.startswith('__'):

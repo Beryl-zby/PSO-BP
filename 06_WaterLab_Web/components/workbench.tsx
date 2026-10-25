@@ -2,6 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {Activity,ArrowDown,ArrowDownToLine,ArrowRight,ArrowUp,ArrowUpRight,BookOpen,Check,CheckCircle2,ChevronDown,ChevronRight,Clock3,Database,Download,Droplets,FileSpreadsheet,FlaskConical,History,Image as ImageIcon,Info,LayoutDashboard,Loader2,MessageSquare,MoreHorizontal,Plus,RotateCcw,Send,Settings2,ShieldCheck,Sparkles,TrendingUp,Upload,Waves,X} from 'lucide-react';
 import {ForecastChart,Sparkline} from '../components/charts';
+import {AdaptiveWorkbench} from './adaptive-workbench';
 import {MultiAgentPanel} from './multiagent-panel';
 import {UploadPanel} from '../components/upload';
 import type {Dataset,Forecast,ChartKind} from '../lib/types';
@@ -23,7 +24,7 @@ async function chartPNG(){const svg=document.querySelector('#main-chart svg.rech
 
 export default function WaterLab(){
  const [dataset,setDataset]=useState<Dataset>(initialDataset),[result,setResult]=useState<Forecast>(initialResult),[horizon,setHorizon]=useState(7),[holdout,setHoldout]=useState(4),[chart,setChart]=useState<ChartKind>('trend'),[modal,setModal]=useState<Modal>(null),[running,setRunning]=useState(false),[progress,setProgress]=useState({label:'',progress:0}),[toast,setToast]=useState(''),[tab,setTab]=useState<'forecast'|'backtest'>('forecast'),[busy,setBusy]=useState(false),[input,setInput]=useState(''),[messages,setMessages]=useState<Message[]>([]),[provider,setProvider]=useState({connected:false,model:'Qwen'}),[visual,setVisual]=useState(false),[experiments,setExperiments]=useState<Experiment[]>([]),[exportMenu,setExportMenu]=useState(false),[traceOpen,setTraceOpen]=useState(false),[loaded,setLoaded]=useState(true),[mobileChat,setMobileChat]=useState(false),[nav,setNav]=useState('workspace');
- const [mode,setMode]=useState<'single'|'multi'>('single');
+ const [mode,setMode]=useState<'single'|'multi'|'predict'>('predict');
  const chatAbort=useRef<AbortController|null>(null),requestId=useRef(0),workerRef=useRef<Worker|null>(null),scrollRef=useRef<HTMLDivElement>(null),textareaRef=useRef<HTMLTextAreaElement>(null),toastTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
  const current={dataset,result};
  function notify(text:string){setToast(text);if(toastTimer.current)clearTimeout(toastTimer.current);toastTimer.current=setTimeout(()=>setToast(''),4500);}
@@ -48,7 +49,7 @@ export default function WaterLab(){
   <div className="nav-label">工作空间</div>
   <nav>
    <button className={nav==='workspace'?'active':''} onClick={()=>{setNav('workspace');window.scrollTo({top:0,behavior:'smooth'});}}><LayoutDashboard size={18}/>预测工作台<span className="nav-active-dot"/></button>
-   <button onClick={()=>setModal('upload')}><Database size={18}/>数据管理<span className="nav-count">1</span></button>
+   <button onClick={()=>mode==='predict'?document.getElementById('adaptive-file-input')?.click():setModal('upload')}><Database size={18}/>数据管理<span className="nav-count">1</span></button>
    <button className={nav==='charts'?'active':''} onClick={()=>{setNav('charts');document.getElementById('analysis-chart')?.scrollIntoView({behavior:'smooth',block:'center'});}}><Activity size={18}/>可视化分析</button>
    <button onClick={()=>setModal('history')}><History size={18}/>实验记录{experiments.length>0&&<span className="nav-count">{experiments.length}</span>}</button>
   </nav>
@@ -59,9 +60,9 @@ export default function WaterLab(){
  <div className="workspace">
   <header className="topbar"><div className="breadcrumbs">工作空间<ChevronRight size={13}/><span>需水预测</span></div><div className="topbar-right"><span className={'connection '+(provider.connected?'connected':'')}><i/>{provider.connected?'AI 服务已连接':'正在连接 AI'}</span><span className="top-divider"/><button onClick={()=>setModal('method')} className="icon-button" aria-label="查看方法说明"><Info size={18}/></button><div className="top-avatar">W</div></div></header>
   <main>
-   <div className="page-intro"><div><div className="eyebrow"><span/>DATA TO DECISIONS</div><h1>需水预测工作台<span className="page-beta">BETA</span></h1><p>从历史数据到未来情景，让每一次预测都有据可循。</p></div><div className="intro-actions"><div className="export-wrapper"><button className="secondary" disabled={!loaded||running} onClick={()=>setExportMenu(v=>!v)}><Download size={15}/>导出结果<ChevronDown size={13}/></button>{exportMenu&&<div className="export-menu"><button onClick={csv}>预测数据 CSV</button><button onClick={()=>{download('WaterLab-完整结果.json',JSON.stringify({dataset,result},null,2),'application/json');setExportMenu(false);}}>完整结果 JSON</button><button onClick={report}>可打印分析报告</button></div>}</div><button className="primary" onClick={()=>setModal('upload')} disabled={running}><Plus size={17}/>新建预测</button></div></div>
-   <div className="research-mode-switch" role="group" aria-label="分析模式"><button className={mode==='single'?'selected':''} onClick={()=>{cancelChat();setMode('single');}}><Sparkles size={16}/><span>标准分析<small>PSO-BP + 单助手</small></span></button><button className={mode==='multi'?'selected':''} onClick={()=>{cancelChat();setMode('multi');}}><FlaskConical size={16}/><span>Multi-agent<small>EvoFlow + AFlow + MatPlotAgent</small></span><b>NEW</b></button></div>
-   <div className={'content-layout '+(mode==='multi'?'multi-layout':'')}>
+   <div className="page-intro"><div><div className="eyebrow"><span/>DATA TO DECISIONS</div><h1>需水预测工作台<span className="page-beta">BETA</span></h1><p>从历史数据到未来情景，让每一次预测都有据可循。</p></div>{mode!=='predict'&&<div className="intro-actions"><div className="export-wrapper"><button className="secondary" disabled={!loaded||running} onClick={()=>setExportMenu(v=>!v)}><Download size={15}/>导出结果<ChevronDown size={13}/></button>{exportMenu&&<div className="export-menu"><button onClick={csv}>预测数据 CSV</button><button onClick={()=>{download('WaterLab-完整结果.json',JSON.stringify({dataset,result},null,2),'application/json');setExportMenu(false);}}>完整结果 JSON</button><button onClick={report}>可打印分析报告</button></div>}</div><button className="primary" onClick={()=>setModal('upload')} disabled={running}><Plus size={17}/>新建预测</button></div>}</div>
+   <div className="research-mode-switch" role="group" aria-label="分析模式"><button className={mode==='predict'?'selected':''} onClick={()=>{cancelChat();setMode('predict');}}><TrendingUp size={16}/><span>Agent 预测<small>通用数据 · 训练与模型选择</small></span><b>NEW</b></button><button className={mode==='single'?'selected':''} onClick={()=>{cancelChat();setMode('single');}}><Sparkles size={16}/><span>标准分析<small>PSO-BP + 单助手</small></span></button><button className={mode==='multi'?'selected':''} onClick={()=>{cancelChat();setMode('multi');}}><FlaskConical size={16}/><span>Multi-agent<small>EvoFlow + AFlow + MatPlotAgent</small></span><b>NEW</b></button></div>
+   {mode==='predict'?<AdaptiveWorkbench connected={provider.connected}/>:<div className={'content-layout '+(mode==='multi'?'multi-layout':'')}>
     <div className="main-column">
      <section className="data-card">
       <div className="dataset-row"><div className="dataset-icon"><FileSpreadsheet size={23}/></div><div className="dataset-name"><strong title={dataset.name}>{dataset.name}</strong><span>{dataset.rows[0].year}–{dataset.rows.at(-1)!.year}<i/> {dataset.rows.length} 条历史记录<i/>3 个驱动变量</span></div><span className="data-status"><Check size={12}/>{loaded?'数据已就绪':'待重新预测'}</span><button className="text-button" onClick={()=>setModal('upload')} disabled={running}>更换数据<ChevronRight size={14}/></button></div>
@@ -102,7 +103,7 @@ export default function WaterLab(){
      </div>
      <div className="chat-composer"><div className="chat-mode"><button className={!visual?'active':''} onClick={()=>setVisual(false)}><MessageSquare size={12}/>数据问答</button><button className={visual?'active':''} onClick={()=>setVisual(true)}><ImageIcon size={12}/>图表审查</button></div><form onSubmit={e=>{e.preventDefault();ask(input);}}><textarea ref={textareaRef} value={input} disabled={!loaded||running} maxLength={3000} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.nativeEvent.isComposing){e.preventDefault();ask(input);}}} rows={2} placeholder={visual?'问我当前图表是否清晰、含义是否一致…':'关于这份预测，你想了解什么？'} aria-label="向分析助手提问"/><div><span>Enter 发送 · Shift + Enter 换行</span><button type="submit" disabled={!input.trim()||busy||running||!loaded} aria-label="发送问题">{busy?<Loader2 size={16} className="spin"/>:<ArrowUp size={18}/>}</button></div></form><p>提问时会发送必要的结果摘要；图表审查还会发送当前图像。</p></div>
     </aside>}
-   </div>
+   </div>}
    <footer className="page-footer"><span><Waves size={14}/>WaterLab<span>让每一个用水决策，都有数据的回响。</span></span><button onClick={()=>setModal('method')}>方法与数据来源<ArrowUpRight size={12}/></button></footer>
   </main>
  </div>
