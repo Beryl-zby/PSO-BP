@@ -1,3 +1,4 @@
+import {researchCalibration,researchHeldout} from './research-multi.mjs';
 import type {Dataset,Forecast,ChartKind} from './types';
 export type Workflow={id:string;name:string;roles:('analyst'|'scenario'|'reviewer')[];parallel:boolean;style:'evidence'|'concise'|'cautious';tags:string[];parent?:string;origin:string};
 export type AgentStep={role:string;answer:string;seconds:number;tokens:number;calls:number};
@@ -13,10 +14,11 @@ export function scoreCandidate(workflow:Workflow,reply:AgentReply,facts:Record<s
 export function nicheSelect(candidates:Candidate[],limit=4){const sorted=[...candidates].sort((a,b)=>b.score-a.score),out:Candidate[]=[];for(const n of [2,3]){const item=sorted.find(c=>c.workflow.roles.length===n);if(item)out.push(item);}for(const c of sorted)if(!out.includes(c)&&out.length<limit)out.push(c);return out;}
 export function retrieve(population:Candidate[],tags:string[]){return [...population].sort((a,b)=>{const fit=(c:Candidate)=>c.score+.03*c.workflow.tags.filter(t=>tags.includes(t)).length;return fit(b)-fit(a);}).slice(0,2);}
 export function uctIndex(nodes:{visits:number;reward:number}[],total:number){let best=0,value=-Infinity;nodes.forEach((n,i)=>{const v=n.visits?n.reward/n.visits+Math.sqrt(2*Math.log(Math.max(2,total))/n.visits):Infinity;if(v>value){value=v;best=i;}});return best;}
-export async function optimizeWorkflows(evidence:ReturnType<typeof makeEvidence>,signal:AbortSignal,onProgress:(s:string)=>void):Promise<SearchResult>{
+export async function optimizeWorkflows(evidence:any,signal:AbortSignal,onProgress:(s:string)=>void):Promise<SearchResult>{
+ const selectionPaths=evidence.task==='ssp-water-demand'?(evidence.scoringFields?.calibration||researchCalibration):calibration,reviewPaths=evidence.task==='ssp-water-demand'?(evidence.scoringFields?.heldout||researchHeldout):heldout;
  const start=performance.now(),log:string[]=[],candidates:Candidate[]=[];let calls=0,tokens=0;
  const tell=(s:string)=>{log.push(s);onProgress(s);};
- async function evaluate(w:Workflow,paths=calibration){tell('执行 '+w.name+' · '+w.roles.map(r=>roleNames[r]).join(' / '));const reply:AgentReply=await multiRequest({action:'run',workflow:w,evidence,question:'依据当前证据回答这些数值，并说明其含义和适用限制：'+paths.join('、'),required:paths},signal);calls+=reply.calls;tokens+=reply.tokens;return scoreCandidate(w,reply,evidence.facts,paths);}
+ async function evaluate(w:Workflow,paths=selectionPaths){tell('执行 '+w.name+' · '+w.roles.map(r=>roleNames[r]).join(' / '));const reply:AgentReply=await multiRequest({action:'run',workflow:w,evidence,question:'依据当前证据回答这些数值，并说明其含义和适用限制：'+paths.join('、'),required:paths},signal);calls+=reply.calls;tokens+=reply.tokens;return scoreCandidate(w,reply,evidence.facts,paths);}
  const seeds:Workflow[]=[{id:'seed-evidence',name:'证据审查流',roles:['analyst','reviewer'],parallel:false,style:'evidence',tags:['回测','数值'],origin:'seed'},{id:'seed-scenario',name:'情景协作流',roles:['analyst','scenario','reviewer'],parallel:true,style:'cautious',tags:['情景','预测'],origin:'seed'}];
  for(const w of seeds)candidates.push(await evaluate(w));
  let population=nicheSelect(candidates);
@@ -24,6 +26,6 @@ export async function optimizeWorkflows(evidence:ReturnType<typeof makeEvidence>
  // Each MCTS rollout evaluates a complete executable graph; rewards propagate to ancestors.
  const root={candidate:population[0],parent:-1,visits:1,reward:population[0].score};const tree=[root];
  for(let iteration=0;iteration<3;iteration++){const index=uctIndex(tree,tree.reduce((s,n)=>s+n.visits,0)),parent=tree[index];tell('AFlow · UCT 选择 '+parent.candidate.workflow.name+' → 扩展第 '+(iteration+1)+' 轮');const p=await multiRequest({action:'propose',kind:'aflow',parents:[{workflow:parent.candidate.workflow,score:parent.candidate.score,checks:parent.candidate.checks}],evidence},signal);calls+=p.calls;tokens+=p.tokens;const child:Workflow={...p.workflow,id:'aflow-'+iteration,name:'AFlow 搜索 '+(iteration+1),origin:'AFlow MCTS',parent:parent.candidate.workflow.id};const c=await evaluate(child);candidates.push(c);tree.push({candidate:c,parent:index,visits:0,reward:0});let cursor=tree.length-1;while(cursor>=0){tree[cursor].visits++;tree[cursor].reward+=c.score;cursor=tree[cursor].parent;}tell('AFlow · 代码评分 '+c.score.toFixed(3)+'，奖励已回传父节点');}
- population=nicheSelect(candidates);const selected=[...candidates].sort((a,b)=>b.score-a.score)[0];tell('冻结工作流：'+selected.workflow.name+'；用未参与选择的字段问题复核');const held=await evaluate(selected.workflow,heldout);tell('复核完成：'+held.checks.filter(c=>c.pass).length+'/'+held.checks.length+' 个字段一致');
+ population=nicheSelect(candidates);const selected=[...candidates].sort((a,b)=>b.score-a.score)[0];tell('冻结工作流：'+selected.workflow.name+'；用未参与选择的字段问题复核');const held=await evaluate(selected.workflow,reviewPaths);tell('复核完成：'+held.checks.filter(c=>c.pass).length+'/'+held.checks.length+' 个字段一致');
  return {population,candidates,selected,heldout:held,log,calls,tokens,seconds:(performance.now()-start)/1000};
 }

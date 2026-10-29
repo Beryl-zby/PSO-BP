@@ -45,6 +45,7 @@ export default defineConfig(async ({ command,mode }) => {
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
   return {
+    optimizeDeps: { include: ['./vendor/langgraph-runtime/node_modules/@langchain/langgraph/dist/index.js'] },
     server: {
       ...(managedLinux
         ? { host: "0.0.0.0", allowedHosts: ["terminal.local"] }

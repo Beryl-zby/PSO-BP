@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {z} from 'zod';
+import {structuredResponse} from '../lib/structured-response.mjs';
+const schema=z.object({answer:z.string().min(1),claims:z.array(z.object({path:z.string(),value:z.number()}))});
+const messages=[{role:'system',content:'Return answer and claims'},{role:'user',content:'draw'}];
+const packet=value=>({choices:[{message:{content:JSON.stringify(value)}}],usage:{total_tokens:7}});
+let seen=[];
+const result=await structuredResponse(messages,100,async (m,b)=>{seen.push({m,b});return seen.length===1?packet({spec:'wrong task format'}):packet({answer:'No numerical claims.',claims:[]});},v=>schema.parse(v));
+assert.equal(result.calls,2);assert.equal(result.tokens,14);assert.deepEqual(result.value.claims,[]);
+assert.match(seen[1].m.at(-1).content,/answer/);assert.match(seen[1].m.at(-1).content,/claims/);assert.equal(seen[1].m.at(-2).role,'assistant');assert.equal(seen[1].b,200);
+let count=0;await assert.rejects(()=>structuredResponse(messages,100,async ()=>{count++;return packet({answer:'missing claims'});},v=>schema.parse(v)),/claims/);assert.equal(count,2);
+count=0;await assert.rejects(()=>structuredResponse(messages,100,async ()=>{count++;throw Error('offline');},v=>schema.parse(v)),/offline/);assert.equal(count,1);
+const controller=new AbortController();controller.abort();await assert.rejects(()=>structuredResponse(messages,100,async ()=>packet({}),undefined,true,controller.signal),/abort/i);
+console.log('Structured responses: missing-field repair, empty claims, bounded retries, accounting, transport errors and cancellation passed.');

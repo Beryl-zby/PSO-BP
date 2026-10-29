@@ -1,0 +1,1 @@
+{"name":"waterlab-langgraph-runtime","private":true,"type":"module","dependencies":{"@langchain/langgraph":"1.5.3"}}

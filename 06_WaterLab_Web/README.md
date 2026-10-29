@@ -1,3 +1,11 @@
+## 结果页整合（2026-10-29）
+第四模块由用户选择BP结果、Agent结果或两者对比。只保留ResearchFigureGallery这一套图表与一个AI解读区；智能体只能返回允许的图型，不修改方法、记录、SSP、路径或预测值。对比只允许相同输入版本，验证口径不同的误差不作排名。源码：components/result-analysis-panel.tsx、public/result-view.mjs。旧MultiAgentPanel仅保留兼容入口，不进入当前第四模块。
+
+## 当前主模型更新（2026-10-29）
+当前指定预测为正则BP集成（无PSO），程序位于07_BP_Ensemble，根目录main_ThreePathForecast(true)统一重算。工作台第三模块使用BP；Agent候选库改为岭回归与正则BP。旧PSO-BP代码及预测记录保留原始标识，不改写成BP。输入指标、政策路径、训练划分及正则化设置保持原协议。下文旧PSO说明属于历史版本。
+
+Windows首次启动前运行 `powershell -ExecutionPolicy Bypass -File scripts/setup-plot-fonts.ps1`，从本机字体目录配置宋体和Times New Roman。其他系统将获授权的对应字体放入 `public/plot-fonts/`。字体文件不随仓库分发。
+
 # WaterLab
 
 面向需水预测研究的网页工作台。上传年度数据，运行正则 PSO-BP 集成，查看回测、未来假设情景与驱动响应，并向千问分析助手提问。
@@ -10,6 +18,7 @@
 git clone https://github.com/Beryl-zby/PSO-BP.git
 cd PSO-BP/06_WaterLab_Web
 pnpm install --frozen-lockfile
+npm run install:langgraph
 ollama pull qwen3.5:4b-q4_K_M
 ```
 
@@ -23,7 +32,8 @@ pnpm dev
 
 - **论文SSP预测**：原正则PSO-BP主模型，5种SSP×3条效率路径，105个年度值，图表和对照导出。
 - **Agent预测**：自动载入同一真实研究数据和任务背景，千问提议候选、一次反馈调整，冻结后末段评价，另计算同划分规则候选对照与15组合。单次实测并未优于规则PSO-BP，不能直接当成预测精度改进。
-- **标准分析 / Multi-agent**：原有功能保留；这些入口的演示情景不能冒充论文SSP。
+- **Multi-agent**：读取论文SSP模型的15组结果，多角色分析和6类研究图。
+- **标准分析**：保留原示例及±5%驱动假设，与论文SSP入口分开。
 
 修改基础数据请编辑仓库的源Excel，重新启动；也可在论文SSP页面上传同格式文件。生成的 `public/research-input.json` 不参与版本管理。若需把新输入用于Agent模块，先更新仓库Excel并重启，再点击“加载我的需水研究数据”。最近Agent试算在各自浏览器保存，输入指纹一致才恢复；朋友不会自动获得你浏览器中的会话记录。
 
@@ -91,7 +101,7 @@ QWEN_TIMEOUT_MS=180000
 
 - 效率保持：农业与工业强度固定为2023值，发展规模按SSP变化。
 - 历史趋势：农业采用输入趋势，工业以2010—2023年2023价强度拟合指数速度，乘各SSP既定速度系数。
-- 规划参考：农业同历史趋势；工业2025后取趋势与参考门槛较小值，2030较该SSP预测2025值下降至少10%（当前输入设置）。历史趋势已达标时两路径如实重合。
+- 江苏政策参考：灌溉有效利用系数由2023年省级0.622线性至2030年0.69，换算农业强度上限；工业2000价11通过省级价格桥换算上限。分别与历史趋势取较小值。600亿为省级总量，不直接套用苏北。
 
 默认2023起点图，可切换2010历史起点、同SSP三路径或同路径五SSP。可下载PNG、年份纵向15组合横向的汇总CSV、输入预测明细CSV、发展节水对照CSV和完整实验JSON。CSV可用Excel打开。
 
@@ -198,7 +208,16 @@ public/waterlab-template.csv 是可直接导入的示例。普通文件读取第
 
 上传数据在浏览器内解析并计算。提问时发送必要的结果摘要给配置的千问服务；图表审查额外发送当前图像。实验记录保存在浏览器 localStorage，不跨设备同步。
 
-## Multi-agent 模式（新增）
+## Multi-agent 模式（五SSP × 三条节水路径）
+
+当前入口复用“论文SSP预测”的输入和结果，不读取标准分析示例。两入口直接切换时保留相同计算结果；初次打开Multi-agent自动计算15组合。修改Excel后重新同步或上传，旧计算结果失效。
+
+分析SSP可选SSP1—SSP5，路径可选frozen（效率保持）、trend（历史趋势）、policy（规划参考）。问答证据包含15组2030年预测值和所选SSP的全部逐年值。切换SSP/路径会清空此前问答、图像和搜索评分，避免沿用旧证据。工作流字段复核也使用论文SSP数值；评分衡量引用一致性，不改变模型或证明预测精度提高。
+
+研究图型包括：各SSP三路径趋势、各路径五SSP趋势、2030分组柱状图、逐年节水量、发展与节水瀑布图、2024—2030累计节水量。趋势可从2023或最早历史开始；节水量从2023零值开始。图读取全部105个预测值及已有差值，用固定Python模板绘制，不让LLM重新生成数值。可导出PNG、绘图源码和数据；展开下方“15组预测数据、趋势与导出”可下载全部结果。绘图按钮不要求模型在线；协作问答与工作流搜索需要已配置的模型服务。
+
+旧版通用协作组件与其方法背景保留在下述说明中；当前论文入口使用上面的数据与绘图流程。
+
 
 网页顶部切换到 **Multi-agent**。预测仍用相同的 PSO-BP 引擎；此模式新增可运行、可检查的协作分析与科学绘图。
 
@@ -222,3 +241,27 @@ MatPlotAgent 的执行运行在 `sandbox="allow-scripts"` 的不透明来源 ifr
     node --experimental-strip-types tests/multiagent.test.mjs
 
 新增测试覆盖数值引用评分、缺失/错误引用惩罚、调用成本、生态位保留、标签路由、UCT 探索与选择/复核字段分离。
+
+
+江苏政策路径（2026-10-26更新）：模型设置与节水路径输入工作表记录三条路径。农业效率由省级2023年0.622线性到2030年0.69；工业2000价11通过省级工业价格桥换算。分别与历史趋势取小值，不重复压减。600亿为省级总量，未直接施加苏北。所有约束均为苏北研究参考，不是正式达标认证。
+
+
+## LangGraph编排（2026-10-29）
+使用官方JavaScript/TypeScript包 `@langchain/langgraph`，保持现有本地Qwen接口。
+预测状态图：方案规划 → 候选验证 → 验证反馈调整 → 冻结方案 → 测试与预测 → 情景输出。
+结果分析状态图：结果分析与可视化Agent → 程序核验结构化数值引用；旧多角色分析搜索已退出当前主流程。
+程序节点控制顺序，未增加LLM协调Agent。LLM不计算预测数字，测试反馈不传入规划Agent。
+保留原模型、输入、候选预算和随机设置；每次预测导出的JSON新增 `orchestration.trace`。
+本次只启用单次运行状态与取消；尚未实现跨进程持久化检查点、断点续跑或自动重试。
+结果绘图保持既有工具流程；SSP研究图继续使用固定Python模板。
+
+LangGraph固定版本：1.5.3。依赖隔离于 `vendor/langgraph-runtime/`，使用该目录内的package.json及package-lock.json锁定版本，不升级主工作台依赖。新机器先运行 `npm run install:langgraph` 安装该运行时（需要Node.js/npm），再按原方式启动。若使用pnpm运行主项目，也需先安装此独立运行时。
+验证：`node --test tests/langgraph-workflow.test.mjs`；数值比较忽略耗时和生成时间字段。
+
+## 三Agent与AFlow适配（2026-10-29）
+建模规划Agent：/api/predict-plan；预测执行Agent：/api/forecast-execute（受约束工具调用，不允许任意代码）；结果分析与可视化Agent：/api/analyze-results（程序核验claims，SSP图模板绘制）。普通问答入口为第三角色的不同接口。
+第二模块AFlow-inspired搜索使用MCTS变体，搜索配置审查、反馈修订和提示策略。1初始流程+最多3扩展。每个节点为完整LangGraph流程，按验证误差选优，调用数破同分；不同流程复用相同数值配置。
+这是受限DSL工作流适配，不是原版AFlow完整代码生成空间。搜索不接触测试指标，冻结后才运行测试与15情景。预算高于固定流程，不宣称同预算优越。第四模块原分析搜索退出主界面，旧代码保留可追溯。
+旧记录保留，仅新运行带三Agent版本与workflowSearch溯源。可导出完整JSON查看树、分数、错误及预算。
+
+参考：Zhang et al., AFlow: Automating Agentic Workflow Generation, arXiv:2410.10762v4, https://arxiv.org/abs/2410.10762 。本地适配采用UCT启发式与8种受限DSL组合；没有复现原文的soft mixed-probability选择与开放代码编辑空间。

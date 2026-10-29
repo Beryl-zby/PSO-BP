@@ -6,9 +6,9 @@ export type Forecast={
  forecasts:{year:number;x:number[];base:number;saving:number;growth:number}[];
  sensitivity:{change:number;value:number}[][];
  metrics:Record<string,{mape:number;mae:number;rmse:number;mse:number}>;
- config:{members:number;population:number;generations:number;maxIterations:number;lambda:number;holdout:number;seed:number;architecture:string};
+ config:{initialization?:'bp'|'pso';members:number;population:number;generations:number;maxIterations:number;lambda:number;holdout:number;seed:number;architecture:string};
  selections:{trainingEnd:number;lambda:number;mape:number;scores:{lambda:number;mape:number}[]}[];
  diagnostics:{negativeCounts:number[];outside:number;nonpositive:number;points:number};
  driverSource:string;trace:{label:string;seconds:number}[];seconds:number;createdAt:string;
- provenance:{method:string;source:string;prng:string;validation:string;scenarios:string};
+ provenance:{modelVersion?:string;method:string;source:string;prng:string;validation:string;scenarios:string};
 };

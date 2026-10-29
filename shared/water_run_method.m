@@ -1,4 +1,4 @@
-function R=water_run_method(family,inputFile,makeFigures)
+function R=water_run_method(family,inputFile,makeFigures,outDir)
 % Run one of the three requested methods and save it in its own folder.
 if nargin<2,inputFile=[];end
 if nargin<3,makeFigures=true;end
@@ -40,7 +40,7 @@ elseif strcmp(family,'gpr')
 end
 after=water_suite_data(D.file);assert(strcmp(D.source_sha256,after.source_sha256));
 R.input_workbook_unchanged=true;
-out=fullfile(spec.path,'results');if ~isfolder(out),mkdir(out);end
+if nargin<4||isempty(outDir),out=fullfile(spec.path,'results');else,out=outDir;end;if ~isfolder(out),mkdir(out);end
 save(fullfile(out,'result.mat'),'R','models');
 writeText(fullfile(out,'result.json'),jsonencode(R,'PrettyPrint',true));
 writeReport(R,fullfile(out,'结果报告.md'));
@@ -89,7 +89,7 @@ for j=1:2
     ylabel(ax,'需水量（亿立方米）','FontName',font);legend(ax,{'实际值',R.method},'Location','best','FontName',font);grid(ax,'on');
 end
 title(t,[R.method,'：开发回测'],'FontName',font);
-exportgraphics(f,fullfile(out,'时间检验.png'),'Resolution',150);clear guard
+water_apply_plot_style(f);exportgraphics(f,fullfile(out,'时间检验.png'),'Resolution',150);clear guard
 f=figure('Visible','off','Color','w','Position',[30,30,1100,390]);guard=onCleanup(@()close(f));t=tiledlayout(f,1,3,'Padding','compact');
 for c=1:3
     ax=nexttile(t);plot(ax,100*R.response_fraction,R.response_prediction(:,c),'LineWidth',1.8);
@@ -97,12 +97,12 @@ for c=1:3
     ylabel(ax,'预测需水量（亿立方米）','FontName',font);set(ax,'FontName',font);grid(ax,'on');
 end
 title(t,'模型条件响应：其余输入固定；包含外推探测','FontName',font);
-exportgraphics(f,fullfile(out,'因素响应.png'),'Resolution',150);clear guard
+water_apply_plot_style(f);exportgraphics(f,fullfile(out,'因素响应.png'),'Resolution',150);clear guard
 f=figure('Visible','off','Color','w','Position',[30,30,900,460]);guard=onCleanup(@()close(f));hold on
 for s=1:5,plot([2023;R.future_years],[R.actual(end);R.future_prediction(:,s,3)],'-o','LineWidth',1.5,'DisplayName',R.scenarios{s});end
 set(gca,'FontName',font);xlabel('年份','FontName',font);ylabel('需水量（亿立方米）','FontName',font);
 title([R.method,'：规划约束路径'],'FontName',font);legend('Location','best');grid on
-exportgraphics(f,fullfile(out,'未来情景.png'),'Resolution',150);clear guard
+water_apply_plot_style(f);exportgraphics(f,fullfile(out,'未来情景.png'),'Resolution',150);clear guard
 end
 
 function writeText(file,content)

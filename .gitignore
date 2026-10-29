@@ -1,2 +1,10 @@
 __pycache__/
 *.pyc
+
+# Local runtimes, private configuration and licensed system fonts
+**/node_modules/
+**/.pnpm-store/
+**/.openai/
+**/.env*
+**/.dev.vars*
+**/plot-fonts/

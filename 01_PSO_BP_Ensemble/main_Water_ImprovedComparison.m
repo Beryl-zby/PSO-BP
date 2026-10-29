@@ -146,12 +146,12 @@ for mode=1:2
     legend(ax,'Location','best','FontName',font,'FontSize',10);
 end
 title(t,'开发回测：同输入、同时间划分、同实际值锚定','FontName',font,'FontSize',16);
-exportgraphics(f,fullfile(outDir,'改进网络与线性模型对照.png'),'Resolution',180);clear guard
+water_apply_plot_style(f);exportgraphics(f,fullfile(outDir,'改进网络与线性模型对照.png'),'Resolution',180);clear guard
 f=figure('Visible','off','Color','w','Position',[50,50,900,540]);guard=onCleanup(@()close(f));
 bar([R.fixed_metrics(1:4,1),R.rolling_metrics(1:4,1)]);set(gca,'XTickLabel',R.methods(1:4),'FontName',font,'FontSize',12);
 ylabel('MAPE（%）','FontName',font);legend({'固定起点','逐年滚动'},'FontName',font,'Location','northeast');
 title('开发回测误差（越低越好）','FontName',font);box off
-exportgraphics(f,fullfile(outDir,'改进网络误差对比.png'),'Resolution',180);clear guard
+water_apply_plot_style(f);exportgraphics(f,fullfile(outDir,'改进网络误差对比.png'),'Resolution',180);clear guard
 end
 
 function writeText(file,content)

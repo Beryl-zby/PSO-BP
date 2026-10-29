@@ -3,12 +3,12 @@ function S=main_ThreeMethodComparison(inputFile,makeFigures)
 base=setup_water_paths;
 if nargin<1,inputFile=[];end
 if nargin<2,makeFigures=true;end
-families={'pso','bayes','gpr'};results=cell(1,7);
+families={'bp','bayes','gpr'};results=cell(1,7);
 for m=1:3
     fprintf('\n=== METHOD %d/3: %s ===\n',m,families{m});
     results{m}=water_run_method(families{m},inputFile,makeFigures);
 end
-D=water_suite_data(inputFile);[~,cfg]=water_suite_setup('pso');cfg.seed=D.seed;
+D=water_suite_data(inputFile);[~,cfg]=water_suite_setup('bp');cfg.seed=D.seed;
 names={'岭回归（原网格）','岭回归（加密网格）','普通线性回归','最近实际值'};
 grids={10.^(-5:2),logspace(-5,2,29),0,0};
 for j=1:4
@@ -44,8 +44,8 @@ end
 
 function writeSummary(S,file)
 lines={'# 三种方法统一对比','',...
-    '三种方法分别位于01_PSO_BP_Ensemble、02_Bayesian_BP、03_Gaussian_Process；每个目录都有模型代码、单独运行入口和独立结果。',...
-    '同一三个输入、固定2010—2019训练/2020—2023检验、逐年扩展历史、实际末年锚定；每次在训练期末3年选配置。PSO-BP和贝叶斯正则网络均为12成员等权集成；GPR是单个精确概率模型。',...
+    '三种方法分别位于07_BP_Ensemble、02_Bayesian_BP、03_Gaussian_Process；每个目录都有模型代码、单独运行入口和独立结果。',...
+    '同一三个输入、固定2010—2019训练/2020—2023检验、逐年扩展历史、实际末年锚定；每次在训练期末3年选配置。正则BP和贝叶斯正则网络均为12成员等权集成；GPR是单个精确概率模型。',...
     '**这是开发回测，不是新增独立测试。两种检验重复使用同四年，不是8个独立样本；两项MAPE均值仅用于描述性排序。**','',...
     '| 排名 | 方法 | 固定MAPE (%) | 滚动MAPE (%) | 均值 (%) | 固定RMSE | 滚动RMSE |',...
     '|---:|---|---:|---:|---:|---:|---:|'};
@@ -63,13 +63,13 @@ lines=[lines,{'','方向检查覆盖每种方法105个未来输入点；农业/�
     '## 逐年回测',''}];
 for mode=1:2
     if mode==1,p=S.fixed_prediction;label='固定起点';else,p=S.rolling_prediction;label='逐年滚动';end
-    lines=[lines,{['### ',label],'','| 年份 | 实际 | PSO-BP | 贝叶斯正则网络 | GPR | 普通线性回归 |','|---|---:|---:|---:|---:|---:|'}]; %#ok<AGROW>
+    lines=[lines,{['### ',label],'','| 年份 | 实际 | 正则BP集成 | 贝叶斯正则网络 | GPR | 普通线性回归 |','|---|---:|---:|---:|---:|---:|'}]; %#ok<AGROW>
     for k=1:4,lines{end+1}=sprintf('| %d | %.6f | %.6f | %.6f | %.6f | %.6f |',S.validation_years(k),S.actual(k),p(k,[1,2,3,6]));end %#ok<AGROW>
 end
 lines=[lines,{'','## 运行与结果','',...
     '在根目录运行 main_ThreeMethodComparison，然后运行 test_ThreeMethodComparison。各方法也能通过各自文件夹内run_*.m单独运行。',...
     '三个文件夹的results/result.mat保存固定、滚动、最终模型；result.json保存全量参数选择与预测；因素响应图和未来情景图揭示模型在不同驱动/节水路径下的变化。',...
-    '贝叶斯正则网络使用Deep Learning Toolbox的trainbr；GPR使用Statistics and Machine Learning Toolbox的fitrgp；PSO-BP沿用已验证的基础MATLAB实现。',...
+    '贝叶斯正则网络使用Deep Learning Toolbox的trainbr；GPR使用Statistics and Machine Learning Toolbox的fitrgp；正则BP集成沿用已验证的基础MATLAB实现。',...
     '训练期归一化、内验证、时间锚定由共享代码统一执行。源Excel只读，文件SHA256记录在JSON。原14年数据的估算与统计口径限制仍然存在。'}];
 writeText(file,strjoin(lines,newline));
 end
@@ -84,13 +84,13 @@ for mode=1:2
     set(ax,'XTick',2020:2023,'FontName',font);title(ax,label,'FontName',font);ylabel(ax,'需水量（亿立方米）','FontName',font);legend(ax,'Location','best','FontName',font);grid(ax,'on');
 end
 title(t,'三种方法与普通线性回归：开发回测','FontName',font);
-exportgraphics(f,fullfile(out,'三种方法预测对比.png'),'Resolution',160);clear guard
+water_apply_plot_style(f);exportgraphics(f,fullfile(out,'三种方法预测对比.png'),'Resolution',160);clear guard
 f=figure('Visible','off','Color','w','Position',[30,30,1100,520]);guard=onCleanup(@()close(f));
 bar([S.fixed_metrics(1:6,1),S.rolling_metrics(1:6,1)]);
 set(gca,'XTickLabel',S.methods(1:6),'FontName',font,'FontSize',10);xtickangle(15);
 ylabel('MAPE（%）','FontName',font);title('三种方法与三种线性对照：误差越低越好','FontName',font);
 legend({'固定起点','逐年滚动'},'FontName',font);grid on
-exportgraphics(f,fullfile(out,'三种方法误差对比.png'),'Resolution',160);clear guard
+water_apply_plot_style(f);exportgraphics(f,fullfile(out,'三种方法误差对比.png'),'Resolution',160);clear guard
 end
 
 function writeText(file,content)

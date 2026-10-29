@@ -1,0 +1,1 @@
+当前主模型：正则BP集成。运行根目录main_ThreePathForecast(true)重算五SSP×三路径及工作台内置结果。随机小初值、3-1-1网络、12成员、L2候选0.01/0.03/0.1/1、同局部求解器与锚定，无PSO。旧01_PSO_BP_Ensemble和06_BP_vs_PSO_BP仅保留对照。

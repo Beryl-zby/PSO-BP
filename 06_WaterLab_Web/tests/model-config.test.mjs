@@ -9,3 +9,7 @@ assert.equal(modelConfig({QWEN_PROVIDER:'local',QWEN_BASE_URL:'http://localhost:
 assert.equal(modelConfig({QWEN_PROVIDER:'local',QWEN_BASE_URL:'http://localhost:1234/v1',QWEN_MODEL:'q',QWEN_API_KEY:'local-test'}).apiKey,'local-test');
 assert.deepEqual(parseModelJSON('<think>reason</think>\n```json\n{"ok":true}\n```'),{ok:true});assert.throws(()=>parseModelJSON('{"partial":'));
 console.log('Local/cloud configuration, optional local auth, cloud-key isolation, standard payload and JSON parsing passed.');
+
+const schema={type:'object',properties:{answer:{type:'string'}},required:['answer']};
+assert.deepEqual(JSON.parse(requestOptions(local,[],100,schema).body).response_format.json_schema.schema,schema);
+assert.equal(JSON.parse(requestOptions(cloud,[],100,schema).body).response_format.type,'json_object');

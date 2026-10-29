@@ -1,8 +1,11 @@
+import {researchPlotCode} from './research-plot.mjs';
+import {standardTrendCode} from './standard-trend.mjs';
 import type {Dataset,Forecast} from './types';
 export type PlotArtifact={image:string;code:string;spec:string;review:string;selection:string;trace:string[];calls:number;tokens:number;seconds:number;request:string};
 export function plotData(d:Dataset,r:Forecast){return {history:r.rows,forecast:r.forecasts,backtest:r.backtest,sensitivity:r.sensitivity,metrics:r.metrics,features:['Agriculture driver','Industry driver','Urban population driver'],featureSourceNames:d.featureNames,unitLabel:d.unit==='亿m³'?'100 million m3':d.unit,sourceUnit:d.unit,assumption:'Saving/growth: agriculture and industry drivers gradually reach -5%/+5% by final year; scenarios, not confidence intervals; future drivers: '+r.driverSource};}
 async function pythonSession(signal:AbortSignal){
  const code=await (await fetch('/matplot-worker.js',{signal})).text();signal.throwIfAborted();
+ const fontFiles=await Promise.all(['simsun.ttc','times.ttf','timesbd.ttf','timesi.ttf','timesbi.ttf'].map(async name=>{const response=await fetch('/plot-fonts/'+name,{signal});if(!response.ok)throw Error('绘图字体加载失败：'+name);return {name,bytes:new Uint8Array(await response.arrayBuffer())};}));
  const frame=document.createElement('iframe');frame.setAttribute('sandbox','allow-scripts');frame.setAttribute('aria-hidden','true');frame.style.display='none';
  const nonce=crypto.randomUUID();let counter=0;const waiting=new Map<number,{resolve:(v:any)=>void;reject:(e:Error)=>void;timer:ReturnType<typeof setTimeout>}>();let readyResolve:()=>void,readyReject:(e:Error)=>void;
  const ready=new Promise<void>((resolve,reject)=>{readyResolve=resolve;readyReject=reject;});
@@ -13,13 +16,26 @@ async function pythonSession(signal:AbortSignal){
  const bootstrap=`const nonce=${JSON.stringify(nonce)};const source=${JSON.stringify(code)};const worker=new Worker(URL.createObjectURL(new Blob([source],{type:'text/javascript'})),{});worker.onmessage=e=>parent.postMessage({...e.data,nonce},'*');worker.onerror=e=>parent.postMessage({error:'Python worker load failed: '+(e.message||e.type||'unknown'),id:0,nonce},'*');let current=0;document.addEventListener('securitypolicyviolation',e=>parent.postMessage({error:'Python CSP: '+e.violatedDirective+' '+e.blockedURI,id:0,nonce},'*'));window.onmessage=e=>{if(e.source!==parent||e.data?.nonce!==nonce)return;if(e.data.close){worker.terminate();return;}current=e.data.id;worker.postMessage(e.data);};`;
  frame.srcdoc=`<!doctype html><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net blob:; worker-src blob:; connect-src https://cdn.jsdelivr.net; img-src data: blob:"><script>${bootstrap.replace(/<\/script/gi,'<\\/script')}</script>`;
  document.body.appendChild(frame);const timeout=setTimeout(()=>readyReject(Error('无法启动Python绘图环境（120秒），请检查CDN连接')),120000);try{await ready;}catch(e){close();throw e;}finally{clearTimeout(timeout);}
- return {close,run:(source:string,data:unknown)=>new Promise<{image:string;log:string}>((resolve,reject)=>{signal.throwIfAborted();const id=++counter;const timer=setTimeout(()=>{waiting.delete(id);reject(Error('Python加载或执行超时（120秒），可重试'));close();},120000);waiting.set(id,{resolve,reject,timer});frame.contentWindow!.postMessage({nonce,id,code:source,data:JSON.stringify(data)},'*');})};
+ return {close,run:(source:string,data:unknown)=>new Promise<{image:string;log:string}>((resolve,reject)=>{signal.throwIfAborted();const id=++counter;const timer=setTimeout(()=>{waiting.delete(id);reject(Error('Python加载或执行超时（120秒），可重试'));close();},120000);waiting.set(id,{resolve,reject,timer});frame.contentWindow!.postMessage({nonce,id,code:source,data:JSON.stringify(data),fontFiles},'*');})};
 }
 export async function generatePlot(question:string,data:Record<string,unknown>,signal:AbortSignal,progress:(s:string)=>void):Promise<PlotArtifact>{
  const start=performance.now(),trace:string[]=[];let calls=0,tokens=0;const tell=(s:string)=>{trace.push(s);progress(s);};
  async function api(action:string,extra:Record<string,unknown>={}){const r=await fetch('/api/matplot',{signal,method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,question,data,...extra})});const v:any=await r.json();if(!r.ok)throw Error(v.error||'MatPlotAgent请求失败');calls+=v.calls||1;tokens+=v.tokens||0;return v;}
  tell('加载浏览器Python、NumPy、Pandas与Matplotlib（首次需下载）');const runtime=await pythonSession(signal);
- try{tell('MatPlotAgent · 需求扩写');const {spec}=await api('expand');tell('MatPlotAgent · 生成Python源码');let {code}=await api('generate',{question:spec});let initial:{image:string;log:string};try{initial=await runtime.run(code,data);}catch(e){signal.throwIfAborted();tell('Python 执行反馈：'+String(e).slice(-700));tell('MatPlotAgent · 根据执行错误修复源码');code=(await api('generate',{question:spec,code,feedback:String(e)})).code;initial=await runtime.run(code,data);}
+ try{
+ if(data.task==='ssp-water-demand'){
+  tell('读取全部15组SSP路径与105个年度值，按研究图型绘制');
+  const value=await runtime.run(researchPlotCode,data);
+  tell('五SSP三路径研究图已完成，预测数值保持原值');
+  return {image:value.image,code:researchPlotCode,spec:'Exact 5 SSP x 3 efficiency-path research result; plot kind: '+String(data.plotKind),review:'研究模板只读取history.y、combinations.points.demand及comparisons；未调用模型生成数值或视觉审查。',selection:'情景重合如实保留；差值来自同模型路径比较，不是政策因果效果。',trace,calls:0,tokens:0,seconds:(performance.now()-start)/1000,request:question};
+ }
+ if(data.task!=='generic-forecast'&&Array.isArray(data.history)&&Array.isArray(data.forecast)&&/one line chart|历史.*趋势|historical.*three/i.test(question)&&!/回测|backtest|散点|scatter|SSP/i.test(question.replace(/not SSP scenarios/gi,''))){
+  tell('按已校验字段绘制需水趋势：历史y、未来base/saving/growth');
+  const image=await runtime.run(standardTrendCode,data);
+  tell('需水趋势图完成（固定绘图模板，未调用大模型重写数据）');
+  return {image:image.image,code:standardTrendCode,spec:'Historical y and all three forecast assumptions; preserve the final observed anchor.',review:'固定字段映射：历史总需水y，未来base/saving/growth；未执行模型视觉审查。',selection:'基础趋势图使用固定模板；三条线为标准分析驱动假设，不是SSP。',trace,calls:0,tokens:0,seconds:(performance.now()-start)/1000,request:question};
+ }
+ tell('MatPlotAgent · 需求扩写');const {spec}=await api('expand');tell('MatPlotAgent · 生成Python源码');let {code}=await api('generate',{question:spec});let initial:{image:string;log:string};try{initial=await runtime.run(code,data);}catch(e){signal.throwIfAborted();tell('Python 执行反馈：'+String(e).slice(-700));tell('MatPlotAgent · 根据执行错误修复源码');code=(await api('generate',{question:spec,code,feedback:String(e)})).code;initial=await runtime.run(code,data);}
  tell('MatPlotAgent · 多模态审查真实生成图像');let review='',selection='保留初始图：视觉审查未要求修改',image=initial.image;
  const checked=await api('review',{question:spec,code,image});review=checked.review;
  if(checked.revise){tell('MatPlotAgent · 按视觉反馈修图');const refinedCode=(await api('generate',{question:spec,code,feedback:review})).code;try{const refined=await runtime.run(refinedCode,data);tell('MatPlotAgent · 对比初始图与修订图');const choice=await api('select',{question:spec,code:JSON.stringify({initial:code,refined:refinedCode}),image,candidate:refined.image});selection=choice.reason;if(choice.choice==='refined'){image=refined.image;code=refinedCode;}}catch(e){signal.throwIfAborted();selection='修订图执行失败，保留可用的初始图：'+String(e).slice(-300);tell(selection);}}
