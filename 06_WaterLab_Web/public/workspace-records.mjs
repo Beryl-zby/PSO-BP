@@ -1,5 +1,5 @@
 import {prepareResearch} from './research-engine.mjs';
-export function psoRecord(result,bundle){const kind=result.provenance?.modelVersion==='regularized-bp-v1'?'bp':'pso';return {id:kind+'-'+result.createdAt+'-'+result.source.sha256,kind,label:result.provenance?.method||'PSO-BP',createdAt:result.createdAt,source:result.source,bundle,result,protocol:{name:result.provenance?.validation||'2020—2023开发回测',testYears:result.backtest.map(r=>r.year),type:'fixed-and-rolling-development'}};}
+export function psoRecord(result,bundle){const kind=['regularized-bp-v1','regularized-bp-v2'].includes(result.provenance?.modelVersion)?'bp':'pso';return {id:kind+'-'+result.createdAt+'-'+result.source.sha256,kind,label:result.provenance?.method||'PSO-BP',createdAt:result.createdAt,source:result.source,bundle,result,protocol:{name:result.provenance?.validation||'2020—2023开发回测',testYears:result.backtest.map(r=>r.year),type:'fixed-and-rolling-development'}};}
 export function agentRecord(run,bundle){
  if(run.source?.sha256!==bundle.source.sha256||run.researchBatch?.combinations?.length!==15)throw Error('Agent记录与输入不匹配，或缺少15组预测');
  const prepared=prepareResearch(bundle),baseDemand=prepared.base.demand;

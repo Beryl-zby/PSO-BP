@@ -8,8 +8,14 @@ switch lower(family)
         cfg.pso_population=0;cfg.pso_generations=0;
         spec=struct('id','bp','name','正则BP集成','folder','07_BP_Ensemble',...
             'model','model_BP_Ensemble','description','3-1-1；权重偏置共同L2；随机小初值+解析Jacobian阻尼高斯牛顿；12成员等权集成；无PSO');
-        candidates=cell(1,4);values=[.01,.03,.1,1];
-        for k=1:4,candidates{k}=struct('label',sprintf('lambda=%.2g',values(k)),'penalty',values(k));end
+        spec.description=[spec.description,'；训练前缀内选择末年/无/末三年残差中位数校准'];
+        candidates=cell(1,12);values=[.01,.03,.1,1];k=0;
+        for mode={'last','none','median3'}
+            for value=values
+                k=k+1;candidates{k}=struct('label',sprintf('lambda=%.2g / %s',value,mode{1}),...
+                    'penalty',value,'calibration',mode{1});
+            end
+        end
     case 'pso'
         spec=struct('id','pso','name','正则PSO-BP集成','folder','01_PSO_BP_Ensemble',...
             'model','model_PSO_BP_Ensemble','description','3-1-1；权重与偏置共同L2正则；PSO+解析Jacobian训练；12成员等权集成');

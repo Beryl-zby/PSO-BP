@@ -1,15 +1,17 @@
 function T=main_ThreePathForecast(retrain)
 % 五SSP三路径统一入口；参数与数据读取data/需水预测模型对照.xlsx。
 % 近期效率固定于2021—2023均值；政策只作用农业工业；总量仅校核。
-root=fileparts(mfilename('fullpath'));addpath(root);setup_water_paths;refreshPathSnapshot;
+root=fileparts(mfilename('fullpath'));addpath(root);setup_water_paths;
 if nargin<1,retrain=true;end
 if retrain,run_BP_Ensemble([],false);end
 D=water_suite_data;S=load(fullfile(root,'07_BP_Ensemble','results','result.mat'),'R','models');R=S.R;models=S.models;
 assert(isequal(R.actual,D.Y(11:14)),'历史目标与训练版本不一致');assert(strcmp(R.input_sha256,D.source_sha256),'训练文件指纹不一致，请重新训练');
-limit=D.policy_settings.regional_water_limit;base=D.Y(end);f0=base+model_BP_Ensemble('predict',models.final,D.frozen_base_X)-model_BP_Ensemble('predict',models.final,D.X(end,:));baselineEffect=f0-base;
+assert(isfield(R,'model_version')&&strcmp(R.model_version,'regularized-bp-v2'),'BP校准协议已更新，请使用true重新训练');
+predict=@(xx)water_predict_method('model_BP_Ensemble',models.final,xx,D.X(end,:),D.Y(end));
+limit=D.policy_settings.regional_water_limit;base=D.Y(end);modelBase=predict(D.X(end,:));f0=predict(D.frozen_base_X);baselineEffect=f0-base;
 out=fullfile(root,'results','三路径预测_BP_最新');figdir=fullfile(out,'图件');if ~isfolder(figdir),mkdir(figdir);end
 file=fullfile(out,'五SSP三路径需水预测_最新.xlsx');
-headers={'情景','年份','近期平均效率维持','历史趋势延续','政策规划参考','发展变化_剔除效率基准差异','效率基准差异','历史趋势节水','额外政策节水','合计节水','政策相对2023净变化','节水抵消发展比例','2030总量参考上限','政策超参考上限'};
+headers={'情景','年份','近期平均效率维持','历史趋势延续','政策规划参考','发展变化_剔除基期衔接差','基期衔接差_含校准与效率','历史趋势节水','额外政策节水','合计节水','政策相对2023净变化','节水抵消发展比例','2030总量参考上限','政策超参考上限'};
 C=cell(35,14);k=0;summary=cell(5,7);wide=cell(8,16);wide(:,1)=num2cell((2023:2030)');labels={'年份'};
 for s=1:5
  p=reshape(R.future_prediction(:,s,:),7,3);dev=p(:,1)-f0;hist=p(:,1)-p(:,2);extra=p(:,2)-p(:,3);saved=p(:,1)-p(:,3);net=p(:,3)-base;
@@ -34,30 +36,29 @@ end
 writecell([headers;C],file,'Sheet','逐年路径与节水','WriteMode','overwritesheet','UseExcel',false);
 T=cell2table(summary,'VariableNames',{'情景','近期效率维持2030','历史趋势2030','政策路径2030','2030额外政策节水','2030参考上限','政策超参考上限'});writetable(T,file,'Sheet','2030汇总','WriteMode','overwritesheet','UseExcel',false);
 writecell([labels;wide],file,'Sheet','15组合汇总','WriteMode','overwritesheet','UseExcel',false);
-pathInput=readcell(D.file,'Sheet','节水路径输入','UseExcel',false);pathInput=clean(pathInput);writecell(pathInput,file,'Sheet','路径输入','WriteMode','overwritesheet','UseExcel',false);
+pathInput=pathSnapshot(D);writecell(pathInput,file,'Sheet','路径输入','WriteMode','overwritesheet','UseExcel',false);
 history=clean(readcell(D.file,'Sheet','历史数据','UseExcel',false));writecell(history,file,'Sheet','历史输入','WriteMode','overwritesheet','UseExcel',false);
-back=table(R.validation_years,R.actual,R.fixed_prediction,R.rolling_prediction,'VariableNames',{'年份','实际用水量','固定起点预测','滚动预测'});writetable(back,file,'Sheet','历史回测','WriteMode','overwritesheet','UseExcel',false);writetable(back,D.file,'Sheet','时间检验逐年值','WriteMode','overwritesheet','UseExcel',false);
+back=table(R.validation_years,R.actual,R.fixed_prediction,R.rolling_prediction,'VariableNames',{'年份','实际用水量','固定起点预测','滚动预测'});writetable(back,file,'Sheet','历史回测','WriteMode','overwritesheet','UseExcel',false);
 metrics=cell2table([{'固定起点'},num2cell(R.fixed_metrics);{'滚动起点'},num2cell(R.rolling_metrics)],'VariableNames',{'检验','MAPE百分比','MAE','RMSE','MSE'});writetable(metrics,file,'Sheet','误差指标','WriteMode','overwritesheet','UseExcel',false);
 for j=1:3
- v=squeeze(R.future_prediction(:,:,j));tab=array2table([(2023:2030)',[repmat(base,1,5);v]],'VariableNames',[{'年份'},D.scenarios]);writetable(tab,D.file,'Sheet',['主模型_',D.paths{j}],'WriteMode','overwritesheet','UseExcel',false);
+ v=squeeze(R.future_prediction(:,:,j));tab=array2table([(2023:2030)',[repmat(base,1,5);v]],'VariableNames',[{'年份'},D.scenarios]);writetable(tab,file,'Sheet',['主模型_',D.paths{j}],'WriteMode','overwritesheet','UseExcel',false);
 end
-writecell([headers;C],D.file,'Sheet','主模型贡献分解','WriteMode','overwritesheet','UseExcel',false);
-notes={'项目','设置与含义';'预测模型','3-1-1正则BP、12成员；随机小初值直接局部训练，无PSO；其他训练设置沿用配对检验版本';'2022历史目标','194.3亿m3';'近期效率对照','2021—2023农业与工业2023价强度均值；不声称实际效率不变';'农业政策参考','省级eta2023=0.622线性至2030=0.69；亩均参考上限=m2023×eta2023/eta(t)，与趋势取小值';'工业政策参考','2000不变价、不含火电11；省级价格桥换算后与趋势取小值；现有火电与价格代理边界未完全统一，不认证正式达标';'生活政策','不额外设约束；沿用人口城镇化代理，无新增生活强度特征';'总量参考','600×165/571.4=173.258662933亿m3；研究折算而非正式苏北配额，仅2030检查，不截断';'效率基准差异',sprintf('近期均值效率下的2023反事实预测%.9f，相对2023实际差%.9f；独立输出以免计入发展效应',f0,baselineEffect);'分解恒等式','政策净变化=发展变化+效率基准差异−历史节水−额外政策节水；均为模型条件差异，不是政策因果效应';'回测性质','固定2010—2019预测2020—2023；逐年滚动；均为已用于开发的历史回测';'其他方法结果','本轮仅重跑当前正则BP集成；原其他方法排名与旧误差未同步重算，不能据其继续宣称主模型最优';'数据限制','分行业重构量是估计参考，未替换训练驱动；面积为播种代理；工业火电口径未完全统一'};
-writecell(notes,file,'Sheet','参数与口径','WriteMode','overwritesheet','UseExcel',false);writecell(notes,D.file,'Sheet','方法与结论','WriteMode','overwritesheet','UseExcel',false);
+notes={'项目','设置与含义';'预测模型','3-1-1正则BP、12成员；随机小初值直接局部训练，无PSO；正则与last/none/median3校准在训练期内联合选择';'2022历史目标','194.3亿m3';'近期效率对照','2021—2023农业与工业2023价强度均值；不声称实际效率不变';'农业政策参考','省级eta2023=0.622线性至2030=0.69；亩均参考上限=m2023×eta2023/eta(t)，与趋势取小值';'工业政策参考','2000不变价、不含火电11；省级价格桥换算后与趋势取小值；现有火电与价格代理边界未完全统一，不认证正式达标';'生活政策','不额外设约束；沿用人口城镇化代理，无新增生活强度特征';'总量参考','600×165/571.4=173.258662933亿m3；研究折算而非正式苏北配额，仅2030检查，不截断';'基期衔接差',sprintf('近期均值效率下2023反事实预测%.9f；总衔接差%.9f，其中预测校准衔接差%.9f，效率差%.9f；均不计入发展效应',f0,baselineEffect,modelBase-base,f0-modelBase);'分解恒等式','政策净变化=发展变化+基期衔接差−历史节水−额外政策节水；均为模型条件差异，不是政策因果效应';'回测性质','固定2010—2019预测2020—2023；逐年滚动；均为已用于开发的历史回测';'其他方法结果','本轮仅重跑当前正则BP集成；原其他方法排名与旧误差未同步重算，不能据其继续宣称主模型最优';'数据限制','分行业重构量是估计参考，未替换训练驱动；面积为播种代理；工业火电口径未完全统一'};
+writecell(notes,file,'Sheet','参数与口径','WriteMode','overwritesheet','UseExcel',false);
 f=figure('Visible','off','Color','w','Position',[30 30 1000 600]);g=onCleanup(@()close(f));plot(R.validation_years,[R.actual R.fixed_prediction R.rolling_prediction],'-o','LineWidth',1.7);legend({'实际值','固定起点','滚动起点'},'Location','southoutside','NumColumns',3);xticks(2020:2023);xlabel('年份');ylabel('总用水量（亿立方米）');water_apply_plot_style(f);exportgraphics(f,fullfile(figdir,'修正输入后的历史回测.png'),'Resolution',250);clear g
-% Outputs inside input workbook change its full-file hash, but history and features must be identical.
-after=water_suite_data;assert(isequal(after.X,D.X)&&isequal(after.Y,D.Y)&&isequal(after.future_X,D.future_X));
-R.input_sha256=after.source_sha256;R.frozen_base_demand=f0;R.baseline_efficiency_effect=baselineEffect;R.regional_water_limit=limit;
+% The source workbook is read-only; all derived outputs go to the result workbook.
+after=water_suite_data;assert(strcmp(after.source_sha256,D.source_sha256),'输入工作簿不应改变');
+R.input_sha256=after.source_sha256;R.input_workbook_unchanged=true;R.calibration_base_gap=modelBase-base;R.efficiency_only_effect=f0-modelBase;R.frozen_base_demand=f0;R.baseline_efficiency_effect=baselineEffect;R.regional_water_limit=limit;
 save(fullfile(root,'07_BP_Ensemble','results','result.mat'),'R','models');fid=fopen(fullfile(root,'07_BP_Ensemble','results','result.json'),'w','n','UTF-8');fprintf(fid,'%s',jsonencode(R,'PrettyPrint',true));fclose(fid);
 fid=fopen(fullfile(out,'latest_result.json'),'w','n','UTF-8');fprintf(fid,'%s',jsonencode(R,'PrettyPrint',true));fclose(fid);
-node='C:/Users/zby/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe';
+node=getenv('WATERLAB_NODE');if isempty(node),node='node';end
 for script={'sync-research-input.mjs','cache-latest-matlab.mjs'}
  command=sprintf('"%s" "%s"',node,fullfile(root,'06_WaterLab_Web','scripts',script{1}));[code,msg]=system(command);assert(code==0,'工作台同步失败：%s',msg);
 end
 disp(T);fprintf('SAVED %s\n',file);
 end
-function refreshPathSnapshot()
-D=water_suite_data;r=readcell(D.file,'Sheet','未来指标','UseExcel',false);r=r(2:end,:);rows=cell(105,11);k=0;
+function snapshot=pathSnapshot(D)
+r=readcell(D.file,'Sheet','未来指标','UseExcel',false);r=r(2:end,:);rows=cell(105,11);k=0;
 for s=1:5
  a=cell2mat(r(strcmp(r(:,1),D.scenarios{s}),2:12));
  for j=1:3
@@ -68,7 +69,7 @@ for s=1:5
   end
  end
 end
-old=clean(readcell(D.file,'Sheet','节水路径输入','UseExcel',false));new=[old(1,:);rows];if ~isequaln(old,new),writecell(new,D.file,'Sheet','节水路径输入','WriteMode','overwritesheet','UseExcel',false);end
+old=clean(readcell(D.file,'Sheet','节水路径输入','UseExcel',false));snapshot=[old(1,:);rows];
 end
 function a=clean(a)
 for i=1:numel(a),if any(ismissing(a{i}),'all'),a{i}='';end;end

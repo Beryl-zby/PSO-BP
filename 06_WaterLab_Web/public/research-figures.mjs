@@ -4,7 +4,7 @@ export const FIGURE_TYPES=[
  {id:'ssps',name:'同一路径的五SSP趋势',note:'固定节水路径，比较五种SSP情景。'},
  {id:'terminal',name:'2030年需水量分组柱状图',note:'各组分别为近期平均效率维持、历史趋势和政策参考路径；柱状图从零起画。'},
  {id:'savings',name:'节水量分解堆叠柱状图',note:'历史趋势节水＝维持−趋势；额外政策节水＝趋势−政策。两项之和为相对维持路径的总节水。'},
- {id:'waterfall',name:'发展增需与节水抵消瀑布图',note:'保留近期平均效率与2023效率的基准差异。贡献是模型条件情景差，不是部门用水量或因果效应；纵轴局部放大。'},
+ {id:'waterfall',name:'发展增需与节水抵消瀑布图',note:'保留预测校准与近期平均效率相对2023实际值的基期衔接差。贡献是模型条件情景差，不是部门用水量或因果效应；纵轴局部放大。'},
  {id:'backtest',name:'历史回测与逐年误差',note:'上图比较实际与预测，下图误差＝预测−实际。2020—2023已参与模型开发，不是新增独立测试。'},
  {id:'intensity',name:'农业与工业强度路径',note:'强度是输入假设，不是神经网络预测的部门需水量；农业面积、工业价格与火电口径仍采用现有代理。'},
 ];
@@ -20,7 +20,7 @@ export function savingRows(result,cumulative=false){return FIGURE_SSPS.map(name=
 export function waterfallRows(result,scenario){
  const c=result.comparisons.find(r=>r.scenario===scenario&&r.year===2030);if(!c)throw Error('缺少2030贡献数据');
  const adjustment=c.baselineEfficiencyEffect??result.baselineEfficiencyEffect??(c.frozen-result.baseDemand-c.development);
- const items=[['2023实际',result.baseDemand,'total'],['发展变化',c.development,'increase'],['效率基准差异',adjustment,'adjustment'],['历史趋势节水',-c.historicalSaving,'saving'],['额外政策节水',-c.additionalPolicySaving,'policy'],['2030政策',c.policy,'total']];
+ const items=[['2023实际',result.baseDemand,'total'],['发展变化',c.development,'increase'],['基期衔接差',adjustment,'adjustment'],['历史趋势节水',-c.historicalSaving,'saving'],['额外政策节水',-c.additionalPolicySaving,'policy'],['2030政策',c.policy,'total']];
  let running=result.baseDemand;const rows=items.map(([name,value,kind],i)=>{const start=i===0||i===items.length-1?0:running;const end=kind==='total'?Number(value):running+Number(value);if(kind!=='total')running=end;return {name,value:Number(value),kind,start,end};});
  if(Math.abs(running-c.policy)>1e-7)throw Error('瀑布图贡献加和与2030结果不一致');return rows;
 }

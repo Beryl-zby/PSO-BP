@@ -23,9 +23,10 @@ test('fresh Agent policies execute BP and do not silently rename historical PSO 
  assert.equal(normalizeCandidate({kind:'pso'}).kind,'pso');
 });
 test('fixed BP version produces all 105 finite points with decomposition and distinct record identities',()=>{
- const r=runResearchForecast(bundle);assert.equal(r.provenance.modelVersion,'regularized-bp-v1');assert.equal(r.config.initialization,'bp');assert.equal(r.config.population,0);
+ const r=runResearchForecast(bundle);assert.equal(r.provenance.modelVersion,'regularized-bp-v2');assert.equal(r.config.initialization,'bp');assert.equal(r.config.population,0);
  assert.equal(r.combinations.flatMap(c=>c.points).length,105);assert.ok(r.combinations.every(c=>c.points.every(p=>Number.isFinite(p.demand))));
  for(const row of r.comparisons)assert.ok(Math.abs(row.development+row.baselineEfficiencyEffect-row.totalSaving-row.netChange)<1e-9);
  const fresh=psoRecord(r,bundle),old=structuredClone(r);delete old.provenance.modelVersion;old.provenance.method='MATLAB 正则PSO-BP集成';
+ const v1=structuredClone(r);v1.provenance.modelVersion='regularized-bp-v1';assert.equal(psoRecord(v1,bundle).kind,'bp');
  const historic=psoRecord(old,bundle);assert.equal(fresh.kind,'bp');assert.equal(historic.kind,'pso');assert.notEqual(fresh.id,historic.id);assert.match(historic.label,/PSO/);
 });

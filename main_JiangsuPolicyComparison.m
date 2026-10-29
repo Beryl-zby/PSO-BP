@@ -27,8 +27,8 @@ for s=1:5
  inCap=h(end,13)*(industrialCap2023/h(end,13)).^((years-2023)/7);
  policyIN=min(trendIN,inCap);
  policyX=trendX; policyX(:,1)=a(:,8).*policyAG*15/100000; policyX(:,2)=a(:,10).*policyIN/10000;
- H(:,s)=baseY+model_BP_Ensemble('predict',model,trendX)-model_BP_Ensemble('predict',model,baseX);
- P(:,s)=baseY+model_BP_Ensemble('predict',model,policyX)-model_BP_Ensemble('predict',model,baseX);
+ H(:,s)=water_predict_method('model_BP_Ensemble',model,trendX,baseX,baseY);
+ P(:,s)=water_predict_method('model_BP_Ensemble',model,policyX,baseX,baseY);
  assert(max(abs(H(:,s)-S.R.future_prediction(:,s,2)))<1e-8,'历史趋势没有复现。');
  assert(all(P(:,s)<=H(:,s)+1e-8),'政策路径出现反向响应。');
  for i=1:7

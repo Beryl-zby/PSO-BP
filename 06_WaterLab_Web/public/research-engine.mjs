@@ -1,4 +1,4 @@
-import {runForecast,predict} from './engine.mjs';
+import {runForecast,predictCalibrated} from './engine.mjs';
 
 export const SSP_NAMES=['SSP1','SSP2','SSP3','SSP4','SSP5'];
 export const PATHS=[
@@ -78,19 +78,19 @@ export function prepareResearch(b){
 }
 export function runResearchForecast(bundle,progress=()=>{}){
  const started=performance.now(),prepared=prepareResearch(bundle);
- // Same fitted model, scaling and anchor for all 15 combinations. No future labels enter tuning.
+ // Same fitted model, scaling and training-prefix calibration for all 15 combinations. No future labels enter tuning.
  const fitResult=runForecast(prepared.rows,{holdout:4,horizon:7,future:prepared.paths[0].points.map(r=>({year:r.year,x:r.x})),seed:bundle.seed,includeModel:true},progress);
- const model=fitResult.finalModel,anchor=predict(model,[prepared.rows.at(-1).x])[0],baseDemand=prepared.base.demand;
- const frozenBaseDemand=baseDemand+predict(model,[features(prepared.base,prepared.frozenEfficiency.agriculturalIntensity,prepared.frozenEfficiency.industrialIntensity)])[0]-anchor;
+ const model=fitResult.finalModel,baseDemand=prepared.base.demand,modelBase=predictCalibrated(model,[prepared.rows.at(-1).x])[0];
+ const frozenBaseDemand=predictCalibrated(model,[features(prepared.base,prepared.frozenEfficiency.agriculturalIntensity,prepared.frozenEfficiency.industrialIntensity)])[0];
  const baselineEfficiencyEffect=frozenBaseDemand-baseDemand;
  let nonpositive=0,outside=0;const negativeResponses=[0,0,0];
  const combinations=prepared.paths.map(path=>{
-  const raw=predict(model,path.points.map(r=>r.x));
+  const raw=predictCalibrated(model,path.points.map(r=>r.x));
   const rows=path.points.map((r,i)=>{
-   const demand=baseDemand+raw[i]-anchor;
+   const demand=raw[i];
    if(demand<=0)nonpositive++;
    if(r.x.some((v,j)=>v<model.xmin[j]||v>model.xmax[j]))outside++;
-   for(let j=0;j<3;j++){const down=[...r.x];down[j]*=.99;if(demand-(baseDemand+predict(model,[down])[0]-anchor)<-1e-7)negativeResponses[j]++;}
+   for(let j=0;j<3;j++){const down=[...r.x];down[j]*=.99;if(demand-predictCalibrated(model,[down])[0]<-1e-7)negativeResponses[j]++;}
    return {...r,demand};
   });
   return {...path,points:rows};
@@ -106,5 +106,5 @@ export function runResearchForecast(bundle,progress=()=>{}){
   }
  }
  progress({label:'五种SSP × 三条节水路径已完成',progress:100});
- return {schema:'waterlab-ssp-result-v1',source:bundle.source,history:prepared.rows,combinations,comparisons,metrics:fitResult.metrics,backtest:fitResult.backtest,selections:fitResult.selections,config:fitResult.config,industrialDecay:prepared.industrialDecay,policy:bundle.policy,diagnostics:{nonpositive,outside,negativeResponses,reversed,identicalTrendPolicyPoints:identical,points:105},baseYear:2023,baseDemand,frozenBaseDemand,baselineEfficiencyEffect,createdAt:new Date().toISOString(),seconds:(performance.now()-started)/1000,provenance:{modelVersion:'regularized-bp-v1',method:'正则BP集成',scope:'苏北五市合计，2024—2030，5 SSP × 3效率路径',featureDefinition:['面积×亩均强度×15/100000','工业增加值×工业强度/10000','人口×(1+城镇化率/100)'],validation:'2020—2023固定起点及滚动开发回测；给定实际驱动；该时期已用于模型探索',prng:'浏览器mulberry32，与MATLAB Twister不同，不承诺逐位一致',comparison:'同模型内条件情景差值，不是政策因果效果；面积与工业强度使用现有代理口径'}};
+ return {schema:'waterlab-ssp-result-v1',source:bundle.source,history:prepared.rows,combinations,comparisons,metrics:fitResult.metrics,backtest:fitResult.backtest,selections:fitResult.selections,config:fitResult.config,industrialDecay:prepared.industrialDecay,policy:bundle.policy,diagnostics:{nonpositive,outside,negativeResponses,reversed,identicalTrendPolicyPoints:identical,points:105},baseYear:2023,baseDemand,frozenBaseDemand,baselineEfficiencyEffect,calibrationBaseGap:modelBase-baseDemand,efficiencyOnlyEffect:frozenBaseDemand-modelBase,createdAt:new Date().toISOString(),seconds:(performance.now()-started)/1000,provenance:{modelVersion:'regularized-bp-v2',method:'正则BP集成',scope:'苏北五市合计，2024—2030，5 SSP × 3效率路径',featureDefinition:['面积×亩均强度×15/100000','工业增加值×工业强度/10000','人口×(1+城镇化率/100)'],validation:'2020—2023固定起点及滚动开发回测；给定实际驱动；该时期已用于模型探索',prng:'浏览器mulberry32，与MATLAB Twister不同，不承诺逐位一致',comparison:'同模型内条件情景差值，不是政策因果效果；面积与工业强度使用现有代理口径'}};
 }

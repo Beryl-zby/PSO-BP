@@ -4,7 +4,7 @@
     "file": "需水预测模型对照.xlsx",
     "relativePath": "data/需水预测模型对照.xlsx",
     "sha256": "65c2a4a35145dc61c696cc4722b0a73292538332019f99ac13aee4ad764a07e5",
-    "syncedAt": "2026-10-29T08:29:58.111Z"
+    "syncedAt": "2026-10-29T15:46:49.926Z"
   },
   "history": [
     {
@@ -198,7 +198,7 @@
             7.798199637457379,
             4964.382615708041
           ],
-          "demand": 165.30180939577485
+          "demand": 165.30180939577482
         },
         {
           "scenario": "SSP1",
@@ -288,7 +288,7 @@
             8.41402714141813,
             4958.372726423478
           ],
-          "demand": 165.9245224019328
+          "demand": 165.92452240193282
         },
         {
           "scenario": "SSP1",
@@ -318,7 +318,7 @@
             8.613004800998256,
             4951.8377986488385
           ],
-          "demand": 166.23235054936822
+          "demand": 166.23235054936825
         },
         {
           "scenario": "SSP1",
@@ -475,7 +475,7 @@
             5.048106753698375,
             4962.772924610075
           ],
-          "demand": 163.2125956472887
+          "demand": 163.21259564728874
         },
         {
           "scenario": "SSP1",
@@ -505,7 +505,7 @@
             4.6132866153768655,
             4958.372726423478
           ],
-          "demand": 162.9464533663995
+          "demand": 162.94645336639954
         },
         {
           "scenario": "SSP1",
@@ -535,7 +535,7 @@
             4.211759879245246,
             4951.8377986488385
           ],
-          "demand": 162.74433075594322
+          "demand": 162.74433075594325
         },
         {
           "scenario": "SSP1",
@@ -632,7 +632,7 @@
             6.026896349086423,
             4964.382615708041
           ],
-          "demand": 163.80656719074852
+          "demand": 163.8065671907485
         },
         {
           "scenario": "SSP1",
@@ -662,7 +662,7 @@
             5.518447272932638,
             4964.849978651949
           ],
-          "demand": 163.3153704344105
+          "demand": 163.31537043441048
         },
         {
           "scenario": "SSP1",
@@ -692,7 +692,7 @@
             5.048106753698375,
             4962.772924610075
           ],
-          "demand": 162.91468122506888
+          "demand": 162.91468122506885
         },
         {
           "scenario": "SSP1",
@@ -722,7 +722,7 @@
             4.6132866153768655,
             4958.372726423478
           ],
-          "demand": 162.59229900031778
+          "demand": 162.59229900031775
         },
         {
           "scenario": "SSP1",
@@ -752,7 +752,7 @@
             4.211759879245246,
             4951.8377986488385
           ],
-          "demand": 162.33840659579766
+          "demand": 162.3384065957977
         },
         {
           "scenario": "SSP1",
@@ -782,7 +782,7 @@
             3.841492563925719,
             4943.330558772596
           ],
-          "demand": 162.14507925618148
+          "demand": 162.1450792561815
         }
       ]
     },
@@ -819,7 +819,7 @@
             7.566619479133988,
             4961.824116518801
           ],
-          "demand": 165.17908275339119
+          "demand": 165.17908275339116
         },
         {
           "scenario": "SSP2",
@@ -879,7 +879,7 @@
             7.9742343992568685,
             4967.0775544139915
           ],
-          "demand": 165.39175668478583
+          "demand": 165.39175668478586
         },
         {
           "scenario": "SSP2",
@@ -909,7 +909,7 @@
             8.168481932047195,
             4966.836073722287
           ],
-          "demand": 165.55366021191776
+          "demand": 165.5536602119178
         },
         {
           "scenario": "SSP2",
@@ -939,7 +939,7 @@
             8.359462939382222,
             4964.875535518246
           ],
-          "demand": 165.75165500037542
+          "demand": 165.75165500037545
         },
         {
           "scenario": "SSP2",
@@ -969,7 +969,7 @@
             8.546801413043468,
             4961.421981860155
           ],
-          "demand": 165.98140207954998
+          "demand": 165.98140207955
         },
         {
           "scenario": "SSP2",
@@ -999,7 +999,7 @@
             8.730342764852569,
             4956.675361145908
           ],
-          "demand": 166.2391928015154
+          "demand": 166.23919280151537
         }
       ]
     },
@@ -1096,7 +1096,7 @@
             5.820222176370409,
             4967.0775544139915
           ],
-          "demand": 163.75690974914642
+          "demand": 163.75690974914644
         },
         {
           "scenario": "SSP2",
@@ -1126,7 +1126,7 @@
             5.419724861713383,
             4966.836073722287
           ],
-          "demand": 163.43991055875335
+          "demand": 163.43991055875333
         },
         {
           "scenario": "SSP2",
@@ -1156,7 +1156,7 @@
             5.04196219027445,
             4964.875535518246
           ],
-          "demand": 163.1758030096912
+          "demand": 163.1758030096913
         },
         {
           "scenario": "SSP2",
@@ -1186,7 +1186,7 @@
             4.686084784417755,
             4961.421981860155
           ],
-          "demand": 162.95730873361413
+          "demand": 162.9573087336141
         },
         {
           "scenario": "SSP2",
@@ -1283,7 +1283,7 @@
             6.244560509807473,
             4965.342119165803
           ],
-          "demand": 163.93019403217454
+          "demand": 163.93019403217457
         },
         {
           "scenario": "SSP2",
@@ -1313,7 +1313,7 @@
             5.820222176370409,
             4967.0775544139915
           ],
-          "demand": 163.4641661519281
+          "demand": 163.46416615192814
         },
         {
           "scenario": "SSP2",
@@ -1343,7 +1343,7 @@
             5.419724861713383,
             4966.836073722287
           ],
-          "demand": 163.06813799635404
+          "demand": 163.06813799635407
         },
         {
           "scenario": "SSP2",
@@ -1373,7 +1373,7 @@
             5.04196219027445,
             4964.875535518246
           ],
-          "demand": 162.73191661247608
+          "demand": 162.7319166124761
         },
         {
           "scenario": "SSP2",
@@ -1403,7 +1403,7 @@
             4.686084784417755,
             4961.421981860155
           ],
-          "demand": 162.44709821255765
+          "demand": 162.44709821255762
         },
         {
           "scenario": "SSP2",
@@ -1433,7 +1433,7 @@
             4.3513412598551815,
             4956.675361145908
           ],
-          "demand": 162.20666765288877
+          "demand": 162.20666765288874
         }
       ]
     },
@@ -1500,7 +1500,7 @@
             7.767524889121675,
             4961.245129436802
           ],
-          "demand": 165.35738468088493
+          "demand": 165.3573846808849
         },
         {
           "scenario": "SSP3",
@@ -1530,7 +1530,7 @@
             7.956544620559689,
             4959.455371553771
           ],
-          "demand": 165.55205244119804
+          "demand": 165.55205244119807
         },
         {
           "scenario": "SSP3",
@@ -1560,7 +1560,7 @@
             8.141047181839935,
             4956.338110887152
           ],
-          "demand": 165.7736804602987
+          "demand": 165.77368046029872
         },
         {
           "scenario": "SSP3",
@@ -1590,7 +1590,7 @@
             8.320264213885347,
             4952.162900595239
           ],
-          "demand": 166.0164756518286
+          "demand": 166.01647565182864
         },
         {
           "scenario": "SSP3",
@@ -1650,7 +1650,7 @@
             8.661443284998919,
             4941.584548552875
           ],
-          "demand": 166.54533035125223
+          "demand": 166.54533035125226
         }
       ]
     },
@@ -1687,7 +1687,7 @@
             6.808207903980832,
             4961.897666814252
           ],
-          "demand": 164.67302725600655
+          "demand": 164.67302725600658
         },
         {
           "scenario": "SSP3",
@@ -1747,7 +1747,7 @@
             6.149274442097981,
             4959.455371553771
           ],
-          "demand": 164.18191529280375
+          "demand": 164.18191529280378
         },
         {
           "scenario": "SSP3",
@@ -1777,7 +1777,7 @@
             5.829722760662699,
             4956.338110887152
           ],
-          "demand": 163.98491070706655
+          "demand": 163.98491070706658
         },
         {
           "scenario": "SSP3",
@@ -1807,7 +1807,7 @@
             5.520431236935744,
             4952.162900595239
           ],
-          "demand": 163.81713336301107
+          "demand": 163.81713336301104
         },
         {
           "scenario": "SSP3",
@@ -1837,7 +1837,7 @@
             5.2216229476312535,
             4947.1718281996455
           ],
-          "demand": 163.67315319301497
+          "demand": 163.673153193015
         },
         {
           "scenario": "SSP3",
@@ -1904,7 +1904,7 @@
             6.808207903980832,
             4961.897666814252
           ],
-          "demand": 164.5447067696765
+          "demand": 164.54470676967648
         },
         {
           "scenario": "SSP3",
@@ -1934,7 +1934,7 @@
             6.47908638129412,
             4961.245129436802
           ],
-          "demand": 164.16796436844356
+          "demand": 164.1679643684436
         },
         {
           "scenario": "SSP3",
@@ -1964,7 +1964,7 @@
             6.149274442097981,
             4959.455371553771
           ],
-          "demand": 163.82594933505652
+          "demand": 163.82594933505655
         },
         {
           "scenario": "SSP3",
@@ -1994,7 +1994,7 @@
             5.829722760662699,
             4956.338110887152
           ],
-          "demand": 163.5274371233089
+          "demand": 163.52743712330894
         },
         {
           "scenario": "SSP3",
@@ -2024,7 +2024,7 @@
             5.520431236935744,
             4952.162900595239
           ],
-          "demand": 163.2650296628193
+          "demand": 163.26502966281927
         },
         {
           "scenario": "SSP3",
@@ -2054,7 +2054,7 @@
             5.2216229476312535,
             4947.1718281996455
           ],
-          "demand": 163.03254975774746
+          "demand": 163.03254975774743
         },
         {
           "scenario": "SSP3",
@@ -2084,7 +2084,7 @@
             4.933585583849884,
             4941.584548552875
           ],
-          "demand": 162.8247220283464
+          "demand": 162.82472202834637
         }
       ]
     },
@@ -2121,7 +2121,7 @@
             7.568855247521264,
             4961.406604485871
           ],
-          "demand": 165.18959527748223
+          "demand": 165.1895952774822
         },
         {
           "scenario": "SSP4",
@@ -2181,7 +2181,7 @@
             7.981766157210502,
             4963.121651037937
           ],
-          "demand": 165.48313209048638
+          "demand": 165.4831320904863
         },
         {
           "scenario": "SSP4",
@@ -2241,7 +2241,7 @@
             8.373166902958504,
             4953.65101081321
           ],
-          "demand": 166.01099013827525
+          "demand": 166.01099013827528
         },
         {
           "scenario": "SSP4",
@@ -2271,7 +2271,7 @@
             8.563833342024553,
             4945.118867213537
           ],
-          "demand": 166.36088331665098
+          "demand": 166.360883316651
         },
         {
           "scenario": "SSP4",
@@ -2301,7 +2301,7 @@
             8.750813266076305,
             4934.30894915664
           ],
-          "demand": 166.76496394097842
+          "demand": 166.7649639409784
         }
       ]
     },
@@ -2338,7 +2338,7 @@
             6.685134103190368,
             4961.406604485871
           ],
-          "demand": 164.5795336099426
+          "demand": 164.57953360994256
         },
         {
           "scenario": "SSP4",
@@ -2368,7 +2368,7 @@
             6.248381125652066,
             4963.611047879752
           ],
-          "demand": 164.17326296256704
+          "demand": 164.173262962567
         },
         {
           "scenario": "SSP4",
@@ -2398,7 +2398,7 @@
             5.825719444506003,
             4963.121651037937
           ],
-          "demand": 163.83883059982793
+          "demand": 163.8388305998279
         },
         {
           "scenario": "SSP4",
@@ -2428,7 +2428,7 @@
             5.426708150494022,
             4959.721625232706
           ],
-          "demand": 163.5826282041861
+          "demand": 163.58262820418608
         },
         {
           "scenario": "SSP4",
@@ -2458,7 +2458,7 @@
             5.05022765741146,
             4953.65101081321
           ],
-          "demand": 163.39575223633108
+          "demand": 163.3957522363311
         },
         {
           "scenario": "SSP4",
@@ -2488,7 +2488,7 @@
             4.695423139129699,
             4945.118867213537
           ],
-          "demand": 163.27120556907312
+          "demand": 163.27120556907315
         },
         {
           "scenario": "SSP4",
@@ -2555,7 +2555,7 @@
             6.685134103190368,
             4961.406604485871
           ],
-          "demand": 164.47111208956096
+          "demand": 164.471112089561
         },
         {
           "scenario": "SSP4",
@@ -2615,7 +2615,7 @@
             5.825719444506003,
             4963.121651037937
           ],
-          "demand": 163.54448971731847
+          "demand": 163.54448971731844
         },
         {
           "scenario": "SSP4",
@@ -2645,7 +2645,7 @@
             5.426708150494022,
             4959.721625232706
           ],
-          "demand": 163.20712392957535
+          "demand": 163.20712392957537
         },
         {
           "scenario": "SSP4",
@@ -2705,7 +2705,7 @@
             4.695423139129699,
             4945.118867213537
           ],
-          "demand": 162.74878569972668
+          "demand": 162.74878569972665
         },
         {
           "scenario": "SSP4",
@@ -2735,7 +2735,7 @@
             4.361544082239586,
             4934.30894915664
           ],
-          "demand": 162.61272343277824
+          "demand": 162.6127234327782
         }
       ]
     },
@@ -2802,7 +2802,7 @@
             7.820834380370773,
             4969.06531876798
           ],
-          "demand": 165.21639502021844
+          "demand": 165.21639502021847
         },
         {
           "scenario": "SSP5",
@@ -2862,7 +2862,7 @@
             8.26820725297806,
             4975.5778847342535
           ],
-          "demand": 165.42417374238482
+          "demand": 165.42417374238485
         },
         {
           "scenario": "SSP5",
@@ -2892,7 +2892,7 @@
             8.491993246657623,
             4974.769124876177
           ],
-          "demand": 165.6169906549494
+          "demand": 165.61699065494943
         },
         {
           "scenario": "SSP5",
@@ -2922,7 +2922,7 @@
             8.71510612738857,
             4971.565905127808
           ],
-          "demand": 165.86358790002362
+          "demand": 165.8635879000236
         },
         {
           "scenario": "SSP5",
@@ -2989,7 +2989,7 @@
             6.574250234709846,
             4961.673182041833
           ],
-          "demand": 164.47896102783022
+          "demand": 164.47896102783025
         },
         {
           "scenario": "SSP5",
@@ -3049,7 +3049,7 @@
             5.544796493515974,
             4973.763387631232
           ],
-          "demand": 163.39477302566308
+          "demand": 163.39477302566306
         },
         {
           "scenario": "SSP5",
@@ -3109,7 +3109,7 @@
             4.656034277549703,
             4974.769124876177
           ],
-          "demand": 162.66880106233475
+          "demand": 162.66880106233478
         },
         {
           "scenario": "SSP5",
@@ -3139,7 +3139,7 @@
             4.261687434151357,
             4971.565905127808
           ],
-          "demand": 162.4153520601743
+          "demand": 162.41535206017434
         },
         {
           "scenario": "SSP5",
@@ -3169,7 +3169,7 @@
             3.8977805560484375,
             4966.171496313512
           ],
-          "demand": 162.22283681275974
+          "demand": 162.2228368127597
         }
       ]
     },
@@ -3206,7 +3206,7 @@
             6.574250234709846,
             4961.673182041833
           ],
-          "demand": 164.39026034623782
+          "demand": 164.3902603462378
         },
         {
           "scenario": "SSP5",
@@ -3236,7 +3236,7 @@
             6.0443897777968125,
             4969.06531876798
           ],
-          "demand": 163.72499472037975
+          "demand": 163.72499472037973
         },
         {
           "scenario": "SSP5",
@@ -3326,7 +3326,7 @@
             4.656034277549703,
             4974.769124876177
           ],
-          "demand": 162.32230473874097
+          "demand": 162.32230473874094
         },
         {
           "scenario": "SSP5",
@@ -3356,7 +3356,7 @@
             4.261687434151357,
             4971.565905127808
           ],
-          "demand": 162.0202383324263
+          "demand": 162.02023833242632
         },
         {
           "scenario": "SSP5",
@@ -3398,9 +3398,9 @@
       "frozen": 165.18863526492498,
       "trend": 164.4748707566232,
       "policy": 164.38619132866143,
-      "development": 0.13333798908308836,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "development": 0.13333798908311678,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 0.7137645083017787,
       "additionalPolicySaving": 0.08867942796177886,
       "totalSaving": 0.8024439362635576,
@@ -3408,21 +3408,21 @@
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 6.018119380542944
+      "offsetRatio": 6.018119380541662
     },
     {
       "scenario": "SSP1",
       "year": 2025,
-      "frozen": 165.30180939577485,
+      "frozen": 165.30180939577482,
       "trend": 163.97336291396618,
-      "policy": 163.80656719074852,
+      "policy": 163.8065671907485,
       "development": 0.24651211993295874,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 1.328446481808669,
-      "additionalPolicySaving": 0.16679572321766045,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 1.3284464818086406,
+      "additionalPolicySaving": 0.16679572321768887,
       "totalSaving": 1.4952422050263294,
-      "netChange": -1.193432809251476,
+      "netChange": -1.1934328092515045,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
@@ -3433,212 +3433,212 @@
       "year": 2026,
       "frozen": 165.455860626476,
       "trend": 163.5513205455269,
-      "policy": 163.3153704344105,
-      "development": 0.4005633506341155,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "policy": 163.31537043441048,
+      "development": 0.40056335063414394,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 1.9045400809491184,
-      "additionalPolicySaving": 0.23595011111638087,
-      "totalSaving": 2.1404901920654993,
-      "netChange": -1.6846295655894892,
+      "additionalPolicySaving": 0.2359501111164093,
+      "totalSaving": 2.1404901920655277,
+      "netChange": -1.6846295655895176,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 5.343699538854407
+      "offsetRatio": 5.343699538854099
     },
     {
       "scenario": "SSP1",
       "year": 2027,
       "frozen": 165.66473162170803,
-      "trend": 163.2125956472887,
-      "policy": 162.91468122506888,
-      "development": 0.6094343458661342,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 2.4521359744193205,
-      "additionalPolicySaving": 0.2979144222198329,
-      "totalSaving": 2.7500503966391534,
-      "netChange": -2.0853187749311246,
+      "trend": 163.21259564728874,
+      "policy": 162.91468122506885,
+      "development": 0.6094343458661626,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 2.452135974419292,
+      "additionalPolicySaving": 0.29791442221988973,
+      "totalSaving": 2.750050396639182,
+      "netChange": -2.085318774931153,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 4.51246375478027
+      "offsetRatio": 4.512463754780105
     },
     {
       "scenario": "SSP1",
       "year": 2028,
-      "frozen": 165.9245224019328,
-      "trend": 162.9464533663995,
-      "policy": 162.59229900031778,
-      "development": 0.8692251260908961,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "frozen": 165.92452240193282,
+      "trend": 162.94645336639954,
+      "policy": 162.59229900031775,
+      "development": 0.8692251260909529,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 2.978069035533281,
-      "additionalPolicySaving": 0.3541543660817297,
-      "totalSaving": 3.3322234016150105,
-      "netChange": -2.40770099968222,
+      "additionalPolicySaving": 0.3541543660817865,
+      "totalSaving": 3.3322234016150674,
+      "netChange": -2.4077009996822483,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 3.833556234851126
+      "offsetRatio": 3.83355623485094
     },
     {
       "scenario": "SSP1",
       "year": 2029,
-      "frozen": 166.23235054936822,
-      "trend": 162.74433075594322,
-      "policy": 162.33840659579766,
-      "development": 1.177053273526326,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "frozen": 166.23235054936825,
+      "trend": 162.74433075594325,
+      "policy": 162.3384065957977,
+      "development": 1.1770532735263828,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 3.4880197934249964,
       "additionalPolicySaving": 0.40592416014555965,
       "totalSaving": 3.893943953570556,
-      "netChange": -2.6615934042023355,
+      "netChange": -2.661593404202307,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 3.308213860112479
+      "offsetRatio": 3.308213860112319
     },
     {
       "scenario": "SSP1",
       "year": 2030,
       "frozen": 166.58603768167302,
       "trend": 162.59936305964357,
-      "policy": 162.14507925618148,
-      "development": 1.530740405831125,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "policy": 162.1450792561815,
+      "development": 1.5307404058311533,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 3.9866746220294544,
-      "additionalPolicySaving": 0.45428380346208996,
-      "totalSaving": 4.440958425491544,
-      "netChange": -2.854920743818525,
+      "additionalPolicySaving": 0.45428380346206154,
+      "totalSaving": 4.440958425491516,
+      "netChange": -2.8549207438184965,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": true,
       "policyExceedance": 0,
-      "offsetRatio": 2.9011832499974406
+      "offsetRatio": 2.901183249997368
     },
     {
       "scenario": "SSP2",
       "year": 2024,
-      "frozen": 165.17908275339119,
+      "frozen": 165.17908275339116,
       "trend": 164.56953805219825,
       "policy": 164.4611790319534,
       "development": 0.12378547754929059,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 0.6095447011929309,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 0.6095447011929025,
       "additionalPolicySaving": 0.10835902024484767,
-      "totalSaving": 0.7179037214377786,
+      "totalSaving": 0.7179037214377502,
       "netChange": -0.5388209680465934,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 5.799579527832043
+      "offsetRatio": 5.7995795278318125
     },
     {
       "scenario": "SSP2",
       "year": 2025,
       "frozen": 165.2711738744573,
       "trend": 164.13567579262497,
-      "policy": 163.93019403217454,
-      "development": 0.21587659861540942,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "policy": 163.93019403217457,
+      "development": 0.21587659861543784,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 1.1354980818323384,
-      "additionalPolicySaving": 0.2054817604504251,
-      "totalSaving": 1.3409798422827635,
-      "netChange": -1.0698059678254594,
+      "additionalPolicySaving": 0.20548176045039668,
+      "totalSaving": 1.340979842282735,
+      "netChange": -1.069805967825431,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 6.21178882233437
+      "offsetRatio": 6.21178882233342
     },
     {
       "scenario": "SSP2",
       "year": 2026,
-      "frozen": 165.39175668478583,
-      "trend": 163.75690974914642,
-      "policy": 163.4641661519281,
-      "development": 0.3364594089439379,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "frozen": 165.39175668478586,
+      "trend": 163.75690974914644,
+      "policy": 163.46416615192814,
+      "development": 0.33645940894399473,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 1.6348469356394162,
       "additionalPolicySaving": 0.2927435972183048,
       "totalSaving": 1.927590532857721,
-      "netChange": -1.5358338480718885,
+      "netChange": -1.53583384807186,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 5.729043330688675
+      "offsetRatio": 5.729043330687707
     },
     {
       "scenario": "SSP2",
       "year": 2027,
-      "frozen": 165.55366021191776,
-      "trend": 163.43991055875335,
-      "policy": 163.06813799635404,
-      "development": 0.4983629360758641,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 2.1137496531644047,
-      "additionalPolicySaving": 0.37177256239931467,
+      "frozen": 165.5536602119178,
+      "trend": 163.43991055875333,
+      "policy": 163.06813799635407,
+      "development": 0.49836293607592097,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 2.1137496531644615,
+      "additionalPolicySaving": 0.3717725623992578,
       "totalSaving": 2.4855222155637193,
-      "netChange": -1.9318620036459606,
+      "netChange": -1.9318620036459322,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 4.987373730347709
+      "offsetRatio": 4.98737373034714
     },
     {
       "scenario": "SSP2",
       "year": 2028,
-      "frozen": 165.75165500037542,
-      "trend": 163.1758030096912,
-      "policy": 162.73191661247608,
-      "development": 0.6963577245335273,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 2.575851990684214,
-      "additionalPolicySaving": 0.4438863972151239,
+      "frozen": 165.75165500037545,
+      "trend": 163.1758030096913,
+      "policy": 162.7319166124761,
+      "development": 0.6963577245335841,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 2.575851990684157,
+      "additionalPolicySaving": 0.44388639721518075,
       "totalSaving": 3.019738387899338,
-      "netChange": -2.268083387523916,
+      "netChange": -2.2680833875238875,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 4.336475753065259
+      "offsetRatio": 4.336475753064905
     },
     {
       "scenario": "SSP2",
       "year": 2029,
-      "frozen": 165.98140207954998,
-      "trend": 162.95730873361413,
-      "policy": 162.44709821255765,
-      "development": 0.9261048037080855,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 3.024093345935853,
+      "frozen": 165.98140207955,
+      "trend": 162.9573087336141,
+      "policy": 162.44709821255762,
+      "development": 0.9261048037081423,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 3.02409334593591,
       "additionalPolicySaving": 0.5102105210564787,
-      "totalSaving": 3.5343038669923317,
-      "netChange": -2.5529017874423516,
+      "totalSaving": 3.5343038669923885,
+      "netChange": -2.55290178744238,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 3.816310910861411
+      "offsetRatio": 3.816310910861238
     },
     {
       "scenario": "SSP2",
       "year": 2030,
-      "frozen": 166.2391928015154,
+      "frozen": 166.23919280151537,
       "trend": 162.77836104508094,
-      "policy": 162.20666765288877,
+      "policy": 162.20666765288874,
       "development": 1.1838955256735062,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 3.460831756434459,
-      "additionalPolicySaving": 0.5716933921921736,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 3.4608317564344304,
+      "additionalPolicySaving": 0.571693392192202,
       "totalSaving": 4.0325251486266325,
-      "netChange": -2.7933323471112317,
+      "netChange": -2.79333234711126,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": true,
       "policyExceedance": 0,
@@ -3648,249 +3648,249 @@
       "scenario": "SSP3",
       "year": 2024,
       "frozen": 165.17701487907493,
-      "trend": 164.67302725600655,
-      "policy": 164.5447067696765,
-      "development": 0.12171760323303715,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 0.5039876230683831,
-      "additionalPolicySaving": 0.12832048633003978,
-      "totalSaving": 0.6323081093984229,
-      "netChange": -0.4552932303234911,
+      "trend": 164.67302725600658,
+      "policy": 164.54470676967648,
+      "development": 0.12171760323306557,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 0.5039876230683547,
+      "additionalPolicySaving": 0.12832048633009663,
+      "totalSaving": 0.6323081093984513,
+      "netChange": -0.45529323032351954,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 5.194878083392944
+      "offsetRatio": 5.1948780833919646
     },
     {
       "scenario": "SSP3",
       "year": 2025,
-      "frozen": 165.35738468088493,
+      "frozen": 165.3573846808849,
       "trend": 164.41462707096798,
-      "policy": 164.16796436844356,
+      "policy": 164.1679643684436,
       "development": 0.3020874050430393,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 0.9427576099169528,
-      "additionalPolicySaving": 0.2466627025244179,
-      "totalSaving": 1.1894203124413707,
-      "netChange": -0.8320356315564368,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 0.9427576099169244,
+      "additionalPolicySaving": 0.2466627025243895,
+      "totalSaving": 1.1894203124413139,
+      "netChange": -0.8320356315564084,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 3.9373383086657
+      "offsetRatio": 3.937338308665512
     },
     {
       "scenario": "SSP3",
       "year": 2026,
-      "frozen": 165.55205244119804,
-      "trend": 164.18191529280375,
-      "policy": 163.82594933505652,
-      "development": 0.4967551653561486,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "frozen": 165.55205244119807,
+      "trend": 164.18191529280378,
+      "policy": 163.82594933505655,
+      "development": 0.49675516535620545,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 1.3701371483942921,
       "additionalPolicySaving": 0.3559659577472303,
       "totalSaving": 1.7261031061415224,
-      "netChange": -1.1740506649434792,
+      "netChange": -1.1740506649434508,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 3.4747562310781266
+      "offsetRatio": 3.4747562310777287
     },
     {
       "scenario": "SSP3",
       "year": 2027,
-      "frozen": 165.7736804602987,
-      "trend": 163.98491070706655,
-      "policy": 163.5274371233089,
-      "development": 0.7183831844567976,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "frozen": 165.77368046029872,
+      "trend": 163.98491070706658,
+      "policy": 163.52743712330894,
+      "development": 0.7183831844568545,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 1.7887697532321454,
       "additionalPolicySaving": 0.4574735837576327,
       "totalSaving": 2.246243336989778,
-      "netChange": -1.4725628766910859,
+      "netChange": -1.4725628766910575,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 3.126803891837008
+      "offsetRatio": 3.1268038918367607
     },
     {
       "scenario": "SSP3",
       "year": 2028,
-      "frozen": 166.0164756518286,
-      "trend": 163.81713336301107,
-      "policy": 163.2650296628193,
-      "development": 0.9611783759867194,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 2.1993422888175473,
+      "frozen": 166.01647565182864,
+      "trend": 163.81713336301104,
+      "policy": 163.26502966281927,
+      "development": 0.9611783759867762,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 2.199342288817604,
       "additionalPolicySaving": 0.5521037001917648,
-      "totalSaving": 2.751445989009312,
-      "netChange": -1.7349703371806982,
+      "totalSaving": 2.751445989009369,
+      "netChange": -1.7349703371807266,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 2.86257583165534
+      "offsetRatio": 2.8625758316552297
     },
     {
       "scenario": "SSP3",
       "year": 2029,
       "frozen": 166.2752704578138,
-      "trend": 163.67315319301497,
-      "policy": 163.03254975774746,
-      "development": 1.219973181971909,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 2.602117264798835,
-      "additionalPolicySaving": 0.6406034352675078,
-      "totalSaving": 3.242720700066343,
-      "netChange": -1.9674502422525393,
+      "trend": 163.673153193015,
+      "policy": 163.03254975774743,
+      "development": 1.2199731819719375,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 2.6021172647988067,
+      "additionalPolicySaving": 0.6406034352675647,
+      "totalSaving": 3.2427207000663714,
+      "netChange": -1.9674502422525677,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 2.6580262156459513
+      "offsetRatio": 2.6580262156459127
     },
     {
       "scenario": "SSP3",
       "year": 2030,
-      "frozen": 166.54533035125223,
+      "frozen": 166.54533035125226,
       "trend": 163.5482912524434,
-      "policy": 162.8247220283464,
-      "development": 1.490033075410338,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 2.997039098808841,
-      "additionalPolicySaving": 0.7235692240969911,
-      "totalSaving": 3.720608322905832,
-      "netChange": -2.1752779716535997,
+      "policy": 162.82472202834637,
+      "development": 1.4900330754103948,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 2.9970390988088695,
+      "additionalPolicySaving": 0.7235692240970195,
+      "totalSaving": 3.720608322905889,
+      "netChange": -2.175277971653628,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": true,
       "policyExceedance": 0,
-      "offsetRatio": 2.4969971367120287
+      "offsetRatio": 2.496997136711972
     },
     {
       "scenario": "SSP4",
       "year": 2024,
-      "frozen": 165.18959527748223,
-      "trend": 164.5795336099426,
-      "policy": 164.47111208956096,
+      "frozen": 165.1895952774822,
+      "trend": 164.57953360994256,
+      "policy": 164.471112089561,
       "development": 0.13429800164033168,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 0.6100616675396395,
-      "additionalPolicySaving": 0.10842152038162567,
-      "totalSaving": 0.7184831879212652,
-      "netChange": -0.5288879104390389,
+      "additionalPolicySaving": 0.10842152038156883,
+      "totalSaving": 0.7184831879212084,
+      "netChange": -0.5288879104390105,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 5.349917192702993
+      "offsetRatio": 5.34991719270257
     },
     {
       "scenario": "SSP4",
       "year": 2025,
       "frozen": 165.3118798539026,
-      "trend": 164.17326296256704,
+      "trend": 164.173262962567,
       "policy": 163.96729971165348,
-      "development": 0.2565825780607156,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 1.1386168913355732,
-      "additionalPolicySaving": 0.20596325091355538,
+      "development": 0.256582578060744,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 1.1386168913356016,
+      "additionalPolicySaving": 0.20596325091352696,
       "totalSaving": 1.3445801422491286,
       "netChange": -1.0327002883465184,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 5.240340760513202
+      "offsetRatio": 5.240340760512622
     },
     {
       "scenario": "SSP4",
       "year": 2026,
-      "frozen": 165.48313209048638,
-      "trend": 163.83883059982793,
-      "policy": 163.54448971731847,
-      "development": 0.42783481464448414,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 1.6443014906584494,
+      "frozen": 165.4831320904863,
+      "trend": 163.8388305998279,
+      "policy": 163.54448971731844,
+      "development": 0.4278348146444273,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 1.6443014906583926,
       "additionalPolicySaving": 0.29434088250945933,
-      "totalSaving": 1.9386423731679088,
-      "netChange": -1.45551028268153,
+      "totalSaving": 1.938642373167852,
+      "netChange": -1.4555102826815585,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 4.531287092142918
+      "offsetRatio": 4.531287092143387
     },
     {
       "scenario": "SSP4",
       "year": 2027,
       "frozen": 165.71745574966292,
-      "trend": 163.5826282041861,
-      "policy": 163.20712392957535,
-      "development": 0.6621584738210231,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 2.13482754547681,
-      "additionalPolicySaving": 0.37550427461076197,
-      "totalSaving": 2.510331820087572,
-      "netChange": -1.7928760704246542,
+      "trend": 163.58262820418608,
+      "policy": 163.20712392957537,
+      "development": 0.6621584738210515,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 2.1348275454768384,
+      "additionalPolicySaving": 0.3755042746107051,
+      "totalSaving": 2.5103318200875435,
+      "netChange": -1.7928760704246258,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 3.7911344781281127
+      "offsetRatio": 3.791134478127907
     },
     {
       "scenario": "SSP4",
       "year": 2028,
-      "frozen": 166.01099013827525,
-      "trend": 163.39575223633108,
+      "frozen": 166.01099013827528,
+      "trend": 163.3957522363311,
       "policy": 162.9446861805086,
-      "development": 0.9556928624333523,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "development": 0.9556928624334091,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 2.6152379019441696,
-      "additionalPolicySaving": 0.45106605582247994,
-      "totalSaving": 3.0663039577666495,
+      "additionalPolicySaving": 0.45106605582250836,
+      "totalSaving": 3.066303957766678,
       "netChange": -2.0553138194914027,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 3.208461712227642
+      "offsetRatio": 3.2084617122274808
     },
     {
       "scenario": "SSP4",
       "year": 2029,
-      "frozen": 166.36088331665098,
-      "trend": 163.27120556907312,
-      "policy": 162.74878569972668,
-      "development": 1.3055860408090894,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "frozen": 166.360883316651,
+      "trend": 163.27120556907315,
+      "policy": 162.74878569972665,
+      "development": 1.3055860408091462,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 3.0896777475778663,
-      "additionalPolicySaving": 0.5224198693464359,
-      "totalSaving": 3.612097616924302,
-      "netChange": -2.2512143002733183,
+      "additionalPolicySaving": 0.5224198693464928,
+      "totalSaving": 3.612097616924359,
+      "netChange": -2.2512143002733467,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 2.766648465914844
+      "offsetRatio": 2.766648465914767
     },
     {
       "scenario": "SSP4",
       "year": 2030,
-      "frozen": 166.76496394097842,
+      "frozen": 166.7649639409784,
       "trend": 163.20348132848176,
-      "policy": 162.61272343277824,
+      "policy": 162.6127234327782,
       "development": 1.709666665136524,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 3.561482612496661,
-      "additionalPolicySaving": 0.5907578957035184,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 3.561482612496633,
+      "additionalPolicySaving": 0.5907578957035469,
       "totalSaving": 4.15224050820018,
-      "netChange": -2.387276567221761,
+      "netChange": -2.3872765672217895,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": true,
       "policyExceedance": 0,
@@ -3900,141 +3900,141 @@
       "scenario": "SSP5",
       "year": 2024,
       "frozen": 165.19379656327158,
-      "trend": 164.47896102783022,
-      "policy": 164.39026034623782,
-      "development": 0.13849928742968132,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 0.7148355354413525,
-      "additionalPolicySaving": 0.08870068159239963,
-      "totalSaving": 0.8035362170337521,
-      "netChange": -0.6097396537621762,
+      "trend": 164.47896102783025,
+      "policy": 164.3902603462378,
+      "development": 0.13849928742970974,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 0.714835535441324,
+      "additionalPolicySaving": 0.08870068159245648,
+      "totalSaving": 0.8035362170337805,
+      "netChange": -0.6097396537622046,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 5.801735387568131
+      "offsetRatio": 5.801735387567145
     },
     {
       "scenario": "SSP5",
       "year": 2025,
-      "frozen": 165.21639502021844,
+      "frozen": 165.21639502021847,
       "trend": 163.89090552699315,
-      "policy": 163.72499472037975,
-      "development": 0.16109774437654778,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 1.325489493225291,
-      "additionalPolicySaving": 0.16591080661339674,
-      "totalSaving": 1.4914002998386877,
-      "netChange": -1.2750052796202453,
+      "policy": 163.72499472037973,
+      "development": 0.16109774437660462,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 1.3254894932253194,
+      "additionalPolicySaving": 0.16591080661342517,
+      "totalSaving": 1.4914002998387446,
+      "netChange": -1.2750052796202738,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 9.25773545502107
+      "offsetRatio": 9.257735455018157
     },
     {
       "scenario": "SSP5",
       "year": 2026,
       "frozen": 165.2889719668135,
-      "trend": 163.39477302566308,
+      "trend": 163.39477302566306,
       "policy": 163.16139254018776,
-      "development": 0.2336746909716112,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 1.894198941150421,
-      "additionalPolicySaving": 0.23338048547532253,
+      "development": 0.23367469097163962,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 1.8941989411504494,
+      "additionalPolicySaving": 0.2333804854752941,
       "totalSaving": 2.1275794266257435,
       "netChange": -1.8386074598122377,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 9.104877459254755
+      "offsetRatio": 9.104877459253649
     },
     {
       "scenario": "SSP5",
       "year": 2027,
-      "frozen": 165.42417374238482,
+      "frozen": 165.42417374238485,
       "trend": 162.99175619689834,
       "policy": 162.698715825823,
-      "development": 0.36887646654292894,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 2.432417545486487,
+      "development": 0.3688764665429858,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 2.4324175454865156,
       "additionalPolicySaving": 0.2930403710753353,
-      "totalSaving": 2.7254579165618225,
+      "totalSaving": 2.725457916561851,
       "netChange": -2.301284174176999,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 7.388538342129886
+      "offsetRatio": 7.388538342128824
     },
     {
       "scenario": "SSP5",
       "year": 2028,
-      "frozen": 165.6169906549494,
-      "trend": 162.66880106233475,
-      "policy": 162.32230473874097,
-      "development": 0.5616933791075098,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
+      "frozen": 165.61699065494943,
+      "trend": 162.66880106233478,
+      "policy": 162.32230473874094,
+      "development": 0.5616933791075667,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
       "historicalSaving": 2.9481895926146535,
-      "additionalPolicySaving": 0.346496323593783,
-      "totalSaving": 3.2946859162084365,
-      "netChange": -2.677695261259032,
+      "additionalPolicySaving": 0.34649632359383986,
+      "totalSaving": 3.2946859162084934,
+      "netChange": -2.6776952612590605,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 5.865630678153006
+      "offsetRatio": 5.865630678152514
     },
     {
       "scenario": "SSP5",
       "year": 2029,
-      "frozen": 165.86358790002362,
-      "trend": 162.4153520601743,
-      "policy": 162.0202383324263,
+      "frozen": 165.8635879000236,
+      "trend": 162.41535206017434,
+      "policy": 162.02023833242632,
       "development": 0.8082906241817227,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 3.4482358398493034,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 3.4482358398492465,
       "additionalPolicySaving": 0.39511372774802567,
-      "totalSaving": 3.843349567597329,
-      "netChange": -2.9797616675737117,
+      "totalSaving": 3.843349567597272,
+      "netChange": -2.9797616675736833,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": false,
       "policyExceedance": null,
-      "offsetRatio": 4.754910489637517
+      "offsetRatio": 4.754910489637446
     },
     {
       "scenario": "SSP5",
       "year": 2030,
       "frozen": 166.16095993962062,
-      "trend": 162.22283681275974,
+      "trend": 162.2228368127597,
       "policy": 161.78280304265581,
-      "development": 1.1056626637787303,
-      "baselineEfficiencyEffect": 0.05529727584189459,
-      "frozenBaseDemand": 165.0552972758419,
-      "historicalSaving": 3.938123126860887,
-      "additionalPolicySaving": 0.4400337701039234,
+      "development": 1.1056626637787588,
+      "baselineEfficiencyEffect": 0.05529727584186617,
+      "frozenBaseDemand": 165.05529727584187,
+      "historicalSaving": 3.9381231268609156,
+      "additionalPolicySaving": 0.440033770103895,
       "totalSaving": 4.378156896964811,
       "netChange": -3.2171969573441856,
       "regionalReferenceLimit": 173.25866293314667,
       "regionalLimitApplicable": true,
       "policyExceedance": 0,
-      "offsetRatio": 3.959758288302828
+      "offsetRatio": 3.9597582883027265
     }
   ],
   "metrics": {
     "fixed": {
-      "mape": 4.344882622871596,
-      "mae": 8.264601749515954,
-      "rmse": 14.51182259617408,
-      "mse": 210.59299506282858
+      "mape": 4.57155250651711,
+      "mae": 8.613739187211138,
+      "rmse": 14.229280911314676,
+      "mse": 202.4724352531042
     },
     "rolling": {
-      "mape": 9.065537256341905,
-      "mae": 16.087305818476935,
-      "rmse": 20.832157125161416,
-      "mse": 433.9787704874136
+      "mape": 5.958932958626052,
+      "mae": 10.970658597433555,
+      "rmse": 15.76878416940663,
+      "mse": 248.6545541813291
     },
     "ols": {
       "mape": 9.19974582716817,
@@ -4053,48 +4053,53 @@
     {
       "year": 2020,
       "actual": 166.9,
-      "fixed": 169.84222793612653,
-      "rolling": 169.84222793612653
+      "fixed": 170.54050281151692,
+      "rolling": 170.54050281151692
     },
     {
       "year": 2021,
       "actual": 164.5,
-      "fixed": 165.44547853849704,
-      "rolling": 161.73000921482887
+      "fixed": 166.14375341388737,
+      "rolling": 163.32646567999592
     },
     {
       "year": 2022,
       "actual": 194.3,
-      "fixed": 165.44306151477943,
-      "rolling": 164.51439156863458
+      "fixed": 166.14133639016976,
+      "rolling": 164.35392612979754
     },
     {
       "year": 2023,
       "actual": 165,
-      "fixed": 165.31376203821966,
-      "rolling": 193.85139612124465
+      "fixed": 166.01203691361002,
+      "rolling": 174.12252338801076
     }
   ],
   "selections": [
     {
-      "label": "lambda=0.01",
-      "penalty": 0.01
+      "label": "lambda=0.01 / none",
+      "penalty": 0.01,
+      "calibration": "none"
     },
     {
-      "label": "lambda=0.01",
-      "penalty": 0.01
+      "label": "lambda=0.01 / none",
+      "penalty": 0.01,
+      "calibration": "none"
     },
     {
-      "label": "lambda=0.01",
-      "penalty": 0.01
+      "label": "lambda=0.01 / none",
+      "penalty": 0.01,
+      "calibration": "none"
     },
     {
-      "label": "lambda=0.01",
-      "penalty": 0.01
+      "label": "lambda=0.01 / none",
+      "penalty": 0.01,
+      "calibration": "none"
     },
     {
-      "label": "lambda=0.03",
-      "penalty": 0.03
+      "label": "lambda=0.03 / median3",
+      "penalty": 0.03,
+      "calibration": "median3"
     }
   ],
   "config": {
@@ -4104,6 +4109,14 @@
     "initialization": "bp",
     "maxIterations": 300,
     "lambda": 0.03,
+    "calibration": {
+      "mode": "median3"
+    },
+    "calibrationModes": [
+      "last",
+      "none",
+      "median3"
+    ],
     "holdout": 4,
     "seed": 20261024,
     "architecture": "3-1-1"
@@ -4137,12 +4150,14 @@
   },
   "baseYear": 2023,
   "baseDemand": 165,
-  "frozenBaseDemand": 165.0552972758419,
-  "baselineEfficiencyEffect": 0.05529727584189459,
-  "createdAt": "2026-10-29T08:29:58.764Z",
-  "seconds": 0.9997823,
+  "frozenBaseDemand": 165.05529727584187,
+  "baselineEfficiencyEffect": 0.05529727584186617,
+  "calibrationBaseGap": 0,
+  "efficiencyOnlyEffect": 0.05529727584186617,
+  "createdAt": "2026-10-29T15:46:50.092Z",
+  "seconds": 1.3694435416666666,
   "provenance": {
-    "modelVersion": "regularized-bp-v1",
+    "modelVersion": "regularized-bp-v2",
     "method": "MATLAB 正则BP集成",
     "scope": "苏北五市合计，2024—2030，5 SSP × 3效率路径",
     "featureDefinition": [
@@ -4153,8 +4168,8 @@
     "validation": "2020—2023固定起点及滚动开发回测；给定实际驱动；该时期已用于模型探索",
     "prng": "MATLAB Twister，内置结果为当前重算；浏览器复算使用mulberry32",
     "comparison": "同模型内条件情景差值，不是政策因果效果；面积与工业强度使用现有代理口径",
-    "frozen": "2021—2023平均农业/工业效率；基准效率差异单独列示",
+    "frozen": "2021—2023平均农业/工业效率；基期衔接差含预测校准与效率差，单独列示",
     "regionalLimit": "173.258662933亿m³：2023份额折算2030参考，非正式配额，不截断预测",
-    "maxBrowserRecalculationGap": 0.0000017989179639243957
+    "maxBrowserRecalculationGap": 0.0000017989179355026863
   }
 }
